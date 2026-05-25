@@ -10,10 +10,6 @@ exports.handler = async function (event) {
     return { statusCode: 200, headers, body: '' };
   }
 
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
-  }
-
   const KIT_API_SECRET = 'DyRoXwjMEmju7c1wv9CKbNwEb1GPZPzfg_rrBM8yU2w';
   const KIT_FORM_ID = '9477479';
 
@@ -46,15 +42,20 @@ exports.handler = async function (event) {
     );
 
     const text = await response.text();
+    console.log('Kit status:', response.status);
+    console.log('Kit response:', text);
+
     let data;
     try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
-    if (response.ok && data.subscription) {
+    if (data.subscription) {
       return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     } else {
+      console.log('Kit rejected:', JSON.stringify(data));
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Kit error', detail: data }) };
     }
   } catch (err) {
+    console.log('Fetch error:', err.message);
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server error', detail: err.message }) };
   }
 };
