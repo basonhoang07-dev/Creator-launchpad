@@ -598,7 +598,7 @@ async function submitToKit() {
   const expLabels = { zero: 'Complete beginner', tried: 'Made videos, no deals', pitched: 'Pitched brands', first: 'Had first deal' };
   const blockerLabels = { camera: 'Camera confidence', brands: 'Finding brands', portfolio: 'Building portfolio', unsure: 'No idea where to start' };
   try {
-    const res = await fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
+    const res = await fetch('/.netlify/functions/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
