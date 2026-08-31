@@ -1,3 +1,22 @@
 [build]
-  functions = "netlify/functions"
   publish = "."
+
+# Pretty campaign links: /get/spring-reel serves the funnel without changing
+# the address bar.
+#
+# A rewrite (200) rather than a redirect on purpose. A 302 would swap the URL
+# for /index.html?src=spring-reel, and the quiz rewrites the URL as it moves
+# between steps — so a mid-flow refresh could land on the funnel with no
+# campaign attached, and the lead would come in unattributed. Keeping
+# /get/:slug in the bar for the whole flow means the slug is still there
+# after a refresh, a back button, or a link pasted to a friend.
+[[redirects]]
+  from = "/get/:slug"
+  to = "/index.html"
+  status = 200
+
+# Trailing-slash variant, because people paste links with and without one.
+[[redirects]]
+  from = "/get/:slug/"
+  to = "/index.html"
+  status = 200

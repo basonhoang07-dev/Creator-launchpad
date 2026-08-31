@@ -212,7 +212,10 @@ body::before {
 /* Inputs */
 .input-wrap { margin-bottom: 14px; }
 .input-label { font-size: 12px; color: var(--gray-300); margin-bottom: 6px; display: block; letter-spacing: 0.04em; font-weight: 500; }
-.input-field {
+.phone-row{display:flex;gap:8px}
+    .phone-cc{flex:0 0 118px;min-width:0;padding-right:6px;cursor:pointer}
+    .phone-num{flex:1 1 auto;min-width:0}
+    .input-field {
   width: 100%;
   border: 1px solid var(--gray-600);
   border-radius: var(--radius-md);
@@ -495,10 +498,10 @@ body::before {
   <!-- Step 4: Name -->
   <div class="step" id="step-4">
     <div class="eyebrow">Question 4 of 5</div>
-    <div class="headline">What's your first name?</div>
+    <div class="headline">What's your name?</div>
     <div class="subhead">We'll use this to personalize your guide.</div>
     <div class="input-wrap">
-      <input class="input-field" id="name-input" type="text" placeholder="Your first name" oninput="checkName()" />
+      <input class="input-field" id="name-input" type="text" autocomplete="name" placeholder="Your full name" oninput="checkName()" />
     </div>
     <button class="next-btn" id="btn-4" onclick="goNext(4)" disabled>Next →</button>
     <button class="back-link" onclick="goBack(4)">← back</button>
@@ -519,7 +522,10 @@ body::before {
     </div>
     <div class="input-wrap">
       <label class="input-label" for="phone-input">Phone number</label>
-      <input class="input-field" id="phone-input" type="tel" autocomplete="tel" placeholder="+1 555 123 4567" oninput="checkContact()" />
+      <div class="phone-row">
+        <select class="input-field phone-cc" id="phone-cc" onchange="checkContact()" aria-label="Country code"></select>
+        <input class="input-field phone-num" id="phone-input" type="tel" autocomplete="tel" placeholder="555 123 4567" oninput="checkContact()" />
+      </div>
     </div>
     <div class="input-wrap" style="margin-bottom:1.75rem;">
       <label class="input-label" for="ig-input">Instagram handle</label>
@@ -565,10 +571,22 @@ function selectOpt(btn, q, val) {
   answers[q] = val;
   document.getElementById('btn-' + q.replace('q','')).disabled = false;
 }
+function nameProblem(raw) {
+  var v = String(raw || '').trim().replace(/\s+/g, ' ');
+  if (v.length < 2) return 'Enter your name.';
+  // A surname is what makes a lead callable — "Sarah" on a sheet of 300 is
+  // not someone you can look up before ringing.
+  if (v.split(' ').length < 2) return 'Enter your first and last name.';
+  if (!/^[A-Za-z\u00C0-\u024F][A-Za-z\u00C0-\u024F\s'.-]*$/.test(v)) return "That doesn't look like a name.";
+  if (looksMashed(v.replace(/\s/g, ''))) return "That doesn't look like a name.";
+  return null;
+}
+
 function checkName() {
-  const v = document.getElementById('name-input').value.trim();
-  document.getElementById('btn-4').disabled = v.length < 2;
-  if (v.length >= 2) document.getElementById('contact-headline').textContent = 'Almost there, ' + v.split(' ')[0] + '.';
+  var v = document.getElementById('name-input').value.trim();
+  var problem = nameProblem(v);
+  document.getElementById('btn-4').disabled = !!problem;
+  if (!problem) document.getElementById('contact-headline').textContent = 'Almost there, ' + v.split(' ')[0] + '.';
 }
 // Where the visitor came from, so the lead carries its source. Read once on
 // load because the quiz rewrites the URL as it advances through steps.
@@ -576,8 +594,29 @@ function checkName() {
 // served from Netlify and the app lives on Vercel.
 var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/capture';
 
+// Which campaign sent them. Read from /get/<slug> first, then ?src=, then
+// whatever an earlier step already stored.
+//
+// The path leads because netlify.toml serves /get/:slug as a rewrite, so the
+// slug stays in the address bar for the whole funnel — a refresh on step 4
+// still knows the campaign. sessionStorage is the backstop for the ?src=
+// form, where the quiz's own URL rewriting can drop it.
 var LEAD_SOURCE = (function () {
-  try { return new URLSearchParams(window.location.search).get('src') || null; } catch (e) { return null; }
+  var STORE_KEY = 'clp_src';
+  var found = null;
+  try {
+    var m = window.location.pathname.match(/\/get\/([A-Za-z0-9_-]{1,60})/);
+    if (m) found = m[1];
+    if (!found) found = new URLSearchParams(window.location.search).get('src');
+  } catch (e) { /* fall through to storage */ }
+  try {
+    if (found) { sessionStorage.setItem(STORE_KEY, found); return found; }
+    return sessionStorage.getItem(STORE_KEY) || null;
+  } catch (e) {
+    // Private mode with storage blocked. A /get/ link still works, because
+    // the slug never leaves the URL.
+    return found;
+  }
 })();
 var LANDING_URL = window.location.href;
 
@@ -614,6 +653,61 @@ function emailProblem(raw) {
   return null;
 }
 
+// The countries these leads actually come from, most-common first, then
+// alphabetical. Not the full ISO list — a 240-row select is worse to use on
+// a phone than a short one that covers almost everybody, and "Other" keeps
+// the rest reachable by typing the code themselves.
+var COUNTRIES = [
+  ['US', '+1', 'United States'], ['GB', '+44', 'United Kingdom'], ['CA', '+1', 'Canada'],
+  ['AU', '+61', 'Australia'], ['NZ', '+64', 'New Zealand'], ['IE', '+353', 'Ireland'],
+  ['IN', '+91', 'India'], ['PH', '+63', 'Philippines'], ['SG', '+65', 'Singapore'],
+  ['MY', '+60', 'Malaysia'], ['ID', '+62', 'Indonesia'], ['VN', '+84', 'Vietnam'],
+  ['ZA', '+27', 'South Africa'], ['NG', '+234', 'Nigeria'], ['KE', '+254', 'Kenya'],
+  ['DE', '+49', 'Germany'], ['FR', '+33', 'France'], ['NL', '+31', 'Netherlands'],
+  ['ES', '+34', 'Spain'], ['IT', '+39', 'Italy'], ['PT', '+351', 'Portugal'],
+  ['SE', '+46', 'Sweden'], ['NO', '+47', 'Norway'], ['DK', '+45', 'Denmark'],
+  ['PL', '+48', 'Poland'], ['BR', '+55', 'Brazil'], ['MX', '+52', 'Mexico'],
+  ['AR', '+54', 'Argentina'], ['AE', '+971', 'United Arab Emirates'], ['SA', '+966', 'Saudi Arabia'],
+  ['JP', '+81', 'Japan'], ['KR', '+82', 'South Korea'], ['HK', '+852', 'Hong Kong']
+];
+
+function buildCountrySelect() {
+  var sel = document.getElementById('phone-cc');
+  if (!sel) return;
+  var html = '';
+  for (var i = 0; i < COUNTRIES.length; i++) {
+    html += '<option value="' + COUNTRIES[i][1] + '">' + COUNTRIES[i][0] + ' ' + COUNTRIES[i][1] + '</option>';
+  }
+  sel.innerHTML = html;
+
+  // Guess from the browser's locale so most people never touch it. Falls
+  // back to US, which is where most of this audience is.
+  var guess = 'US';
+  try {
+    var loc = (navigator.language || '').toUpperCase();
+    var region = loc.split('-')[1];
+    if (region) {
+      for (var j = 0; j < COUNTRIES.length; j++) {
+        if (COUNTRIES[j][0] === region) { guess = region; break; }
+      }
+    }
+  } catch (e) { /* default stands */ }
+  for (var k = 0; k < COUNTRIES.length; k++) {
+    if (COUNTRIES[k][0] === guess) { sel.value = COUNTRIES[k][1]; break; }
+  }
+}
+
+// The number as it gets stored: country code plus the national digits, in
+// E.164. Assembled in one place so validation and submission can never
+// disagree about what the number is.
+function fullPhone() {
+  var cc = (document.getElementById('phone-cc') || {}).value || '';
+  var national = (document.getElementById('phone-input') || {}).value || '';
+  var digits = String(national).replace(/\D/g, '').replace(/^0+/, '');
+  if (!digits) return '';
+  return cc + digits;
+}
+
 function phoneProblem(raw) {
   var digits = String(raw || '').replace(/\D/g, '');
   if (!digits) return 'Enter your phone number.';
@@ -627,14 +721,14 @@ function phoneProblem(raw) {
 
 function checkContact() {
   var email = document.getElementById('email-input').value.trim();
-  var phone = document.getElementById('phone-input').value.trim();
+  var phone = fullPhone();
   var ig = document.getElementById('ig-input').value.trim();
   document.getElementById('btn-5').disabled = !(!emailProblem(email) && !phoneProblem(phone) && ig.length >= 2);
 
   // Only flag once they've typed enough to plausibly be done — complaining
   // about a half-typed address is just noise.
   var err = document.getElementById('submit-error');
-  var problem = (email.length > 6 ? emailProblem(email) : null) || (phone.replace(/\D/g, '').length >= 6 ? phoneProblem(phone) : null);
+  var problem = (email.length > 6 ? emailProblem(email) : null) || (phone.replace(/\D/g, '').length >= 8 ? phoneProblem(phone) : null);
   if (problem) { err.textContent = problem; err.style.display = 'block'; }
   else { err.style.display = 'none'; }
 }
@@ -664,10 +758,10 @@ async function submitLead() {
   var arrow = document.getElementById('btn-5-arrow');
   var errorEl = document.getElementById('submit-error');
 
-  var name = document.getElementById('name-input').value.trim();
+  var name = document.getElementById('name-input').value.trim().replace(/\s+/g, ' ');
   var firstName = name.split(' ')[0];
   var email = document.getElementById('email-input').value.trim();
-  var phone = document.getElementById('phone-input').value.trim();
+  var phone = fullPhone();
   var ig = document.getElementById('ig-input').value.trim().replace('@', '');
 
   btn.disabled = true; label.textContent = 'Unlocking'; arrow.innerHTML = '<span class="spinner"></span>'; errorEl.style.display = 'none';
@@ -682,6 +776,7 @@ async function submitLead() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         first_name: firstName,
+        full_name: name,
         email: email,
         phone: phone,
         instagram_handle: '@' + ig,
@@ -761,5 +856,6 @@ function showResult(name, ig) {
   goNext(5);
 }
 </script>
+<script>buildCountrySelect();</script>
 </body>
 </html>
