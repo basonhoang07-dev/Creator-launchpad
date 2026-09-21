@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your 14-Day UGC Roadmap — Creator Launchpad</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --white: #fff;
+  --purple: #7B2FFF; --purple-light: #9B5FFF;
+  --purple-glow: rgba(123,47,255,.15); --purple-border: rgba(123,47,255,.3);
+  --gray-900: #111; --gray-850: #151515; --gray-800: #1a1a1a; --gray-700: #242424;
+  --gray-600: #333; --gray-400: #666; --gray-300: #888; --gray-200: #aaa;
+  --green: #2fd968; --green-bg: rgba(47,217,104,.09); --green-border: rgba(47,217,104,.3);
+  --amber: #f5a524; --amber-bg: rgba(245,165,36,.08); --amber-border: rgba(245,165,36,.28);
+  --red: #ff5c5c;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+}
+html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background: var(--black); color: var(--white); min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; padding: 0 1rem 6rem;
+  -webkit-font-smoothing: antialiased; line-height: 1.55;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+.wrap { width: 100%; max-width: 680px; position: relative; z-index: 1; }
+
+/* --- sticky clock --- */
+.clock {
+  position: sticky; top: 0; z-index: 20; margin: 0 -1rem 1.6rem; padding: .8rem 1rem;
+  background: rgba(10,10,10,.88); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-700);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.clock-left { display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.clock-logo { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; }
+.clock-days { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.clock-days .num { color: var(--purple-light); }
+.clock-days.urgent .num { color: var(--amber); }
+.clock-days.critical .num { color: var(--red); }
+.clock-right { display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
+.clock-pct { font-size: 12.5px; color: var(--gray-300); white-space: nowrap; }
+.clock-track { width: 74px; height: 4px; background: var(--gray-700); border-radius: 99px; overflow: hidden; }
+.clock-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .4s ease; }
+
+.head { padding: 1.4rem 0 0; }
+.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--purple-light); font-weight: 600; margin-bottom: .7rem; }
+h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.12; margin-bottom: .7rem; }
+.lede { color: var(--gray-200); font-size: 15px; line-height: 1.65; margin-bottom: 1.4rem; }
+.lede strong { color: #fff; font-weight: 600; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.6rem; }
+.chip { font-size: 12px; font-weight: 500; padding: .35rem .7rem; border-radius: 99px; background: var(--gray-900); border: 1px solid var(--gray-700); color: var(--gray-200); }
+.chip.hi { background: var(--purple-glow); border-color: var(--purple-border); color: var(--purple-light); font-weight: 600; }
+
+.callout { border-radius: var(--r-lg); padding: 1.05rem 1.2rem; margin-bottom: 1.5rem; font-size: 14px; line-height: 1.65; }
+.callout-title { font-weight: 600; font-size: 14.5px; margin-bottom: .4rem; }
+.callout.speed { background: var(--purple-glow); border: 1px solid var(--purple-border); }
+.callout.speed .callout-title { color: var(--purple-light); }
+.callout.warn { background: var(--amber-bg); border: 1px solid var(--amber-border); color: var(--gray-200); }
+.callout.warn .callout-title { color: var(--amber); }
+.callout strong { color: #fff; }
+
+
+/* --- phases --- */
+.phase { border: 1px solid var(--gray-700); border-radius: var(--r-lg); margin-bottom: 1rem; overflow: hidden; background: var(--gray-900); }
+.phase.current { border-color: var(--purple-border); box-shadow: 0 0 0 3px rgba(123,47,255,.07); }
+.phase-head { width: 100%; text-align: left; background: none; border: none; color: var(--white); font-family: inherit; padding: 1.15rem 1.25rem; cursor: pointer; display: flex; align-items: center; gap: .9rem; }
+.phase-head:hover { background: var(--gray-850); }
+.phase-badge { width: 30px; height: 30px; border-radius: 8px; background: var(--gray-700); color: var(--gray-200); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.phase.current .phase-badge { background: var(--purple); color: #fff; }
+.phase.done-all .phase-badge { background: var(--green); color: var(--black); }
+.phase-txt { flex: 1; min-width: 0; }
+.phase-name { font-size: 16px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+.phase-meta { font-size: 12.5px; color: var(--gray-400); margin-top: 2px; }
+.phase-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--purple-light); background: var(--purple-glow); border: 1px solid var(--purple-border); padding: .22rem .5rem; border-radius: 5px; margin-left: .5rem; white-space: nowrap; }
+.phase-caret { color: var(--gray-400); font-size: 13px; transition: transform .25s ease; flex-shrink: 0; }
+.phase.open .phase-caret { transform: rotate(180deg); }
+.phase-body { display: none; padding: 0 1.25rem 1.3rem; }
+.phase.open .phase-body { display: block; }
+.phase-goal { font-size: 13.5px; color: var(--gray-200); background: var(--gray-850); border-left: 2px solid var(--purple); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: .7rem .9rem; margin-bottom: 1.2rem; line-height: 1.6; }
+
+.day-label { font-size: 11px; letter-spacing: .13em; text-transform: uppercase; color: var(--gray-400); font-weight: 700; margin: 1.3rem 0 .6rem; padding-top: 1rem; border-top: 1px solid var(--gray-700); }
+.day-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+.task { display: flex; gap: .75rem; padding: .6rem 0; align-items: flex-start; }
+.task-box {
+  width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--gray-600);
+  background: var(--gray-850); flex-shrink: 0; cursor: pointer; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center; transition: all .16s ease; padding: 0;
+}
+.task-box:hover { border-color: var(--purple); }
+.task-box.checked { background: var(--green); border-color: var(--green); }
+.task-box.checked::after { content: '\2713'; color: var(--black); font-size: 12px; font-weight: 700; line-height: 1; }
+.task-main { flex: 1; min-width: 0; }
+.task-text { font-size: 14.5px; line-height: 1.5; }
+.task.checked .task-text { color: var(--gray-400); text-decoration: line-through; text-decoration-color: var(--gray-600); }
+.task-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .45rem; }
+.tlink {
+  display: inline-flex; align-items: center; gap: .3rem; font-size: 12px; font-weight: 500;
+  padding: .28rem .6rem; border-radius: 6px; text-decoration: none;
+  background: var(--purple-glow); border: 1px solid var(--purple-border); color: var(--purple-light);
+}
+.tlink:hover { background: rgba(123,47,255,.22); }
+.tlink.todo { background: var(--gray-800); border-color: var(--gray-600); color: var(--gray-400); cursor: default; }
+.tlink.sop { background: var(--gray-800); border-color: var(--gray-600); color: var(--gray-200); cursor: pointer; font-family: inherit; }
+.tlink.sop:hover { border-color: var(--gray-400); color: #fff; }
+.task-note { font-size: 12.5px; color: var(--gray-400); margin-top: .35rem; line-height: 1.55; }
+.task-note.budget { color: var(--purple-light); }
+
+.sop { display: none; margin: .7rem 0 .3rem; background: var(--gray-850); border: 1px solid var(--gray-700); border-radius: var(--r-md); padding: 1rem 1.1rem; }
+.sop.open { display: block; animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.sop h4 { font-size: 13.5px; font-weight: 600; margin: 1rem 0 .4rem; color: #fff; }
+.sop h4:first-child { margin-top: 0; }
+.sop p { font-size: 13.5px; color: var(--gray-200); line-height: 1.7; margin-bottom: .6rem; }
+.sop p:last-child { margin-bottom: 0; }
+.sop ul { margin: 0 0 .7rem 1.05rem; }
+.sop li { font-size: 13.5px; color: var(--gray-200); line-height: 1.65; margin-bottom: .35rem; }
+.sop strong { color: #fff; font-weight: 600; }
+.sop em { color: var(--purple-light); font-style: normal; font-weight: 500; }
+.lvl { border-left: 2px solid var(--gray-600); padding: .1rem 0 .1rem .8rem; margin-bottom: .8rem; }
+.lvl.top { border-left-color: var(--green); }
+.lvl.bad { border-left-color: var(--amber); }
+.lvl-t { font-size: 13.5px; font-weight: 600; color: #fff; margin-bottom: .2rem; }
+.code {
+  background: #0d0d0d; border: 1px solid var(--gray-700); border-radius: var(--r-sm);
+  padding: .8rem .9rem; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--gray-200); line-height: 1.6; overflow-x: auto;
+  white-space: pre-wrap; word-break: break-word; margin-bottom: .6rem;
+}
+.copy-btn { background: var(--gray-800); border: 1px solid var(--gray-600); color: var(--gray-200); font-family: inherit; font-size: 11.5px; font-weight: 500; padding: .3rem .65rem; border-radius: 6px; cursor: pointer; }
+.copy-btn:hover { border-color: var(--gray-400); color: #fff; }
+
+.gate { text-align: center; padding: 3.5rem 1rem; }
+.gate h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -.025em; margin-bottom: .7rem; }
+.gate p { color: var(--gray-200); font-size: 14.5px; line-height: 1.7; margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  background: var(--purple); color: #fff; border: none; border-radius: var(--r-md);
+  padding: .95rem 1.6rem; font-family: inherit; font-size: 15px; font-weight: 600;
+  cursor: pointer; text-decoration: none; transition: all .18s ease;
+}
+.btn:hover { background: var(--purple-light); transform: translateY(-1px); }
+.btn-wide { width: 100%; }
+.foot { text-align: center; margin-top: 2.5rem; padding-top: 1.6rem; border-top: 1px solid var(--gray-700); }
+.foot p { font-size: 13px; color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem; }
+.reset { background: none; border: none; color: var(--gray-600); font-family: inherit; font-size: 11.5px; cursor: pointer; text-decoration: underline; margin-top: 1.2rem; }
+.reset:hover { color: var(--gray-400); }
+@media (max-width: 520px) {
+  .phase-head { padding: 1rem; gap: .7rem; }
+  .phase-body { padding: 0 1rem 1.1rem; }
+  .phase-tag { display: none; }
+  .clock-pct { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+
+<script>
+/* ===========================================================================
+   Creator Launchpad - the 14-day roadmap
+   Reads the quiz answers from localStorage, picks the entry phase, swaps the
+   outsourcing advice to match their budget, and runs a 14-day clock from the
+   first time the page is opened.
+   =========================================================================== */
+
+/* --- CONFIG ----------------------------------------------------------------
+   Every external link lives here. Add a URL and it lights up everywhere it is
+   referenced; leave it '' and the button renders as a greyed-out "coming
+   soon" chip instead of a dead link. */
+var LINKS = {
+  bootcamp:        'https://app.notion.com/p/Content-Bootcamp-2ff1feabbade807a9a8fe7b4317a9a10',
+  editingGuide:    'https://youtu.be/4aAlqJqYGb0',
+  claude:          'https://claude.ai/referral/HpZ2KPScOA?s=cowork&v=apps',
+  portfolioAI:     'https://docs.google.com/document/d/1sk7ywHXYil2K-l3sdiMBlrNF5GTC1Z0-UYUgcLnzpnQ/edit?usp=sharing',
+  networking:      'https://docs.google.com/document/d/1k-M_9TmVxfigVNxSyK2Nwxwt7RCDWmA39npTC2MlKBQ/edit?usp=sharing',
+  brandOutreach:   'https://docs.google.com/document/d/1HUByCDbEG2WAc7qBmi6-wnvCJoDPPdQAq5K7j3saYh0/edit',
+  infiniteSystem:  'https://docs.google.com/document/d/12Ox4LRfLZzWWgsaHvSjER3qgmhBEGW733gCs3p8fgbk/edit',
+  variationDoc:    'https://docs.google.com/document/d/1GWLibOja_T3xrXFMzzQTP8tcLcDHZii_H07HpL8-zD8/edit',
+  negotiation:     'https://docs.google.com/document/d/1cBp9X4yr_m3WWgmIB4YO9_j_Vv8VWknpZzGNN0rq-T4/edit',
+  bloss:           'https://discord.gg/ugcfortech',
+  crm:             'crm.html',
+  akira:           'https://instagram.com/akirahoang',
+
+  // The format list for Phase 1. Lives in the Portfolio Workshop, not the
+  // bootcamp - the task used to say otherwise.
+  formatList:      'https://app.notion.com/p/Portfolio-Workshop-2e21feabbade80879d84d5b1d19c98c2',
+  mediamaxxing:    'https://www.mediamaxxing.com/',
+
+  // Phase 3's written SOPs. Each one also has the short version inline, so a
+  // task shows both: the doc, and enough on the page to act without opening
+  // it.
+  prereqHighPay:   'https://docs.google.com/document/d/1UVBxZxuZEd5CZe7c8FkzKPI2vCixQDiwOeOa2xKCwyI/edit?usp=sharing',
+  dealWorth:       'https://docs.google.com/document/d/1eMFgr2qGD-VUyynn7x9RTyFrOmRqyTPpucJMuhDal_c/edit',
+  vaOutsourcing:   'https://docs.google.com/document/d/1Y_yPFKmIqPRBBiXcgk_hBlNxPVsv-vdoH2wT8V98VSg/edit'
+
+  // No warmReferralDM key: the Warm Referral DM doc turned out to be the same
+  // document as the Networking SOP above, so it is already linked.
+};
+
+var DAYS_ACCESS = 14;
+var PROFILE_KEY  = 'clp_profile_v1';
+var START_KEY    = 'clp_roadmap_start';
+var PROGRESS_KEY = 'clp_roadmap_progress_v2';
+
+/* --- storage helpers (private mode safe) --- */
+function readJSON(k, fallback) {
+  try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }
+  catch (e) { return fallback; }
+}
+function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+var profile = readJSON(PROFILE_KEY, null) || {};
+var progress = readJSON(PROGRESS_KEY, {});
+var budget = profile.budget || 'diy';
+var entryPhase = profile.phase || 1;
+
+/* The clock starts the first time this page is opened, not when they filled
+   in the quiz - the funnel promises exactly that. */
+var startedAt = readJSON(START_KEY, null);
+if (!startedAt) { startedAt = Date.now(); writeJSON(START_KEY, startedAt); }
+var msLeft = (startedAt + DAYS_ACCESS * 86400000) - Date.now();
+var daysLeft = Math.max(0, Math.ceil(msLeft / 86400000));
+var expired = msLeft <= 0;
+
+/* --- outsourcing advice, by what they said they can spend ------------------
+   Same task, different instruction. A $0 budget being told to hire an editor
+   is the fastest way to make a roadmap feel written for somebody else. */
+var BUDGET = {
+  diy:      { label: '$0 — doing it yourself',  hire: 'Do this yourself for now. Batch it into one block so it costs you one context switch instead of five.', tools: 'Buffer free tier (3 channels), CapCut, and manual warm-up 10 minutes a day.' },
+  helper:   { label: 'Under $500',              hire: 'Hire one part-time VA for posting and warm-up. That is the highest-leverage first hire — it is pure time back.', tools: 'Buffer paid ($6/channel) plus a VA at 10–15 hrs/week.' },
+  editor_va:{ label: '$500–2k',                 hire: 'Hire an editor first, then a VA. Editing eats the same hours as filming, so removing it roughly doubles your output.', tools: 'Editor ($300–800/mo), VA ($400–700/mo), Buffer or Metricool.' },
+  team:     { label: '$2k–5k',                  hire: 'Run an editor, a posting VA, and an outreach VA. Put all three in one Discord with EOD reports.', tools: 'Editor, 2 VAs, Metricool, and Warmso (~$40/mo) for warm-up.' },
+  pod:      { label: '$5k+',                    hire: 'Build the full pod — editor, posting VA, outreach VA, and someone owning ops. Your job becomes filming and reviewing, nothing else.', tools: 'Full stack: Metricool, Warmso, a CRM, and a weekly team call.' }
+};
+
+/* --- pacing note, from the hours they said they have --- */
+var HOURS_NOTE = {
+  u5:      'You said under 5 hrs/week. Nine days of work will take you the full 14 — do Phase 1 only, and do not start Phase 2 until you have a deal.',
+  '5to15': 'You said 5–15 hrs/week. That is roughly one phase per 4–5 days. Finishing Phase 1 and 2 inside the fortnight is realistic.',
+  '15to30':'You said 15–30 hrs/week. You can genuinely run a phase every 3 days and finish all three with time to spare.',
+  '30plus':'You said 30+ hrs/week. Run it as written — a day means a day. You should be through all three phases in nine.'
+};
+
+/* ===========================================================================
+   THE ROADMAP
+   =========================================================================== */
+var PHASES = [
+  {
+    n: 1,
+    title: 'Landing Deal',
+    goal: 'Go from nothing to a portfolio brands actually reply to — then apply at volume until something lands.',
+    tasks: [
+      { d: 1, t: 'Go through the full Content Bootcamp', link: ['Bootcamp', 'bootcamp'] },
+      { d: 1, t: 'Pick 4 different formats from the list', link: ['Format list', 'formatList'], note: 'Pick four you could film today with what you own — not four you find impressive.' },
+      { d: 1, t: 'Film all four videos', note: 'All four in one sitting. Batching is the whole point — setting up once and filming four times costs a fraction of doing it four separate days.' },
+      { d: 1, t: 'Watch the UGC editing guideline', link: ['Editing guide', 'editingGuide'] },
+      { d: 2, t: 'Edit all four UGC videos', link: ['Editing guide', 'editingGuide'] },
+      { d: 2, t: 'Get Claude set up', link: ['Get Claude', 'claude'], note: 'You use it for the portfolio build, scripting and transcripts later in the roadmap. Note the free Pro promo has ended — the paid plan is worth it for what comes next.' },
+      { d: 2, t: 'Go through the SOP on building your portfolio site with AI', link: ['Portfolio SOP', 'portfolioAI'] },
+      { d: 2, t: 'Build your portfolio using AI', note: 'Four videos is enough. A portfolio with four strong formats beats one with twelve mediocre ones.' },
+      { d: 2, t: 'DM your portfolio to Akira', link: ['DM Akira', 'akira'], note: 'Prove you are making progress. This is also how you get on the list for referrals later.' },
+      { d: 2, t: 'Read the Networking &amp; Referral SOP', link: ['Networking SOP', 'networking'], sop: 'referral' },
+      { d: 2, t: 'Read the Brand Outreach SOP', link: ['Outreach SOP', 'brandOutreach'] },
+      { d: 2, t: 'Make a Mediamaxxing account and join bloss', link: [['Mediamaxxing', 'mediamaxxing'], ['Join bloss', 'bloss']] },
+      { d: 3, t: 'Build connections with at least 25 UGC creators in bloss', note: 'Not 25 follows — 25 actual conversations. This is the single most underrated task in Phase 1; most referrals come from here.' },
+      { d: 3, t: 'DM Akira for potential brand referrals', link: ['DM Akira', 'akira'], note: 'This depends heavily on your skill level — but you will get his full support either way.' },
+      { d: 3, t: 'Apply to 100+ brands', link: ['Outreach SOP', 'brandOutreach'], note: 'One hundred. Not twenty. The reply rate on cold outreach means volume is the strategy, not a lack of one.' },
+      { d: 3, t: 'Make 2 formats a day until you hit 20 total for Mediamaxxing', note: 'Or until another brand comes back to you. By the end of this you should have landed something — which is when Phase 2 starts mattering.' }
+    ]
+  },
+  {
+    n: 2,
+    title: 'Systemizing &amp; Workflow',
+    goal: 'Stop trading every hour for one video. Build the system that turns one idea into twenty and hands the repeatable parts to someone else.',
+    tasks: [
+      { d: 1, t: 'Read the Infinite Content System', link: ['Workflow doc', 'infiniteSystem'] },
+      { d: 1, t: 'Fill out the doc — properly', note: 'Filling it in is the task. Reading it and moving on is how people end up back here in three months.' },
+      { d: 1, t: 'Time-block your calendar: scripting day, filming day, editing day', note: 'Three named blocks. Mixing all three in one day is the reason output collapses when work gets busy.' },
+      { d: 1, t: 'Send Akira a screenshot of your calendar for review', link: ['DM Akira', 'akira'] },
+      { d: 1, t: 'Read the Variation Creation Framework', link: ['Variation doc', 'variationDoc'], sop: 'variation' },
+      { d: 1, t: 'Script one UGC video with a minimum of 4 variations' },
+      { d: 2, t: 'Read: Outsourcing', sop: 'outsourcing' },
+      { d: 2, t: 'Read: using AI to pull transcripts from video', sop: 'transcripts' },
+      { d: 2, t: 'Read: cross-posting — and connect your accounts', sop: 'crossposting' },
+      { d: 2, t: 'Read: automating warm-up (once you have 3+ accounts)', sop: 'warmup' },
+      { d: 3, t: 'Test 4 formats with 2 variations each per campaign until you find a winner — then spam variations of it', note: 'Eight videos per campaign. Once one outperforms, stop testing and pour everything into variations of that one.' }
+    ]
+  },
+  {
+    n: 3,
+    title: 'Landing Higher Paying Deals',
+    goal: 'Build the proof that justifies a higher rate, learn which deals are actually worth taking, and put a team behind the outreach.',
+    tasks: [
+      { d: 1, t: 'Read: what you need before chasing high-paying deals', link: ['Full SOP', 'prereqHighPay'], sop: 'prereq' },
+      { d: 1, t: 'Read: what makes a deal actually worth it', link: ['Full SOP', 'dealWorth'], sop: 'dealmath' },
+      { d: 1, t: 'Read: how to charge for traditional UGC', link: ['Negotiation SOP', 'negotiation'], sop: 'charging' },
+      { d: 1, t: 'Update your portfolio with your best performing work', link: ['Portfolio SOP', 'portfolioAI'], note: 'Lead with numbers now, not vibes. Views, ROAS, CPM — whatever you can actually evidence.' },
+      { d: 1, t: 'Read: outsourcing with a VA', link: ['Full SOP', 'vaOutsourcing'], sop: 'va' },
+      { d: 1, t: 'Post a story: "looking for a VA"', link: ['DM Akira', 'akira'], note: 'Your own audience is the best VA source you have — they already know you and like you. Akira can also refer you some.' },
+      { d: 2, t: 'Schedule the VA interview' },
+      { d: 2, t: 'Set up the Discord server for your VA', sop: 'backend' },
+      { d: 2, t: 'Set up a weekly call with your VA' },
+      { d: 3, t: 'Set your VA a KPI of 30 outreaches a day', link: ['Open the CRM', 'crm'], note: 'Track it or it does not happen. The CRM below is built for exactly this.' }
+    ]
+  }
+];
+
+/* ===========================================================================
+   THE SOPs - written inline so the roadmap teaches rather than just links
+   =========================================================================== */
+var SOPS = {
+  referral: {
+    title: 'What the Networking &amp; Referral SOP covers',
+    html:
+      '<p>One doc, three moves. Most people only ever try the third and wonder why it does not work.</p>' +
+      '<h4>Getting referred</h4>' +
+      '<p>How to ask someone in your network for an introduction to a <strong>specific</strong> type of contact — specific and effortless enough that they actually act on it, instead of the ask dying in their head as a vague "sure, I will keep an eye out".</p>' +
+      '<h4>Sending a referral</h4>' +
+      '<p>How to introduce or vouch for someone else to one of your own contacts, with real credibility rather than generic praise, and without putting either side in an awkward spot. Do this first and often — it is what makes the first move work.</p>' +
+      '<h4>Receiving the referral</h4>' +
+      '<p>The actual DM you send once someone has referred you. It leads with proof rather than a flat "hey" — it is the final step of the chain, and it is in the same doc linked on this task.</p>'
+  },
+
+  variation: {
+    title: 'The Variation Creation Framework',
+    html:
+      '<p>Instead of posting one video that goes viral and letting it die, you turn it into twenty. What most people miss is that there are <strong>five levels</strong> to this. Level 1 is trivially easy with a real downside; level 5 is the best way to do it but costs the most time.</p>' +
+      '<div class="lvl top"><div class="lvl-t">Level 5 — format &times; hook cycling</div>Test 3 different outlier formats with 2 different hooks each. Cycle between them, see what wins, then create more variations of what worked. This is the whole system, not a trick.</div>' +
+      '<div class="lvl"><div class="lvl-t">Level 4 — rephrase, reframe, reformat</div>Take your biggest outlier and remake it three ways. <strong>Rephrase</strong>: same point, different words. <strong>Reframe</strong>: same point, different angle or POV. <strong>Reformat</strong>: same point, different format — talking head becomes green screen. Turns one idea into several, but you do have to re-film.</div>' +
+      '<div class="lvl"><div class="lvl-t">Level 3 — hooks &times; body</div>By far the easiest way to 10x your output. Instead of re-filming the whole video, film several hook variations and attach them to the same body. Five hooks and two bodies is ten videos.</div>' +
+      '<div class="lvl"><div class="lvl-t">Level 2 — angle variation</div>Very simple: film with three cameras at once from different angles, or just flip the video horizontally. Doubles your output for almost no extra effort.</div>' +
+      '<div class="lvl bad"><div class="lvl-t">Level 1 — title hook &times; music</div>Completely braindead to execute — but you have a high chance of burning your audience, and a real chance of getting your Instagram shadowbanned. Use sparingly, if at all.</div>'
+  },
+
+  outsourcing: {
+    title: 'Outsourcing',
+    html:
+      '<h4>Kill the limiting belief first</h4>' +
+      '<p>Most people think you start outsourcing at $5k/month or more. That is wrong, and it is expensive. You outsource so you can move more of your time toward higher-leverage work — not as a reward for having already made it.</p>' +
+      '<h4>The maths</h4>' +
+      '<p>Editing your content takes roughly as long as filming it. Outsource editing and you can literally double the number of videos you make. Posting looks small — one account is a minute — but across 3 platforms and 3 accounts that is easily 30 minutes a day, every day.</p>' +
+      '<h4>Work out your money per hour</h4>' +
+      '<p>As the business owner, your number is <strong>how many videos you can film in an hour</strong>. Everything that eats your time and is not worth that number should be handed to someone else. That is the entire decision rule.</p>' +
+      '<h4>For your budget</h4>' +
+      '<p><em>BUDGET_HIRE</em></p><p style="color:var(--gray-400);font-size:13px">Stack: BUDGET_TOOLS</p>'
+  },
+
+  transcripts: {
+    title: 'Using AI to pull transcripts from video',
+    html:
+      '<p>The fastest way to study an outlier is to read it instead of rewatching it. Structure is obvious on the page and invisible on screen.</p>' +
+      '<h4>The loop</h4>' +
+      '<ul>' +
+      '<li>Find an outlier in your niche — a video doing far more than that account normally does.</li>' +
+      '<li>Pull the transcript. Most tools will do it; Claude will take a pasted caption or auto-caption dump directly.</li>' +
+      '<li>Ask for the <strong>structure</strong>, not a summary: where the hook ends, what the retention beats are, where the loop closes, what the CTA does.</li>' +
+      '<li>Rebuild that skeleton in your own words for your own product. You are copying the structure, never the script.</li>' +
+      '</ul>' +
+      '<h4>The prompt</h4>' +
+      '<div class="code">Here is the transcript of a video that outperformed for this account.\n\nBreak it into: (1) hook - the first 3 seconds and why it stops a scroll, (2) the retention beats and roughly where they land, (3) the curiosity loop - where it opens and where it closes, (4) the CTA and how hard it pushes.\n\nThen give me the same skeleton, rewritten for [MY PRODUCT/NICHE]. Keep the structure. Change every word.</div>' +
+      '<button class="copy-btn" onclick="copyPrompt(this)">Copy prompt</button>'
+  },
+
+  crossposting: {
+    title: 'Cross-posting',
+    html:
+      '<p>Cross-posting is running the same video across every platform and account you own instead of one. Same footage, several times the distribution — it is the cheapest leverage in the whole system.</p>' +
+      '<h4>Why it gets outsourced</h4>' +
+      '<p>It is pure repetition with no judgement involved, and it scales badly with your own time. One account is a minute. Three platforms across three accounts is half an hour a day you will never get back.</p>' +
+      '<h4>Tools</h4>' +
+      '<ul>' +
+      '<li><strong>Buffer</strong> — free for 3 channels. The right starting point at $0.</li>' +
+      '<li><strong>Metricool</strong> — better analytics, handles more accounts, worth it once you are past three.</li>' +
+      '<li><strong>Later</strong> — strongest on visual scheduling if you think in grids.</li>' +
+      '</ul>' +
+      '<h4>Or build your own scheduler</h4>' +
+      '<p>Paste this into Claude Code and let it build you a skill that schedules and posts for you:</p>' +
+      '<div class="code">Build me a Claude Code skill that schedules and cross-posts short-form video.\n\nIt should: take one video file plus a caption; hold a per-platform queue for TikTok, Instagram Reels and YouTube Shorts; let me set a posting time per platform per day; rewrite the caption per platform (hashtag conventions differ); log what went out where and when to a local file so nothing double-posts.\n\nUse the official APIs where they exist. Where they do not, queue the file into a folder and tell me what to upload manually.</div>' +
+      '<button class="copy-btn" onclick="copyPrompt(this)">Copy prompt</button>' +
+      '<h4>For your budget</h4><p><em>BUDGET_HIRE</em></p>'
+  },
+
+  warmup: {
+    title: 'Automating warm-up',
+    html:
+      '<p>Warming up means behaving like a real person on a new account — scrolling, liking, watching, following a few accounts — before you start posting. Instagram flags accounts that appear, post immediately and do nothing else. Warm-up is what stops a new account being throttled before it has a chance.</p>' +
+      '<h4>Why you should not do it yourself</h4>' +
+      '<p>Ten to fifteen minutes per account per day. At three accounts that is 45 minutes a day of scrolling with no creative output at the end of it. Run it against your money-per-hour and it is the easiest thing on your calendar to hand over.</p>' +
+      '<h4>Two ways to handle it</h4>' +
+      '<ul>' +
+      '<li><strong>A VA</strong> — ideally in the same location as you, or at least the same region. An account that warms up in one country and posts from another is exactly the pattern Instagram looks for.</li>' +
+      '<li><strong>A tool</strong> — Warmso and similar run around $40/month and handle it automatically. Cheaper than a VA, less flexible, and it only does warm-up.</li>' +
+      '</ul>' +
+      '<h4>For your budget</h4><p><em>BUDGET_HIRE</em></p>'
+  },
+
+  prereq: {
+    title: 'Before you chase high-paying deals',
+    html:
+      '<p>Understand this plainly: with zero credibility in the space it is close to impossible to land a high-paying deal — unless you are a cinematography god whose work speaks for itself, which is rare and which you would already know about.</p>' +
+      '<p>Before you go after $1,000 for a traditional UGC video, or a canvas UGC deal at $55 a video, ask yourself honestly whether you can give the brand a return, or whether you have the skill to back the number up.</p>' +
+      '<h4>What actually counts as proof</h4>' +
+      '<ul>' +
+      '<li><strong>ROAS you generated</strong> — the strongest thing you can put in front of a brand.</li>' +
+      '<li><strong>Views you generated</strong> — easiest to evidence, and the one you will have first.</li>' +
+      '<li><strong>CPM you lowered</strong> — the most persuasive to anyone actually running the ad account.</li>' +
+      '</ul>' +
+      '<p>No proof yet? Go back to Phase 1 and 2 and build it. That is not a demotion — it is the shortest route to the rate you want.</p>'
+  },
+
+  dealmath: {
+    title: 'What makes a deal worth it',
+    html:
+      '<p>Not every deal is worth taking, even when the number up front looks big. The only figure that matters is <strong>pay divided by the hours it takes you</strong>.</p>' +
+      '<h4>Run it properly</h4>' +
+      '<ul>' +
+      '<li><strong>Canvas UGC</strong> — $45 a video, about 20 minutes to film, unlimited posting. Roughly <strong>$135/hour</strong>, before any bonuses.</li>' +
+      '<li><strong>Traditional UGC</strong> — $300 a video, but 3 hours to film. That is <strong>$100/hour</strong>.</li>' +
+      '</ul>' +
+      '<p>The $300 deal is the one that sounds better and the one that pays less. Count everything — scripting, filming, editing, revisions, the back-and-forth over email. Revisions are where a good rate quietly turns into a bad one.</p>'
+  },
+
+  charging: {
+    title: 'How to charge for traditional UGC',
+    html:
+      '<p>Two things to hold at once: what the market standard actually is, and how the brand sees its own return.</p>' +
+      '<h4>The brand is doing its own maths</h4>' +
+      '<p>They are not deciding whether you are worth $300. They are deciding whether $300 comes back as more than $300 in sales. Talk to that and the number stops being the argument.</p>' +
+      '<h4>The first deal is a door, not a ceiling</h4>' +
+      '<p>Even if your first rate with a brand is lower than you want, take the shot — then follow up and re-sell them a fresh concept once the first collaboration performs. A low CPM and a strong ROAS from round one is the best negotiating position you will ever have with that brand, and it beats arguing about rate cards with a stranger.</p>' +
+      '<p><em>The Negotiation SOP linked on this task covers the actual conversation.</em></p>'
+  },
+
+  va: {
+    title: 'Outsourcing with a VA',
+    html:
+      '<h4>What a VA is</h4>' +
+      '<p>A virtual assistant — someone who takes the repeatable, judgement-light work off your calendar so you can spend your hours on the things only you can do.</p>' +
+      '<h4>Why it matters for your cost per hour</h4>' +
+      '<p>Same rule as before. If a task does not clear your money-per-hour, it should not be on your calendar. A VA is how you enforce that instead of just knowing it.</p>' +
+      '<h4>What to hand them</h4>' +
+      '<ul>' +
+      '<li>Warming up your accounts — ideally someone in a similar location to you.</li>' +
+      '<li>Scheduling and posting across every platform.</li>' +
+      '<li>Research and scripting with AI.</li>' +
+      '<li>Finding brands and sending outreach.</li>' +
+      '</ul>' +
+      '<h4>Where to find good ones — in order</h4>' +
+      '<ul>' +
+      '<li><strong>Your own audience.</strong> Best source by a distance. They already know you and like what you do.</li>' +
+      '<li><strong>A referral from a VA you already have.</strong> Good ones know good ones.</li>' +
+      '<li><strong>A referral from a friend.</strong> Someone has already taken the risk for you.</li>' +
+      '<li><strong>Fiverr and Reddit.</strong> The worst option. Possible, but expect to sift.</li>' +
+      '</ul>' +
+      '<h4>For your budget</h4><p><em>BUDGET_HIRE</em></p>'
+  },
+
+  backend: {
+    title: 'Back-end infrastructure with a VA',
+    html:
+      '<p>Set up a Discord server with your VA from day one. Not because Discord is magic, but because work spread across DMs, email and voice notes is work nobody can audit — including you.</p>' +
+      '<h4>The channels, and why each one exists</h4>' +
+      '<ul>' +
+      '<li><strong>VA EODs</strong> — end-of-day report, every day. This is how you spot a problem on day two instead of day fourteen.</li>' +
+      '<li><strong>VA Requests</strong> — anything they are blocked on. Keeps blockers visible instead of buried in a DM you will not scroll back to.</li>' +
+      '<li><strong>Pitch Review</strong> — outreach goes here before it is sent. Cheaper to fix a pitch than to burn a brand.</li>' +
+      '<li><strong>Script Review</strong> — same principle, one step earlier in the process.</li>' +
+      '<li><strong>Team General</strong> — everything else, so it stays out of the other four.</li>' +
+      '</ul>' +
+      '<p>Add people to channels, never to DMs. The moment work moves into a DM it stops being part of the system.</p>'
+  }
+};
+
+/* ===========================================================================
+   RENDER
+   =========================================================================== */
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+function taskId(p, i) { return 'p' + p + 't' + i; }
+
+function totals() {
+  var done = 0, all = 0;
+  for (var p = 0; p < PHASES.length; p++) {
+    for (var i = 0; i < PHASES[p].tasks.length; i++) {
+      all++; if (progress[taskId(PHASES[p].n, i)]) done++;
+    }
+  }
+  return { done: done, all: all };
+}
+function phaseTotals(ph) {
+  var done = 0;
+  for (var i = 0; i < ph.tasks.length; i++) if (progress[taskId(ph.n, i)]) done++;
+  return { done: done, all: ph.tasks.length };
+}
+
+// Every resource opens in its own tab, the CRM included.
+//
+// The relative links used to open in place, which quietly cost someone their
+// position in a 38-task checklist: they tap the CRM on the last task of Phase
+// 3, and coming back means reloading the roadmap and scrolling to where they
+// were. The ticks survive that, but the scroll position and every open SOP do
+// not. Reading a doc should never unload the thing telling you to read it.
+function linkChip(pair) {
+  var label = pair[0], key = pair[1];
+  var url = LINKS[key];
+  if (!url) return '<span class="tlink todo">' + esc(label) + ' — coming soon</span>';
+  return '<a class="tlink" href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(label) + ' &rarr;</a>';
+}
+
+function sopHtml(key) {
+  var s = SOPS[key];
+  if (!s) return '';
+  var b = BUDGET[budget] || BUDGET.diy;
+  var body = s.html.replace(/BUDGET_HIRE/g, b.hire).replace(/BUDGET_TOOLS/g, b.tools);
+  return '<div class="sop" id="sop-' + key + '"><h4>' + s.title + '</h4>' + body + '</div>';
+}
+
+function renderTask(ph, task, i) {
+  var id = taskId(ph.n, i);
+  var checked = !!progress[id];
+  var chips = [];
+  // A task can carry one [label, key] pair or a list of them.
+  if (task.link) {
+    (Array.isArray(task.link[0]) ? task.link : [task.link]).forEach(function (pair) {
+      chips.push(linkChip(pair));
+    });
+  }
+  if (task.sop) chips.push('<button class="tlink sop" onclick="toggleSop(\'' + task.sop + '\',this)">Read it here</button>');
+
+  return '<div class="task' + (checked ? ' checked' : '') + '" id="task-' + id + '">' +
+    '<button class="task-box' + (checked ? ' checked' : '') + '" onclick="toggleTask(\'' + id + '\')" aria-label="Mark complete"></button>' +
+    '<div class="task-main">' +
+      '<div class="task-text">' + task.t + '</div>' +
+      (chips.length ? '<div class="task-links">' + chips.join('') + '</div>' : '') +
+      (task.note ? '<div class="task-note">' + task.note + '</div>' : '') +
+      (task.sop ? sopHtml(task.sop) : '') +
+    '</div></div>';
+}
+
+function renderPhase(ph) {
+  var pt = phaseTotals(ph);
+  var isCurrent = ph.n === entryPhase;
+  var allDone = pt.done === pt.all;
+  var lastDay = null, body = '';
+
+  for (var i = 0; i < ph.tasks.length; i++) {
+    var task = ph.tasks[i];
+    if (task.d !== lastDay) {
+      body += '<div class="day-label">Day ' + task.d + '</div>';
+      lastDay = task.d;
+    }
+    body += renderTask(ph, task, i);
+  }
+
+  return '<div class="phase' + (isCurrent ? ' current open' : '') + (allDone ? ' done-all' : '') + '" id="phase-' + ph.n + '">' +
+    '<button class="phase-head" onclick="togglePhase(' + ph.n + ')">' +
+      '<span class="phase-badge">' + (allDone ? '&#10003;' : ph.n) + '</span>' +
+      '<span class="phase-txt">' +
+        '<span class="phase-name">Phase ' + ph.n + ': ' + ph.title +
+          (isCurrent ? '<span class="phase-tag">Start here</span>' : '') + '</span>' +
+        '<span class="phase-meta">' + pt.done + ' of ' + pt.all + ' done &middot; 3 days</span>' +
+      '</span>' +
+      '<span class="phase-caret">&#9660;</span>' +
+    '</button>' +
+    '<div class="phase-body">' +
+      '<div class="phase-goal">' + ph.goal + '</div>' + body +
+    '</div></div>';
+}
+
+function render() {
+  var t = totals();
+  var pct = t.all ? Math.round((t.done / t.all) * 100) : 0;
+  var b = BUDGET[budget] || BUDGET.diy;
+  var name = profile.firstName ? esc(profile.firstName) : null;
+  var urgency = daysLeft <= 3 ? ' critical' : (daysLeft <= 7 ? ' urgent' : '');
+
+  if (expired) { renderExpired(t, pct); return; }
+
+  var chips = '';
+  if (profile.answers) {
+    if (profile.country) chips += '<span class="chip">' + esc(profile.country) + '</span>';
+    chips += '<span class="chip hi">Starting at Phase ' + entryPhase + '</span>';
+    chips += '<span class="chip">Budget: ' + esc(b.label) + '</span>';
+    if (profile.hours) chips += '<span class="chip">' + esc({ u5: 'Under 5 hrs/wk', '5to15': '5–15 hrs/wk', '15to30': '15–30 hrs/wk', '30plus': '30+ hrs/wk' }[profile.hours] || '') + '</span>';
+  }
+
+  var tierWarning = (profile.tier && profile.tier > 1)
+    ? '<div class="callout warn"><div class="callout-title">A reminder about your market</div>' +
+      'You told us you are in <strong>' + esc(profile.country || 'a non-T1 market') + '</strong>. The rates quoted in Phase 3 assume a T1 market and will not hold where you are. The formats, editing, systems and outsourcing all still apply — treat the dollar figures as ratios, not targets.</div>'
+    : '';
+
+  document.getElementById('root').innerHTML =
+    '<div class="clock">' +
+      '<div class="clock-left"><img class="clock-logo" src="logo.jpg" alt="" />' +
+        '<span class="clock-days' + urgency + '"><span class="num">' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '</span> left</span>' +
+      '</div>' +
+      '<div class="clock-right"><span class="clock-pct">' + t.done + '/' + t.all + '</span>' +
+        '<span class="clock-track"><span class="clock-fill" id="clock-fill" style="width:' + pct + '%"></span></span>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="head">' +
+      '<div class="eyebrow">Your roadmap</div>' +
+      '<h1>' + (name ? name + ", here's your 14-day sprint." : 'Your 14-day UGC sprint.') + '</h1>' +
+      '<p class="lede">Nine days of work. Fourteen days of access. Everything below is a checkbox — if it is not ticked, it is not done.</p>' +
+      (chips ? '<div class="chips">' + chips + '</div>' : '') +
+    '</div>' +
+
+    '<div class="callout speed"><div class="callout-title">Read this once, then start</div>' +
+      'This roadmap is built for <strong>speed</strong>, which is why it expires. ' +
+      (profile.hours && HOURS_NOTE[profile.hours] ? HOURS_NOTE[profile.hours] : 'Work in blocks, not in hours snatched here and there.') +
+      ' A "day" here means a work block, not a calendar day — but the 14-day clock is real, so do not stretch one block across a week.</div>' +
+
+    tierWarning +
+
+    PHASES.map(renderPhase).join('') +
+
+    '<div class="foot">' +
+      '<p>Stuck on something, or need the clock reset? DM Akira — that is what he is there for.</p>' +
+      '<a class="btn" href="' + esc(LINKS.akira) + '" target="_blank" rel="noopener">DM Akira on Instagram</a>' +
+      '<div><button class="reset" onclick="resetAll()">Reset my progress</button></div>' +
+    '</div>';
+}
+
+function renderExpired(t, pct) {
+  document.getElementById('root').innerHTML =
+    '<div class="gate">' +
+      '<h2>Your 14 days are up.</h2>' +
+      '<p>You got through <strong>' + t.done + ' of ' + t.all + '</strong> tasks (' + pct + '%). ' +
+      (pct >= 80 ? 'That is genuinely most of it — you should have deals moving by now.'
+       : pct >= 40 ? 'Solid start, but the back half is where the compounding happens.'
+       : 'The roadmap only works if it gets done — and there is no shame in restarting it properly.') +
+      '</p>' +
+      '<p>Your progress is saved. DM Akira and he will reset the clock — the point of the deadline was never to lock you out, it was to stop this becoming another tab you never close.</p>' +
+      '<a class="btn" href="' + esc(LINKS.akira) + '" target="_blank" rel="noopener">DM Akira to reopen it</a>' +
+      '<div><button class="reset" onclick="restart()">Restart the 14 days myself</button></div>' +
+    '</div>';
+}
+
+/* --- interaction --- */
+function toggleTask(id) {
+  progress[id] = !progress[id];
+  writeJSON(PROGRESS_KEY, progress);
+  // Re-render rather than patch: phase counters, the badge tick and the top
+  // bar all key off the same numbers, and keeping them in sync by hand is how
+  // they drift apart.
+  var openIds = [];
+  var phases = document.querySelectorAll('.phase.open');
+  for (var i = 0; i < phases.length; i++) openIds.push(phases[i].id);
+  var openSops = [];
+  var sops = document.querySelectorAll('.sop.open');
+  for (var j = 0; j < sops.length; j++) openSops.push(sops[j].id);
+  var y = window.scrollY;
+
+  render();
+
+  for (var k = 0; k < openIds.length; k++) { var el = document.getElementById(openIds[k]); if (el) el.classList.add('open'); }
+  for (var m = 0; m < openSops.length; m++) { var s = document.getElementById(openSops[m]); if (s) s.classList.add('open'); }
+  window.scrollTo(0, y);
+}
+function togglePhase(n) { document.getElementById('phase-' + n).classList.toggle('open'); }
+function toggleSop(key, btn) {
+  var el = document.getElementById('sop-' + key);
+  if (!el) return;
+  el.classList.toggle('open');
+  if (btn) btn.textContent = el.classList.contains('open') ? 'Hide' : 'Read it here';
+}
+function copyPrompt(btn) {
+  var code = btn.previousElementSibling;
+  if (!code) return;
+  var text = code.textContent;
+  var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy prompt'; }, 1600); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+}
+function resetAll() {
+  if (!confirm('Clear every tick on this roadmap? Your 14-day clock keeps running.')) return;
+  progress = {}; writeJSON(PROGRESS_KEY, progress); render();
+}
+function restart() {
+  if (!confirm('Restart the 14 days? Your ticks are kept.')) return;
+  startedAt = Date.now(); writeJSON(START_KEY, startedAt);
+  msLeft = DAYS_ACCESS * 86400000; daysLeft = DAYS_ACCESS; expired = false;
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

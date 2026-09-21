@@ -20,3 +20,19 @@
   from = "/get/:slug/"
   to = "/index.html"
   status = 200
+
+# The old lead magnet. Guide.html was the previous 8-day roadmap and its URL
+# is out in the wild — in DMs, in the old funnel's redirect, and in whatever
+# the admin panel had stored as the lead magnet destination. Point it at the
+# replacement rather than letting those links 404.
+[[redirects]]
+  from = "/guide.html"
+  to = "/roadmap.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Guide.html"
+  to = "/roadmap.html"
+  status = 301
+  force = true

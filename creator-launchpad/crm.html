@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UGC Outreach CRM — Creator Launchpad</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --white: #fff;
+  --purple: #7B2FFF; --purple-light: #9B5FFF;
+  --purple-glow: rgba(123,47,255,.15); --purple-border: rgba(123,47,255,.3);
+  --gray-900: #111; --gray-850: #151515; --gray-800: #1a1a1a; --gray-700: #242424;
+  --gray-600: #333; --gray-400: #666; --gray-300: #888; --gray-200: #aaa;
+  --green: #2fd968; --green-bg: rgba(47,217,104,.12);
+  --amber: #f5a524; --amber-bg: rgba(245,165,36,.12);
+  --blue: #4a9eff; --blue-bg: rgba(74,158,255,.12);
+  --red: #ff5c5c; --red-bg: rgba(255,92,92,.12);
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+}
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background: var(--black); color: var(--white); min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; padding: 0 1rem 5rem;
+  -webkit-font-smoothing: antialiased; line-height: 1.55;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+.wrap { width: 100%; max-width: 860px; position: relative; z-index: 1; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem 0 1.6rem; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
+.brand img { width: 30px; height: 30px; border-radius: 7px; }
+.brand span { font-size: 14.5px; font-weight: 600; }
+.back-link { font-size: 13px; color: var(--gray-300); text-decoration: none; }
+.back-link:hover { color: #fff; }
+h1 { font-size: clamp(1.55rem, 4.5vw, 2rem); font-weight: 700; letter-spacing: -.03em; margin-bottom: .5rem; }
+.lede { color: var(--gray-200); font-size: 14.5px; line-height: 1.65; margin-bottom: 1.6rem; }
+.lede strong { color: #fff; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin-bottom: 1.2rem; }
+.kpi { background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-md); padding: .9rem 1rem; }
+.kpi-val { font-size: 24px; font-weight: 700; letter-spacing: -.03em; line-height: 1.1; }
+.kpi-val.good { color: var(--green); }
+.kpi-val.warn { color: var(--amber); }
+.kpi-lab { font-size: 11.5px; color: var(--gray-400); margin-top: .25rem; line-height: 1.4; }
+.goal-bar { margin-bottom: 1.6rem; background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-md); padding: .9rem 1rem; }
+.goal-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .55rem; gap: 1rem; }
+.goal-t { font-size: 13.5px; font-weight: 600; }
+.goal-n { font-size: 13px; color: var(--gray-300); white-space: nowrap; }
+.goal-track { height: 7px; background: var(--gray-700); border-radius: 99px; overflow: hidden; }
+.goal-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .4s ease; }
+.goal-fill.hit { background: linear-gradient(90deg, #22b45a, var(--green)); }
+.goal-note { font-size: 12px; color: var(--gray-400); margin-top: .5rem; }
+
+.panel { background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-lg); padding: 1.2rem; margin-bottom: 1.2rem; }
+.panel-t { font-size: 14px; font-weight: 600; margin-bottom: .9rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .6rem; margin-bottom: .8rem; }
+.label { display: block; font-size: 11.5px; font-weight: 500; color: var(--gray-300); margin-bottom: .3rem; }
+.input, select.input, textarea.input {
+  width: 100%; background: var(--gray-850); border: 1px solid var(--gray-700); border-radius: var(--r-sm);
+  padding: .65rem .8rem; color: var(--white); font-family: inherit; font-size: 14px; transition: border-color .16s ease;
+}
+.input:focus { outline: none; border-color: var(--purple); }
+.input::placeholder { color: var(--gray-400); }
+textarea.input { resize: vertical; min-height: 62px; }
+select.input { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .8rem center; padding-right: 2.2rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  background: var(--purple); color: #fff; border: none; border-radius: var(--r-sm);
+  padding: .7rem 1.2rem; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  text-decoration: none; transition: all .16s ease;
+}
+.btn:hover { background: var(--purple-light); }
+.btn.ghost { background: transparent; border: 1px solid var(--gray-600); color: var(--gray-200); }
+.btn.ghost:hover { background: var(--gray-800); color: #fff; border-color: var(--gray-400); }
+.btn.sm { padding: .45rem .8rem; font-size: 12.5px; }
+.row-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+
+.filters { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .9rem; }
+.fbtn { background: var(--gray-900); border: 1px solid var(--gray-700); color: var(--gray-300); font-family: inherit; font-size: 12.5px; font-weight: 500; padding: .4rem .8rem; border-radius: 99px; cursor: pointer; }
+.fbtn:hover { border-color: var(--gray-600); color: #fff; }
+.fbtn.on { background: var(--purple-glow); border-color: var(--purple-border); color: var(--purple-light); font-weight: 600; }
+
+.deal { background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-md); padding: .9rem 1rem; margin-bottom: .55rem; }
+.deal-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .8rem; }
+.deal-name { font-size: 15px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+.deal-sub { font-size: 12.5px; color: var(--gray-400); margin-top: .2rem; }
+.deal-rate { font-size: 15px; font-weight: 700; color: var(--green); white-space: nowrap; }
+.deal-notes { font-size: 13px; color: var(--gray-200); margin-top: .6rem; line-height: 1.55; padding-top: .6rem; border-top: 1px solid var(--gray-700); }
+.deal-foot { display: flex; align-items: center; justify-content: space-between; gap: .8rem; margin-top: .7rem; flex-wrap: wrap; }
+.badge { font-size: 11px; font-weight: 600; padding: .25rem .6rem; border-radius: 99px; letter-spacing: .02em; }
+.b-topitch { background: var(--gray-800); color: var(--gray-300); }
+.b-pitched { background: var(--blue-bg); color: var(--blue); }
+.b-replied { background: var(--amber-bg); color: var(--amber); }
+.b-negotiating { background: var(--purple-glow); color: var(--purple-light); }
+.b-won { background: var(--green-bg); color: var(--green); }
+.b-lost { background: var(--red-bg); color: var(--red); }
+.icon-btn { background: none; border: none; color: var(--gray-400); font-family: inherit; font-size: 12px; cursor: pointer; padding: .2rem .3rem; }
+.icon-btn:hover { color: #fff; }
+.icon-btn.danger:hover { color: var(--red); }
+.empty { text-align: center; padding: 2.8rem 1rem; color: var(--gray-400); font-size: 14px; line-height: 1.7; }
+.foot { display: flex; gap: .6rem; justify-content: center; margin-top: 1.8rem; flex-wrap: wrap; }
+@media (max-width: 640px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="roadmap.html"><img src="logo.jpg" alt="" /><span>Creator Launchpad</span></a>
+    <a class="back-link" href="roadmap.html">&larr; Back to roadmap</a>
+  </div>
+
+  <h1>UGC Outreach CRM</h1>
+  <p class="lede">Every brand you pitch, in one place. The KPI is <strong>30 outreaches a day</strong> — that is the number the roadmap sets for you or your VA. Everything saves in this browser; nothing is uploaded anywhere.</p>
+
+  <div class="kpis" id="kpis"></div>
+  <div class="goal-bar" id="goalbar"></div>
+
+  <div class="panel">
+    <div class="panel-t">Log an outreach</div>
+    <div class="grid">
+      <div><label class="label" for="f-brand">Brand</label><input class="input" id="f-brand" placeholder="Acme Supplements" /></div>
+      <div><label class="label" for="f-contact">Contact / handle</label><input class="input" id="f-contact" placeholder="@acme or name@acme.com" /></div>
+      <div><label class="label" for="f-channel">Channel</label>
+        <select class="input" id="f-channel">
+          <option>Instagram DM</option><option>Email</option><option>TikTok DM</option>
+          <option>LinkedIn</option><option>Mediamaxxing</option><option>Referral</option><option>Other</option>
+        </select>
+      </div>
+      <div><label class="label" for="f-status">Status</label>
+        <select class="input" id="f-status">
+          <option value="pitched">Pitched</option><option value="topitch">To pitch</option>
+          <option value="replied">Replied</option><option value="negotiating">Negotiating</option>
+          <option value="won">Won</option><option value="lost">Lost</option>
+        </select>
+      </div>
+      <div><label class="label" for="f-rate">Rate (per video, $)</label><input class="input" id="f-rate" type="number" min="0" step="5" placeholder="45" /></div>
+      <div><label class="label" for="f-owner">Sent by</label>
+        <select class="input" id="f-owner"><option>Me</option><option>VA</option></select>
+      </div>
+    </div>
+    <label class="label" for="f-notes">Notes</label>
+    <textarea class="input" id="f-notes" placeholder="What you pitched, what they said, when to follow up…"></textarea>
+    <div style="margin-top:.8rem" class="row-actions">
+      <button class="btn" onclick="addDeal()">Add to CRM</button>
+      <span id="form-msg" style="font-size:12.5px;color:var(--gray-400)"></span>
+    </div>
+  </div>
+
+  <div class="filters" id="filters"></div>
+  <div id="list"></div>
+
+  <div class="foot">
+    <button class="btn ghost" onclick="exportCsv()">Export CSV</button>
+    <button class="btn ghost" onclick="clearAll()">Clear everything</button>
+  </div>
+</div>
+
+<script>
+/* ===========================================================================
+   UGC Outreach CRM
+   A local tracker for the Phase 3 KPI: 30 outreaches a day. Everything lives
+   in this browser - no account, no server, no sync. That is deliberate: the
+   roadmap is a lead magnet, and asking someone to make an account before they
+   can log a pitch is how a tracker stops being used on day two.
+   =========================================================================== */
+
+var KEY = 'clp_crm_v1';
+var DAILY_GOAL = 30;
+
+var STATUSES = [
+  ['topitch',     'To pitch'],
+  ['pitched',     'Pitched'],
+  ['replied',     'Replied'],
+  ['negotiating', 'Negotiating'],
+  ['won',         'Won'],
+  ['lost',        'Lost']
+];
+var STATUS_LABEL = {};
+for (var s = 0; s < STATUSES.length; s++) STATUS_LABEL[STATUSES[s][0]] = STATUSES[s][1];
+
+var deals = load();
+var filter = 'all';
+
+function load() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(deals)); } catch (e) {} }
+function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
+
+function dayKey(ts) { var d = new Date(ts); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); }
+function isToday(ts) { return dayKey(ts) === dayKey(Date.now()); }
+function isThisWeek(ts) { return (Date.now() - ts) < 7 * 86400000; }
+
+/* --- add ------------------------------------------------------------------ */
+function addDeal() {
+  var brand = document.getElementById('f-brand').value.trim();
+  var msg = document.getElementById('form-msg');
+  if (!brand) {
+    msg.textContent = 'Give it a brand name at least.';
+    msg.style.color = 'var(--red)';
+    document.getElementById('f-brand').focus();
+    return;
+  }
+  var rateRaw = document.getElementById('f-rate').value;
+  deals.unshift({
+    id: 'd' + Date.now() + Math.random().toString(36).slice(2, 6),
+    brand: brand,
+    contact: document.getElementById('f-contact').value.trim(),
+    channel: document.getElementById('f-channel').value,
+    status: document.getElementById('f-status').value,
+    rate: rateRaw === '' ? null : Number(rateRaw),
+    owner: document.getElementById('f-owner').value,
+    notes: document.getElementById('f-notes').value.trim(),
+    created: Date.now()
+  });
+  save();
+  ['f-brand','f-contact','f-rate','f-notes'].forEach(function (id) { document.getElementById(id).value = ''; });
+  msg.textContent = 'Added.';
+  msg.style.color = 'var(--green)';
+  setTimeout(function () { msg.textContent = ''; }, 1800);
+  render();
+  document.getElementById('f-brand').focus();
+}
+
+function setStatus(id, status) {
+  for (var i = 0; i < deals.length; i++) if (deals[i].id === id) { deals[i].status = status; break; }
+  save(); render();
+}
+function removeDeal(id) {
+  var d = null;
+  for (var i = 0; i < deals.length; i++) if (deals[i].id === id) { d = deals[i]; break; }
+  if (!d) return;
+  if (!confirm('Delete "' + d.brand + '" from the CRM?')) return;
+  deals = deals.filter(function (x) { return x.id !== id; });
+  save(); render();
+}
+function setFilter(f) { filter = f; render(); }
+
+/* --- metrics ---------------------------------------------------------------
+   Reply rate counts anything that got a human response - replied, negotiating
+   and won all mean they wrote back. Win rate is against everything actually
+   sent, so items still sitting in "to pitch" do not flatter it. */
+function metrics() {
+  var today = 0, week = 0, sent = 0, replied = 0, won = 0, revenue = 0;
+  for (var i = 0; i < deals.length; i++) {
+    var d = deals[i];
+    var wasSent = d.status !== 'topitch';
+    if (wasSent && isToday(d.created)) today++;
+    if (wasSent && isThisWeek(d.created)) week++;
+    if (wasSent) sent++;
+    if (d.status === 'replied' || d.status === 'negotiating' || d.status === 'won') replied++;
+    if (d.status === 'won') { won++; if (d.rate) revenue += d.rate; }
+  }
+  return {
+    today: today, week: week, sent: sent, replied: replied, won: won, revenue: revenue,
+    replyRate: sent ? Math.round((replied / sent) * 100) : 0,
+    winRate: sent ? Math.round((won / sent) * 100) : 0
+  };
+}
+
+/* --- render --------------------------------------------------------------- */
+function render() {
+  var m = metrics();
+
+  document.getElementById('kpis').innerHTML =
+    kpi(m.today, 'sent today', m.today >= DAILY_GOAL ? 'good' : (m.today > 0 ? 'warn' : '')) +
+    kpi(m.week, 'sent this week', '') +
+    kpi(m.replyRate + '%', 'reply rate (' + m.replied + '/' + m.sent + ')', m.replyRate >= 10 ? 'good' : '') +
+    kpi(m.won, 'deals won' + (m.revenue ? ' · $' + m.revenue : ''), m.won ? 'good' : '');
+
+  var pct = Math.min(100, Math.round((m.today / DAILY_GOAL) * 100));
+  var hit = m.today >= DAILY_GOAL;
+  document.getElementById('goalbar').innerHTML =
+    '<div class="goal-head"><span class="goal-t">Today’s outreach goal</span>' +
+    '<span class="goal-n">' + m.today + ' / ' + DAILY_GOAL + '</span></div>' +
+    '<div class="goal-track"><div class="goal-fill' + (hit ? ' hit' : '') + '" style="width:' + pct + '%"></div></div>' +
+    '<div class="goal-note">' + (hit
+      ? 'Goal hit. That is the day done — anything past this is a bonus.'
+      : 'Another ' + (DAILY_GOAL - m.today) + ' to go. Outreach is a volume game; the rate only matters once the volume is there.') +
+    '</div>';
+
+  var counts = { all: deals.length };
+  for (var i = 0; i < deals.length; i++) counts[deals[i].status] = (counts[deals[i].status] || 0) + 1;
+  var fh = '<button class="fbtn' + (filter === 'all' ? ' on' : '') + '" onclick="setFilter(\'all\')">All (' + deals.length + ')</button>';
+  for (var j = 0; j < STATUSES.length; j++) {
+    var key = STATUSES[j][0], n = counts[key] || 0;
+    if (!n && filter !== key) continue;
+    fh += '<button class="fbtn' + (filter === key ? ' on' : '') + '" onclick="setFilter(\'' + key + '\')">' + STATUSES[j][1] + ' (' + n + ')</button>';
+  }
+  document.getElementById('filters').innerHTML = fh;
+
+  var shown = deals.filter(function (d) { return filter === 'all' || d.status === filter; });
+  if (!shown.length) {
+    document.getElementById('list').innerHTML = '<div class="empty">' +
+      (deals.length ? 'Nothing in this status yet.' : 'Nothing logged yet.<br />Add your first outreach above — then do it 29 more times today.') +
+      '</div>';
+    return;
+  }
+
+  document.getElementById('list').innerHTML = shown.map(function (d) {
+    var opts = STATUSES.map(function (st) {
+      return '<option value="' + st[0] + '"' + (d.status === st[0] ? ' selected' : '') + '>' + st[1] + '</option>';
+    }).join('');
+    var when = new Date(d.created).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    return '<div class="deal">' +
+      '<div class="deal-top">' +
+        '<div><div class="deal-name">' + esc(d.brand) + '</div>' +
+          '<div class="deal-sub">' + esc(d.channel) + (d.contact ? ' &middot; ' + esc(d.contact) : '') +
+            ' &middot; ' + esc(d.owner || 'Me') + ' &middot; ' + when + '</div></div>' +
+        (d.rate ? '<div class="deal-rate">$' + d.rate + '</div>' : '') +
+      '</div>' +
+      (d.notes ? '<div class="deal-notes">' + esc(d.notes) + '</div>' : '') +
+      '<div class="deal-foot">' +
+        '<span class="badge b-' + d.status + '">' + STATUS_LABEL[d.status] + '</span>' +
+        '<div class="row-actions">' +
+          '<select class="input" style="width:auto;padding:.35rem 2rem .35rem .6rem;font-size:12.5px" onchange="setStatus(\'' + d.id + '\',this.value)">' + opts + '</select>' +
+          '<button class="icon-btn danger" onclick="removeDeal(\'' + d.id + '\')">Delete</button>' +
+        '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function kpi(val, lab, cls) {
+  return '<div class="kpi"><div class="kpi-val ' + cls + '">' + val + '</div><div class="kpi-lab">' + lab + '</div></div>';
+}
+
+/* --- export --------------------------------------------------------------- */
+function csvCell(v) {
+  var s = String(v == null ? '' : v);
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+function exportCsv() {
+  if (!deals.length) { alert('Nothing to export yet.'); return; }
+  var head = ['Brand','Contact','Channel','Status','Rate','Sent by','Notes','Date'];
+  var rows = deals.map(function (d) {
+    return [d.brand, d.contact, d.channel, STATUS_LABEL[d.status], d.rate == null ? '' : d.rate,
+            d.owner || 'Me', d.notes, new Date(d.created).toISOString().slice(0, 10)].map(csvCell).join(',');
+  });
+  var blob = new Blob([[head.join(',')].concat(rows).join('\n')], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'ugc-crm-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+}
+function clearAll() {
+  if (!deals.length) return;
+  if (!confirm('Delete all ' + deals.length + ' entries? This cannot be undone.')) return;
+  deals = []; save(); render();
+}
+
+render();
+</script>
+</body>
+</html>
