@@ -805,6 +805,24 @@ function showNextSteps(firstName) {
 function openRoadmap() {
   var dest = 'roadmap.html';
   try { dest = sessionStorage.getItem('clp_dest') || dest; } catch (e) {}
+
+  // Carry the plan in the link, so opening the roadmap on a different device
+  // - filled the quiz on a phone, opened it on a laptop - still gets the
+  // right phase and the right outsourcing advice instead of the generic one.
+  //
+  // Only what shapes the roadmap goes in: phase, budget, hours, tier,
+  // country. No name, email, phone or handle. A URL gets shared, bookmarked,
+  // pasted into chats and written to history, and none of that belongs in
+  // one. A fragment is used rather than a query string so it is never sent
+  // to a server either.
+  try {
+    var p = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}');
+    if (p.phase) {
+      var code = btoa(JSON.stringify({ p: p.phase, b: p.budget, h: p.hours, t: p.tier, c: p.country }));
+      dest += '#r=' + encodeURIComponent(code);
+    }
+  } catch (e) { /* the link still works, it is just not personalised */ }
+
   window.location.href = dest;
 }
 

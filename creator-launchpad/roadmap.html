@@ -192,7 +192,7 @@ var LINKS = {
   negotiation:     'https://docs.google.com/document/d/1cBp9X4yr_m3WWgmIB4YO9_j_Vv8VWknpZzGNN0rq-T4/edit',
   bloss:           'https://discord.gg/ugcfortech',
   crm:             'crm.html',
-  akira:           'https://instagram.com/akirahoang',
+  akira:           'https://www.instagram.com/akira.ugc/',
 
   // The format list for Phase 1. Lives in the Portfolio Workshop, not the
   // bootcamp - the task used to say otherwise.
@@ -223,6 +223,26 @@ function readJSON(k, fallback) {
 function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
 var profile = readJSON(PROFILE_KEY, null) || {};
+
+// A roadmap opened on another device has no storage to read from, so the plan
+// comes off the link instead. Storage wins when it has something, because it
+// is the fuller record - it has their name, and the link deliberately does
+// not.
+(function restoreFromLink() {
+  try {
+    var m = (window.location.hash || '').match(/r=([^&]+)/);
+    if (!m || profile.phase) return;
+    var d = JSON.parse(atob(decodeURIComponent(m[1])));
+    if (!d || !d.p) return;
+    profile.phase = d.p;
+    profile.budget = d.b;
+    profile.hours = d.h;
+    profile.tier = d.t;
+    profile.country = d.c;
+    writeJSON(PROFILE_KEY, profile);
+  } catch (e) { /* fall through to the generic roadmap */ }
+})();
+
 var progress = readJSON(PROGRESS_KEY, {});
 var budget = profile.budget || 'diy';
 var entryPhase = profile.phase || 1;
@@ -590,7 +610,9 @@ function render() {
   if (expired) { renderExpired(t, pct); return; }
 
   var chips = '';
-  if (profile.answers) {
+  // Keyed off the phase rather than the raw answers, because a roadmap
+  // restored from a link has the plan but not the answers behind it.
+  if (profile.phase || profile.country) {
     if (profile.country) chips += '<span class="chip">' + esc(profile.country) + '</span>';
     chips += '<span class="chip hi">Starting at Phase ' + entryPhase + '</span>';
     chips += '<span class="chip">Budget: ' + esc(b.label) + '</span>';
@@ -629,6 +651,7 @@ function render() {
     PHASES.map(renderPhase).join('') +
 
     '<div class="foot">' +
+      '<p><strong style="color:#fff">Bookmark this page.</strong> Your ticks and your 14-day clock are saved in this browser, so come back to the same one and everything is where you left it. Open it somewhere else and you will get your plan, but the ticks start fresh.</p>' +
       '<p>Stuck on something, or need the clock reset? DM Akira — that is what he is there for.</p>' +
       '<a class="btn" href="' + esc(LINKS.akira) + '" target="_blank" rel="noopener">DM Akira on Instagram</a>' +
       '<div><button class="reset" onclick="resetAll()">Reset my progress</button></div>' +
