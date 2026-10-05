@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Offer to Client — The Whole System, Free</title>
+<meta name="description" content="The full client acquisition system: your offer, booked calls, and the close. Every module, free." />
+<link rel="icon" href="../logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --white: #fff;
+  --purple: #7B2FFF; --purple-light: #9B5FFF;
+  --purple-glow: rgba(123,47,255,.15); --purple-border: rgba(123,47,255,.3);
+  --gray-900: #111; --gray-850: #151515; --gray-800: #1a1a1a; --gray-700: #242424;
+  --gray-600: #333; --gray-400: #666; --gray-300: #888; --gray-200: #aaa;
+  --amber: #f5a524; --amber-bg: rgba(245,165,36,.08); --amber-border: rgba(245,165,36,.28);
+  --green: #2fd968;
+  --cream: #f3efe7;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+}
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background: var(--black); color: var(--white); min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; padding: 0 1rem 5rem;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+.nav { width: 100%; max-width: 600px; padding: 1.5rem 0 0; display: flex; align-items: center; justify-content: center; margin-bottom: 2.2rem; position: relative; z-index: 1; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 36px; height: 36px; border-radius: 8px; }
+.logo-name { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -.01em; }
+.wrap { width: 100%; max-width: 560px; position: relative; z-index: 1; }
+.progress-bar { height: 1.5px; background: var(--gray-700); border-radius: 99px; margin-bottom: 2.4rem; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .45s cubic-bezier(.4,0,.2,1); }
+.step { display: none; }
+.step.active { display: block; animation: fadeUp .35s cubic-bezier(.4,0,.2,1); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--purple-light); margin-bottom: .7rem; font-weight: 600; }
+h1 { font-size: clamp(1.75rem, 5.6vw, 2.5rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin-bottom: .9rem; }
+h2 { font-size: clamp(1.35rem, 4.4vw, 1.75rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.2; margin-bottom: .5rem; }
+.sub { color: var(--gray-200); font-size: 15px; line-height: 1.65; margin-bottom: 1.9rem; }
+.sub strong { color: var(--white); font-weight: 600; }
+.opts { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.6rem; }
+.opt {
+  width: 100%; text-align: left; background: var(--gray-900); border: 1px solid var(--gray-700);
+  border-radius: var(--r-md); padding: 1rem 1.1rem; color: var(--white); font-family: inherit;
+  font-size: 15px; cursor: pointer; transition: all .18s ease; display: flex; align-items: flex-start; gap: .85rem;
+}
+.opt:hover { border-color: var(--gray-600); background: var(--gray-800); }
+.opt.selected { border-color: var(--purple); background: var(--purple-glow); box-shadow: 0 0 0 3px rgba(123,47,255,.09); }
+.opt-dot { width: 17px; height: 17px; border-radius: 50%; border: 1.5px solid var(--gray-600); flex-shrink: 0; margin-top: 2px; position: relative; transition: all .18s ease; }
+.opt.selected .opt-dot { border-color: var(--purple); background: var(--purple); }
+.opt.selected .opt-dot::after { content: ''; position: absolute; inset: 4px; background: var(--white); border-radius: 50%; }
+.opt-body { flex: 1; min-width: 0; display: block; }
+.opt-main { font-weight: 500; line-height: 1.35; display: block; }
+.opt-note { font-size: 13px; color: var(--gray-300); margin-top: 3px; line-height: 1.45; display: block; }
+.btn {
+  width: 100%; background: var(--purple); color: var(--white); border: none; border-radius: var(--r-md);
+  padding: 1.05rem 1.4rem; font-family: inherit; font-size: 15.5px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: .55rem; transition: all .18s ease;
+}
+.btn:hover:not(:disabled) { background: var(--purple-light); transform: translateY(-1px); }
+.btn:disabled { background: var(--gray-700); color: var(--gray-400); cursor: not-allowed; }
+.back { background: none; border: none; color: var(--gray-400); font-family: inherit; font-size: 13.5px; cursor: pointer; padding: .85rem 0 0; display: block; margin: 0 auto; }
+.back:hover { color: var(--gray-200); }
+.field { margin-bottom: 1rem; }
+.label { display: block; font-size: 13px; font-weight: 500; color: var(--gray-200); margin-bottom: .45rem; }
+.input {
+  width: 100%; background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-md);
+  padding: 1rem 1.1rem; color: var(--white); font-family: inherit; font-size: 16px; transition: border-color .18s ease;
+}
+.input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(123,47,255,.1); }
+.input::placeholder { color: var(--gray-400); }
+select.input { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1.1rem center; padding-right: 2.6rem; }
+.phone-row { display: grid; grid-template-columns: 118px 1fr; gap: .55rem; }
+.err { color: #ff6b6b; font-size: 13.5px; margin-bottom: .9rem; display: none; line-height: 1.5; }
+.hint { font-size: 12.5px; color: var(--gray-400); margin-top: .5rem; line-height: 1.5; }
+.warn { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: var(--r-md); padding: 1rem 1.1rem; margin-bottom: 1.3rem; display: none; }
+.warn.show { display: block; animation: fadeUp .3s ease; }
+.warn-title { font-size: 14px; font-weight: 600; color: var(--amber); margin-bottom: .4rem; }
+.warn-body { font-size: 13.5px; color: var(--gray-200); line-height: 1.6; }
+.warn-body strong { color: #fff; }
+.spinner { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.25); border-top-color: #fff; border-radius: 50%; animation: spin .65s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.load-wrap { text-align: center; padding: 2.5rem 0 1rem; }
+.load-ring { width: 54px; height: 54px; border: 2.5px solid var(--gray-700); border-top-color: var(--purple); border-radius: 50%; animation: spin .9s linear infinite; margin: 0 auto 1.8rem; }
+.load-line { font-size: 15px; color: var(--gray-200); min-height: 24px; transition: opacity .3s ease; }
+.load-steps { margin-top: 2rem; display: flex; flex-direction: column; gap: .7rem; max-width: 330px; margin-left: auto; margin-right: auto; }
+.load-step { display: flex; align-items: center; gap: .65rem; font-size: 13.5px; color: var(--gray-400); opacity: .35; transition: all .4s ease; text-align: left; }
+.load-step.done { opacity: 1; color: var(--gray-200); }
+.load-check { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--gray-600); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .4s ease; }
+.load-step.done .load-check { background: var(--green); border-color: var(--green); }
+.load-step.done .load-check::after { content: '\2713'; font-size: 10px; color: var(--black); font-weight: 700; }
+.pill { display: inline-flex; align-items: center; gap: .4rem; background: var(--purple-glow); border: 1px solid var(--purple-border); color: var(--purple-light); font-size: 12px; font-weight: 600; padding: .38rem .75rem; border-radius: 99px; margin-bottom: 1.1rem; }
+
+/* --- the value stack --- */
+.stack { border: 1px solid var(--gray-700); border-radius: var(--r-lg); overflow: hidden; margin-bottom: 1.6rem; background: var(--gray-900); }
+.stack-head { font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--gray-400); font-weight: 700; padding: .8rem 1.1rem; border-bottom: 1px solid var(--gray-700); display: flex; justify-content: space-between; }
+.stack-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: .75rem 1.1rem; border-bottom: 1px solid var(--gray-800); font-size: 14px; line-height: 1.45; }
+.stack-row:last-of-type { border-bottom: none; }
+.stack-what { color: var(--gray-200); }
+.stack-val { color: var(--gray-400); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stack-total { display: flex; justify-content: space-between; align-items: center; padding: .9rem 1.1rem; border-top: 1px solid var(--gray-700); background: var(--gray-850); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--gray-300); }
+.stack-total .v { color: var(--white); font-size: 15px; letter-spacing: 0; }
+.stack-price { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.1rem; background: var(--purple-glow); border-top: 1px solid var(--purple-border); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--purple-light); }
+.stack-price .v { font-size: 20px; letter-spacing: 0; color: #fff; font-weight: 700; }
+.strike { text-decoration: line-through; color: var(--gray-600); }
+
+/* --- proof --- */
+.proof-card { background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-lg); padding: 1.1rem 1.25rem; margin-bottom: .8rem; }
+.proof-name { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--purple-light); font-weight: 700; margin-bottom: .4rem; }
+.proof-head { font-size: 16px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; margin-bottom: .8rem; }
+.proof-list { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+.proof-list li { font-size: 13.5px; color: var(--gray-200); line-height: 1.5; padding-left: 1.1rem; position: relative; }
+.proof-list li::before { content: ''; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.proof-note { font-size: 11.5px; color: var(--gray-400); line-height: 1.6; margin-bottom: 1.5rem; }
+
+.trust { display: flex; align-items: center; justify-content: center; gap: 1.3rem; margin-top: 1.4rem; flex-wrap: wrap; }
+.trust-item { font-size: 12.5px; color: var(--gray-400); }
+.next-card { background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-lg); padding: 1.15rem 1.25rem; margin-bottom: .7rem; display: flex; gap: .95rem; align-items: flex-start; }
+.next-num { width: 26px; height: 26px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.next-title { font-weight: 600; font-size: 15px; margin-bottom: .28rem; line-height: 1.35; }
+.next-body { font-size: 13.5px; color: var(--gray-300); line-height: 1.55; }
+.sec-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray-400); font-weight: 600; margin: 2.2rem 0 .9rem; }
+.faq { border: 1px solid var(--gray-700); border-radius: var(--r-md); margin-bottom: .55rem; overflow: hidden; background: var(--gray-900); }
+.faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--white); font-family: inherit; font-size: 14.5px; font-weight: 500; padding: 1rem 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; line-height: 1.4; }
+.faq-q:hover { background: var(--gray-800); }
+.faq-icon { flex-shrink: 0; color: var(--gray-400); transition: transform .22s ease; font-size: 18px; line-height: 1; }
+.faq.open .faq-icon { transform: rotate(45deg); color: var(--purple-light); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
+.faq.open .faq-a { max-height: 520px; }
+.faq-a-inner { padding: 0 1.1rem 1.05rem; font-size: 14px; color: var(--gray-200); line-height: 1.7; }
+.footer-note { text-align: center; font-size: 12px; color: var(--gray-400); margin-top: 1.6rem; line-height: 1.6; }
+@media (max-width: 480px) {
+  .nav { margin-bottom: 1.7rem; }
+  .opt { padding: .9rem 1rem; }
+  .stack-row { font-size: 13.5px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <img src="../logo.jpg" alt="Creator Launchpad" />
+    <span class="logo-name">Creator Launchpad</span>
+  </a>
+</nav>
+
+<div class="wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+  <!-- 0 - HOOK -->
+  <div class="step active" id="step-0">
+    <div class="pill">Free &middot; Takes 90 seconds</div>
+    <h1>You already know enough to get paid. You're missing the machine around it.</h1>
+    <p class="sub">The whole system my paying clients get &mdash; the offer, the DMs that book calls, the call that closes. <strong>All 55 lessons, every script, nothing held back.</strong></p>
+
+    <div class="stack" id="stack"></div>
+
+    <div class="sec-label" style="margin-top:2rem">Someone who ran it</div>
+    <div id="proof"></div>
+
+    <button class="btn" onclick="goNext(0)">Build my roadmap <span>&rarr;</span></button>
+    <div class="trust">
+      <span class="trust-item">&#10003; No card</span>
+      <span class="trust-item">&#10003; Nothing locked</span>
+      <span class="trust-item">&#10003; No expiry</span>
+    </div>
+  </div>
+
+  <!-- 1 - COUNTRY -->
+  <div class="step" id="step-1">
+    <div class="eyebrow">First things first</div>
+    <h2>Where are you based?</h2>
+    <p class="sub">This changes who you can realistically charge, and how much.</p>
+    <div class="field">
+      <select class="input" id="country-select" onchange="onCountry()">
+        <option value="">Select your country&hellip;</option>
+      </select>
+    </div>
+    <div class="warn" id="t1-warn">
+      <div class="warn-title">Worth saying before you start &#128546;</div>
+      <div class="warn-body">The prices in this roadmap assume <strong>T1 clients</strong> &mdash; US, UK, Canada, Australia, Western Europe. The method works from anywhere, but if you're selling <em>into</em> <span id="warn-country">your local market</span> the numbers will be lower, and some payment rails won't reach you.<br><br>The fix is usually to sell to T1 clients rather than local ones, which this teaches. Just go in knowing the price tags need adjusting.</div>
+    </div>
+    <button class="btn" id="btn-country" disabled onclick="goNext(1)"><span id="btn-country-label">Continue</span> <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(1)">&larr; Back</button>
+  </div>
+
+  <!-- 2 - Q1 OFFER -->
+  <div class="step" id="step-2">
+    <div class="eyebrow">Question 1 of 6</div>
+    <h2>Do you have an offer yet?</h2>
+    <p class="sub">This decides where your roadmap opens. Most people start at nothing &mdash; that's normal.</p>
+    <div class="opts">
+      <button class="opt" data-q="q1" onclick="selectOpt(this,'q1','none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nothing yet</span><span class="opt-note">I know I'm good at something, I just don't know what to sell</span></span></button>
+      <button class="opt" data-q="q1" onclick="selectOpt(this,'q1','idea')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">An idea, not written down</span><span class="opt-note">I know roughly who I'd help, nothing is defined</span></span></button>
+      <button class="opt" data-q="q1" onclick="selectOpt(this,'q1','built')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Built, but nobody's bought it</span><span class="opt-note">It exists and has a price. No sales yet.</span></span></button>
+      <button class="opt" data-q="q1" onclick="selectOpt(this,'q1','selling')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I'm selling it already</span><span class="opt-note">Money has come in. I want more of it, more predictably.</span></span></button>
+    </div>
+    <button class="btn" id="btn-q1" disabled onclick="goNext(2)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(2)">&larr; Back</button>
+  </div>
+
+  <!-- 3 - Q2 AUDIENCE -->
+  <div class="step" id="step-3">
+    <div class="eyebrow">Question 2 of 6</div>
+    <h2>How big is your audience?</h2>
+    <p class="sub">This decides whether your roadmap is built around outbound or inbound. They're genuinely different plans.</p>
+    <div class="opts">
+      <button class="opt" data-q="q2" onclick="selectOpt(this,'q2','zero')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Basically none</span><span class="opt-note">No following, or nobody who'd notice if I posted</span></span></button>
+      <button class="opt" data-q="q2" onclick="selectOpt(this,'q2','u1k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under 1,000</span><span class="opt-note">A small following, not enough to count on</span></span></button>
+      <button class="opt" data-q="q2" onclick="selectOpt(this,'q2','1to10k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">1,000 &ndash; 10,000</span><span class="opt-note">People reply when I post. Some DM me.</span></span></button>
+      <button class="opt" data-q="q2" onclick="selectOpt(this,'q2','10kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">10,000+</span><span class="opt-note">I have real reach and I'm probably under-monetising it</span></span></button>
+    </div>
+    <button class="btn" id="btn-q2" disabled onclick="goNext(3)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(3)">&larr; Back</button>
+  </div>
+
+  <!-- 4 - Q3 SALES -->
+  <div class="step" id="step-4">
+    <div class="eyebrow">Question 3 of 6</div>
+    <h2>Have you ever closed high-ticket on a call?</h2>
+    <p class="sub">Be honest. This decides how deep the sales phase goes for you.</p>
+    <div class="opts">
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','never')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Never been on one</span><span class="opt-note">The idea of asking someone for $2,000 on a call scares me</span></span></button>
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','few')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A handful</span><span class="opt-note">I've closed some, but I couldn't tell you why they bought</span></span></button>
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','regularly')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Regularly</span><span class="opt-note">I take calls and close them. I want a better rate.</span></span></button>
+    </div>
+    <button class="btn" id="btn-q3" disabled onclick="goNext(4)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(4)">&larr; Back</button>
+  </div>
+
+  <!-- 5 - Q4 PRICE -->
+  <div class="step" id="step-5">
+    <div class="eyebrow">Question 4 of 6</div>
+    <h2>What do you want to charge per client?</h2>
+    <p class="sub">Even if it's a guess. This changes the pricing and positioning advice you get.</p>
+    <div class="opts">
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','u500')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under $500</span><span class="opt-note">Low ticket, volume based</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','500to2k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$500 &ndash; $2,000</span><span class="opt-note">The usual starting band for a first offer</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','2kto5k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$2,000 &ndash; $5,000</span><span class="opt-note">Proper high ticket. Needs a real call.</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','5kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$5,000+</span><span class="opt-note">Premium. You'll need proof to back it.</span></span></button>
+    </div>
+    <button class="btn" id="btn-q4" disabled onclick="goNext(5)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(5)">&larr; Back</button>
+  </div>
+
+  <!-- 6 - Q5 REVENUE -->
+  <div class="step" id="step-6">
+    <div class="eyebrow">Question 5 of 6</div>
+    <h2>What are you making right now?</h2>
+    <p class="sub">Per month, from this. Nobody sees it but us &mdash; it's what keeps the plan honest.</p>
+    <div class="opts">
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','zero')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$0</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','u1k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under $1,000/month</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','1kto5k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$1,000 &ndash; $5,000/month</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','5kto10k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$5,000 &ndash; $10,000/month</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','10kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$10,000+/month</span></span></button>
+    </div>
+    <button class="btn" id="btn-q5" disabled onclick="goNext(6)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(6)">&larr; Back</button>
+  </div>
+
+  <!-- 7 - Q6 HOURS -->
+  <div class="step" id="step-7">
+    <div class="eyebrow">Question 6 of 6</div>
+    <h2>How many hours a week can you give this?</h2>
+    <p class="sub">There's no deadline on the roadmap. This just sets expectations honestly.</p>
+    <div class="opts">
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','u5')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under 5 hours</span><span class="opt-note">Evenings and weekends when I can grab them</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','5to15')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">5 &ndash; 15 hours</span><span class="opt-note">A serious side commitment around a job</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','15to30')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">15 &ndash; 30 hours</span><span class="opt-note">Most of my working week</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','30plus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">30+ hours</span><span class="opt-note">This is my full-time focus</span></span></button>
+    </div>
+    <button class="btn" id="btn-q6" disabled onclick="startBuild()">Build my roadmap <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(7)">&larr; Back</button>
+  </div>
+
+  <!-- 8 - LOADING -->
+  <div class="step" id="step-8">
+    <div class="load-wrap">
+      <div class="load-ring"></div>
+      <h2 style="margin-bottom:.6rem">Building your roadmap&hellip;</h2>
+      <div class="load-line" id="load-line">Working out where you start&hellip;</div>
+      <div class="load-steps">
+        <div class="load-step"><span class="load-check"></span><span>Setting your starting phase</span></div>
+        <div class="load-step"><span class="load-check"></span><span>Choosing outbound or inbound</span></div>
+        <div class="load-step"><span class="load-check"></span><span>Matching the pricing guidance</span></div>
+        <div class="load-step"><span class="load-check"></span><span>Unlocking all 55 lessons</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 - NAME + EMAIL -->
+  <div class="step" id="step-9">
+    <div class="eyebrow">Almost there</div>
+    <h2 id="contact-headline">Your roadmap is ready.</h2>
+    <p class="sub">Tell us who it's for so we can put your name on it.</p>
+    <div class="field">
+      <label class="label" for="name-input">Your full name</label>
+      <input class="input" id="name-input" type="text" placeholder="Alex Rivera" autocomplete="name" oninput="checkName()" />
+    </div>
+    <div class="field">
+      <label class="label" for="email-input">Your email</label>
+      <input class="input" id="email-input" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" oninput="checkName()" />
+    </div>
+    <div class="err" id="email-error"></div>
+    <button class="btn" id="btn-9" disabled onclick="goNext(9)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(9)">&larr; Back</button>
+  </div>
+
+  <!-- 10 - INSTAGRAM -->
+  <div class="step" id="step-10">
+    <div class="eyebrow">Almost there</div>
+    <h2>What's your Instagram handle?</h2>
+    <p class="sub">So we know who you are when you message, and can see what you're building.</p>
+    <div class="field">
+      <label class="label" for="ig-input">Instagram handle</label>
+      <input class="input" id="ig-input" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off" spellcheck="false" oninput="checkIg()" />
+    </div>
+    <div class="err" id="ig-error"></div>
+    <button class="btn" id="btn-10" disabled onclick="goNext(10)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(10)">&larr; Back</button>
+  </div>
+
+  <!-- 11 - PHONE -->
+  <div class="step" id="step-11">
+    <div class="eyebrow">Last one</div>
+    <h2>Finally, what's your WhatsApp number?</h2>
+    <p class="sub">Our team might give you a call on WhatsApp down the line to see how you're getting on. Not a pitch &mdash; there's a Q&amp;A about it on the next page.</p>
+    <div class="field">
+      <label class="label" for="phone-input">WhatsApp number</label>
+      <div class="phone-row">
+        <select class="input" id="phone-cc" aria-label="Country code"></select>
+        <input class="input" id="phone-input" type="tel" placeholder="555 123 4567" autocomplete="tel" inputmode="tel" oninput="checkPhone()" />
+      </div>
+      <div class="hint">No spam, no autodialer &mdash; just the occasional check-in.</div>
+    </div>
+    <div class="err" id="submit-error"></div>
+    <button class="btn" id="btn-11" disabled onclick="submitLead()"><span id="btn-11-label">Unlock the whole thing</span> <span id="btn-11-arrow">&rarr;</span></button>
+    <button class="back" onclick="goBack(11)">&larr; Back</button>
+  </div>
+
+  <!-- 12 - NEXT STEPS -->
+  <div class="step" id="step-12">
+    <div class="pill">&#10003; You're in</div>
+    <h1 id="done-headline">That's it. Here's what happens now.</h1>
+    <p class="sub">Two things before you open the roadmap.</p>
+
+    <div class="next-card">
+      <span class="next-num">1</span>
+      <div>
+        <div class="next-title">Read the Q&amp;A below</div>
+        <div class="next-body">Especially the first one. If you're wondering why someone would hand over their paid curriculum for nothing, the answer is right there and it's not complicated.</div>
+      </div>
+    </div>
+    <div class="next-card">
+      <span class="next-num">2</span>
+      <div>
+        <div class="next-title">Keep an eye on WhatsApp</div>
+        <div class="next-body">Our team might give you a call there in the future to check in on your progress and point you at whatever you're stuck on. Nothing to book &mdash; just pick up if we ring.</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Questions</div>
+    <div id="faq-list"></div>
+
+    <div style="margin-top:1.8rem">
+      <button class="btn" onclick="openRoadmap()">Open my roadmap <span>&rarr;</span></button>
+      <div class="footer-note">Nothing in it is locked and nothing expires. Bookmark it.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Offer to Client - lead magnet funnel
+   country -> 6 questions -> build -> name/email -> IG -> WhatsApp ->
+   next steps -> roadmap.html
+
+   Deliberately a sibling of the UGC funnel rather than a fork of it: different
+   audience, different questions, different roadmap. The validation and country
+   handling are the same because those were already right.
+--------------------------------------------------------------------------- */
+
+var answers = {};
+var TOTAL = 12;
+var PROFILE_KEY = 'clp_offer_profile_v1';   // namespaced: must not collide with the UGC roadmap
+var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/capture';
+var LANDING_URL = window.location.href;
+
+/* Which campaign sent them. Defaults to a slug that marks this funnel, so these
+   leads are separable from the UGC ones on the call sheet without a migration. */
+var LEAD_SOURCE = (function () {
+  var STORE_KEY = 'clp_offer_src', found = null;
+  try {
+    var m = window.location.pathname.match(/\/get\/([A-Za-z0-9_-]{1,60})/);
+    if (m) found = m[1];
+    if (!found) found = new URLSearchParams(window.location.search).get('src');
+  } catch (e) { /* fall through */ }
+  try {
+    if (found) { sessionStorage.setItem(STORE_KEY, found); return found; }
+    return sessionStorage.getItem(STORE_KEY) || 'offer-roadmap';
+  } catch (e) { return found || 'offer-roadmap'; }
+})();
+
+/* --- the value stack ------------------------------------------------------
+   Numbers are Akira's to set - they are a commercial claim, not a fact I can
+   derive. Edit here and the whole block re-renders. */
+var STACK = [
+  ['The full Offer module — 10 lessons, built from scratch', 1000],
+  ['Appointment Setting — 22 lessons plus the toolkit', 1500],
+  ['High-ticket Sales — the whole call, start to close', 1500],
+  ['Content Ecosystem — so you stop doing outbound forever', 500],
+  ['Every branding sheet, script and template I use', 500]
+];
+var STACK_TOTAL = STACK.reduce(function (n, r) { return n + r[1]; }, 0);
+
+function renderStack() {
+  var html = '<div class="stack-head"><span>What you get</span><span>Value</span></div>';
+  for (var i = 0; i < STACK.length; i++) {
+    html += '<div class="stack-row"><span class="stack-what">' + STACK[i][0] + '</span>' +
+            '<span class="stack-val">$' + STACK[i][1].toLocaleString() + '</span></div>';
+  }
+  html += '<div class="stack-total"><span>Total value</span><span class="v">$' + STACK_TOTAL.toLocaleString() + '</span></div>';
+  html += '<div class="stack-price"><span>Your price</span><span class="v"><span class="strike">$' + STACK_TOTAL.toLocaleString() + '</span> &nbsp;Free</span></div>';
+  document.getElementById('stack').innerHTML = html;
+}
+
+/* --- countries ------------------------------------------------------------
+   Same list and tiering as the UGC funnel. The warning text differs: here the
+   fix is to sell to T1 clients rather than local ones, which is a real option
+   in this business and was not in UGC. */
+var COUNTRIES = [
+  ['US','+1','United States',1], ['GB','+44','United Kingdom',1], ['CA','+1','Canada',1],
+  ['AU','+61','Australia',1], ['NZ','+64','New Zealand',1], ['IE','+353','Ireland',1],
+  ['DE','+49','Germany',1], ['FR','+33','France',1], ['NL','+31','Netherlands',1],
+  ['SE','+46','Sweden',1], ['NO','+47','Norway',1], ['DK','+45','Denmark',1],
+  ['FI','+358','Finland',1], ['CH','+41','Switzerland',1], ['AT','+43','Austria',1],
+  ['BE','+32','Belgium',1], ['LU','+352','Luxembourg',1], ['IS','+354','Iceland',1],
+  ['SG','+65','Singapore',1], ['JP','+81','Japan',1], ['KR','+82','South Korea',1],
+  ['HK','+852','Hong Kong',1], ['AE','+971','United Arab Emirates',1], ['IL','+972','Israel',1],
+  ['ES','+34','Spain',2], ['IT','+39','Italy',2], ['PT','+351','Portugal',2],
+  ['PL','+48','Poland',2], ['CZ','+420','Czechia',2], ['GR','+30','Greece',2],
+  ['MY','+60','Malaysia',2], ['TH','+66','Thailand',2], ['ZA','+27','South Africa',2],
+  ['MX','+52','Mexico',2], ['BR','+55','Brazil',2], ['AR','+54','Argentina',2],
+  ['SA','+966','Saudi Arabia',2], ['TR','+90','Turkey',2], ['RO','+40','Romania',2],
+  ['IN','+91','India',3], ['PH','+63','Philippines',3], ['ID','+62','Indonesia',3],
+  ['VN','+84','Vietnam',3], ['PK','+92','Pakistan',3], ['BD','+880','Bangladesh',3],
+  ['NG','+234','Nigeria',3], ['KE','+254','Kenya',3], ['GH','+233','Ghana',3],
+  ['EG','+20','Egypt',3], ['MA','+212','Morocco',3], ['LK','+94','Sri Lanka',3],
+  ['NP','+977','Nepal',3], ['CO','+57','Colombia',3], ['PE','+51','Peru',3],
+  ['OTHER','+1','Other / not listed',2]
+];
+function countryRow(iso) {
+  for (var i = 0; i < COUNTRIES.length; i++) if (COUNTRIES[i][0] === iso) return COUNTRIES[i];
+  return null;
+}
+function ccEl() { return document.getElementById('phone-cc'); }
+
+function buildSelects() {
+  var sel = document.getElementById('country-select');
+  if (sel) {
+    var sorted = COUNTRIES.slice().sort(function (a, b) {
+      if (a[0] === 'OTHER') return 1;
+      if (b[0] === 'OTHER') return -1;
+      return a[2].localeCompare(b[2]);
+    });
+    var html = '<option value="">Select your country…</option>';
+    for (var i = 0; i < sorted.length; i++) html += '<option value="' + sorted[i][0] + '">' + sorted[i][2] + '</option>';
+    sel.innerHTML = html;
+  }
+  var cc = ccEl();
+  if (cc) {
+    var seen = {}, h = '';
+    for (var j = 0; j < COUNTRIES.length; j++) {
+      if (COUNTRIES[j][0] === 'OTHER') continue;
+      var key = COUNTRIES[j][0] + COUNTRIES[j][1];
+      if (seen[key]) continue;
+      seen[key] = 1;
+      h += '<option value="' + COUNTRIES[j][1] + '">' + COUNTRIES[j][0] + ' ' + COUNTRIES[j][1] + '</option>';
+    }
+    cc.innerHTML = h;
+    var guess = 'US';
+    try {
+      var region = (navigator.language || '').toUpperCase().split('-')[1];
+      if (region) for (var k = 0; k < COUNTRIES.length; k++) if (COUNTRIES[k][0] === region) { guess = region; break; }
+    } catch (e) { /* default stands */ }
+    var g = countryRow(guess);
+    if (g) cc.value = g[1];
+  }
+}
+
+function onCountry() {
+  var iso = document.getElementById('country-select').value;
+  var row = countryRow(iso);
+  var warn = document.getElementById('t1-warn');
+  var btn = document.getElementById('btn-country');
+  var label = document.getElementById('btn-country-label');
+  if (!row) { btn.disabled = true; warn.classList.remove('show'); return; }
+
+  answers.country = row[2];
+  answers.countryIso = row[0];
+  answers.tier = row[3];
+  btn.disabled = false;
+  if (ccEl()) ccEl().value = row[1];
+
+  if (row[3] > 1) {
+    document.getElementById('warn-country').textContent = row[0] === 'OTHER' ? 'your local market' : row[2];
+    warn.classList.add('show');
+    label.textContent = 'Got it — continue';
+  } else {
+    warn.classList.remove('show');
+    label.textContent = 'Continue';
+  }
+}
+
+/* --- navigation ----------------------------------------------------------- */
+function updateProgress(step) {
+  document.getElementById('progress').style.width = Math.min(100, Math.round((step / TOTAL) * 100)) + '%';
+}
+function show(n) {
+  var steps = document.querySelectorAll('.step');
+  for (var i = 0; i < steps.length; i++) steps[i].classList.remove('active');
+  document.getElementById('step-' + n).classList.add('active');
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goNext(s) { show(s + 1); }
+function goBack(s) { show(s - 1); }
+function selectOpt(btn, q, val) {
+  var group = document.querySelectorAll('[data-q="' + q + '"]');
+  for (var i = 0; i < group.length; i++) group[i].classList.remove('selected');
+  btn.classList.add('selected');
+  answers[q] = val;
+  var go = document.getElementById('btn-' + q);
+  if (go) go.disabled = false;
+}
+
+function startBuild() {
+  show(8);
+  var lines = ['Working out where you start…', 'Picking outbound or inbound…', 'Almost there…'];
+  var lineEl = document.getElementById('load-line');
+  var steps = document.querySelectorAll('.load-step');
+  var i = 0;
+  var timer = setInterval(function () {
+    i++;
+    if (i < lines.length) {
+      lineEl.style.opacity = 0;
+      setTimeout(function () { lineEl.textContent = lines[i]; lineEl.style.opacity = 1; }, 220);
+    } else { clearInterval(timer); }
+  }, 1150);
+  for (var s = 0; s < steps.length; s++) {
+    (function (el, idx) { setTimeout(function () { el.classList.add('done'); }, 500 + idx * 780); })(steps[s], s);
+  }
+  setTimeout(function () { show(9); document.getElementById('name-input').focus(); }, 3900);
+}
+
+/* --- validation ------------------------------------------------------------
+   Same rules as the UGC funnel. The server re-runs all of it. */
+var DISPOSABLE = ['mailinator.com','guerrillamail.com','10minutemail.com','tempmail.com','yopmail.com','trashmail.com','sharklasers.com','getnada.com','temp-mail.org','fakeinbox.com','maildrop.cc','dispostable.com'];
+function looksMashed(v) {
+  var s = String(v || '').toLowerCase();
+  if (s.length < 4) return false;
+  if (/(.)\1{3,}/.test(s)) return true;
+  var rows = ['qwertyuiop','asdfghjkl','zxcvbnm','1234567890'];
+  for (var i = 0; i < rows.length; i++) {
+    for (var j = 0; j + 4 <= rows[i].length; j++) {
+      var run = rows[i].slice(j, j + 4);
+      if (s.indexOf(run) !== -1) return true;
+      if (s.indexOf(run.split('').reverse().join('')) !== -1) return true;
+    }
+  }
+  var letters = s.replace(/[^a-z]/g, '');
+  if (letters.length >= 6 && !/[aeiouy]/.test(letters)) return true;
+  return false;
+}
+function nameProblem(raw) {
+  var v = String(raw || '').trim().replace(/\s+/g, ' ');
+  if (v.length < 2) return 'Enter your name.';
+  if (v.split(' ').length < 2) return 'Enter your first and last name.';
+  if (!/^[A-Za-zÀ-ɏ][A-Za-zÀ-ɏ\s'.-]*$/.test(v)) return "That doesn't look like a name.";
+  if (looksMashed(v.replace(/\s/g, ''))) return "That doesn't look like a name.";
+  return null;
+}
+function emailProblem(raw) {
+  var email = String(raw || '').trim().toLowerCase();
+  if (!email) return 'Enter your email address.';
+  if (!/^[a-z0-9](?:[a-z0-9._%+-]*[a-z0-9])?@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/.test(email)) return "That doesn't look like a valid email.";
+  if (email.indexOf('..') !== -1) return "That doesn't look like a valid email.";
+  var parts = email.split('@');
+  if (DISPOSABLE.indexOf(parts[1]) !== -1) return "Please use a real email — that's where your access goes.";
+  if (looksMashed(parts[0])) return "That email doesn't look right. Double-check it?";
+  return null;
+}
+function cleanIg(raw) {
+  return String(raw || '').trim()
+    .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
+    .replace(/^@+/, '').replace(/[\/?].*$/, '');
+}
+function igProblem(raw) {
+  var v = cleanIg(raw);
+  if (v.length < 2) return 'Enter your Instagram handle.';
+  if (!/^[A-Za-z0-9._]{2,30}$/.test(v)) return 'Handles are letters, numbers, dots and underscores only.';
+  return null;
+}
+function phoneProblem(national, full) {
+  var nd = String(national || '').replace(/\D/g, '').replace(/^0+/, '');
+  var fd = String(full || '').replace(/\D/g, '');
+  if (!nd) return 'Enter your phone number.';
+  if (nd.length < 6 || fd.length < 8) return 'That number looks too short.';
+  if (nd.length > 14 || fd.length > 15) return 'That number looks too long.';
+  if (/^(\d)\1+$/.test(nd)) return 'Enter your real phone number.';
+  if (/^(5{7,}|5551234|1231231|0000000)/.test(nd)) return 'Enter your real phone number.';
+  if ('01234567890123456789'.indexOf(nd) !== -1) return 'Enter your real phone number.';
+  if ('98765432109876543210'.indexOf(nd) !== -1) return 'Enter your real phone number.';
+  if (nd.length >= 9 && /^1234567/.test(nd)) return 'Enter your real phone number.';
+  return null;
+}
+function fullPhone() {
+  var code = (document.getElementById('phone-cc') || {}).value || '';
+  var national = (document.getElementById('phone-input') || {}).value || '';
+  var digits = String(national).replace(/\D/g, '').replace(/^0+/, '');
+  if (!digits) return '';
+  return code + digits;
+}
+function checkName() {
+  var n = document.getElementById('name-input').value.trim();
+  var e = document.getElementById('email-input').value.trim();
+  var np = nameProblem(n), ep = emailProblem(e);
+  document.getElementById('btn-9').disabled = !!(np || ep);
+  var err = document.getElementById('email-error');
+  var problem = (n.length > 3 ? np : null) || (e.length > 6 ? ep : null);
+  if (problem) { err.textContent = problem; err.style.display = 'block'; }
+  else { err.textContent = ''; err.style.display = 'none'; }
+  if (!np) document.getElementById('contact-headline').textContent = 'Nice to meet you, ' + n.split(' ')[0] + '.';
+}
+function checkIg() {
+  var raw = document.getElementById('ig-input').value;
+  var p = igProblem(raw);
+  document.getElementById('btn-10').disabled = !!p;
+  var err = document.getElementById('ig-error');
+  if (p && raw.trim().length > 2) { err.textContent = p; err.style.display = 'block'; }
+  else { err.textContent = ''; err.style.display = 'none'; }
+}
+function checkPhone() {
+  var national = (document.getElementById('phone-input') || {}).value || '';
+  var p = phoneProblem(national, fullPhone());
+  document.getElementById('btn-11').disabled = !!p;
+  var err = document.getElementById('submit-error');
+  if (p && String(national).replace(/\D/g, '').length >= 6) { err.textContent = p; err.style.display = 'block'; }
+  else { err.textContent = ''; err.style.display = 'none'; }
+}
+
+/* --- what the answers mean -------------------------------------------------
+   Phase comes from how far along the offer is. Track comes from audience size,
+   and is the real fork: the Appointment Setting module has separate inbound
+   and outbound frameworks, so these are genuinely different plans. */
+function derivePhase() {
+  if (answers.q1 === 'none' || answers.q1 === 'idea') return 0;
+  if (answers.q1 === 'built') return 2;
+  // Selling already: straight to closing unless they already close well.
+  return answers.q3 === 'regularly' ? 4 : 3;
+}
+function deriveTrack() {
+  return (answers.q2 === 'zero' || answers.q2 === 'u1k') ? 'outbound' : 'inbound';
+}
+
+var LABELS = {
+  q1: { none: 'No offer yet', idea: 'Offer idea only', built: 'Offer built, unsold', selling: 'Already selling' },
+  q2: { zero: 'No audience', u1k: 'Under 1k', '1to10k': '1k-10k', '10kplus': '10k+' },
+  q3: { never: 'Never closed a call', few: 'Closed a handful', regularly: 'Closes regularly' },
+  q4: { u500: 'Under $500', '500to2k': '$500-2k', '2kto5k': '$2k-5k', '5kplus': '$5k+' },
+  q5: { zero: '$0', u1k: 'Under $1k/mo', '1kto5k': '$1k-5k/mo', '5kto10k': '$5k-10k/mo', '10kplus': '$10k+/mo' },
+  q6: { u5: 'Under 5 hrs/wk', '5to15': '5-15 hrs/wk', '15to30': '15-30 hrs/wk', '30plus': '30+ hrs/wk' }
+};
+
+function saveProfile(name, email, ig, phone) {
+  var profile = {
+    firstName: name.split(' ')[0], fullName: name, email: email, instagram: ig, phone: phone,
+    country: answers.country, countryIso: answers.countryIso, tier: answers.tier,
+    phase: derivePhase(), track: deriveTrack(),
+    price: answers.q4, revenue: answers.q5, hours: answers.q6, sales: answers.q3,
+    answers: answers, savedAt: Date.now()
+  };
+  try { localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); } catch (e) { /* private mode */ }
+  return profile;
+}
+
+async function submitLead() {
+  var btn = document.getElementById('btn-11');
+  var label = document.getElementById('btn-11-label');
+  var arrow = document.getElementById('btn-11-arrow');
+  var errorEl = document.getElementById('submit-error');
+
+  var name = document.getElementById('name-input').value.trim().replace(/\s+/g, ' ');
+  var email = document.getElementById('email-input').value.trim();
+  var ig = cleanIg(document.getElementById('ig-input').value);
+  var phone = fullPhone();
+
+  btn.disabled = true; label.textContent = 'Unlocking'; arrow.innerHTML = '<span class="spinner"></span>';
+  errorEl.style.display = 'none';
+  var profile = saveProfile(name, email, ig, phone);
+
+  try {
+    var res = await fetch(LEAD_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: profile.firstName,
+        full_name: name,
+        email: email,
+        phone: phone,
+        instagram_handle: '@' + ig,
+        // Mapped onto the existing lead columns rather than adding new ones.
+        // source_slug says which funnel this came from, so a caller reading
+        // the sheet knows these mean something different here.
+        experience_level: LABELS.q1[answers.q1] || '',
+        followers_band: LABELS.q2[answers.q2] || '',
+        biggest_blocker: LABELS.q3[answers.q3] || '',
+        ugc_goal: 'Target ' + (LABELS.q4[answers.q4] || '') + '/client',
+        income_band: LABELS.q5[answers.q5] || '',
+        hours_band: LABELS.q6[answers.q6] || '',
+        budget_band: profile.track === 'outbound' ? 'Outbound track' : 'Inbound track',
+        country: answers.country || '',
+        country_iso: answers.countryIso || '',
+        market_tier: answers.tier || null,
+        entry_phase: profile.phase === 0 ? 1 : Math.min(3, profile.phase),
+        source: LEAD_SOURCE,
+        landing_url: LANDING_URL
+      })
+    });
+    var data = await res.json().catch(function () { return {}; });
+    if (!res.ok) {
+      errorEl.textContent = data.error || 'Something went wrong — please try again.';
+      errorEl.style.display = 'block';
+      btn.disabled = false; label.textContent = 'Unlock the whole thing'; arrow.innerHTML = '→';
+      return;
+    }
+    showNextSteps(profile.firstName);
+  } catch (e) {
+    // The lead row is lost but the quiz isn't. Letting them through beats
+    // trapping them behind a failed request they cannot fix.
+    showNextSteps(profile.firstName);
+  }
+}
+
+var FAQ = [
+  ['Why would you give away the thing you charge for?',
+   "Straight answer: because some of you will make real money with it, and when you do, you'll want help going further — and you'll come to me. That's the whole bet. I'd rather hand you the entire system and earn the right to work with you later than drip-feed you a worksheet and hope you buy. If you use all of this and never speak to me again, that's genuinely fine. It cost me nothing to copy."],
+  ['Is this really everything, or the watered-down version?',
+   "Everything. All 55 lessons, the scripts, the frameworks, the branding sheets. It's the same material my paying clients work through — not a summary of it, not a teaser for it."],
+  ['Do I need an offer already?',
+   "No, and most people here don't have one. The roadmap opens on building it: who you help, what you charge, what they get. If you already have one, you'll skip ahead and sharpen it instead."],
+  ['Do I need an audience?',
+   "No. There are two tracks through this and the one you get depends on your answer. With no audience you run outbound — DMs, scripts, volume. With an audience you run inbound and convert the attention you're already wasting."],
+  ["I've never sold anything. Is this too advanced?",
+   "That's who it's written for. The sales phase assumes you've never been on a call and starts from what to say in the first sixty seconds."],
+  ['How long does it take?',
+   "There's no clock on it. Roughly 25 days of real work if you're going hard, considerably longer around a job. It doesn't expire and nothing locks, so go at whatever pace you'll actually sustain."],
+  ['Who is this not for?',
+   "If you're already closing high-ticket consistently and doing serious monthly revenue, this will mostly be revision. And if you want something that works without you doing the outreach, the calls and the follow-up — that isn't this, and I'd rather say so now."],
+  ["What if I'm not in a T1 country?",
+   "The method works anywhere. What changes is the price tag — the numbers in here assume T1 clients. The usual fix is to sell to T1 clients rather than locally, which the outbound track covers directly."],
+  ['Does any of it expire?',
+   'No. No countdown, no locked modules, no "complete this to unlock that". Bookmark it and come back whenever.']
+];
+
+/* --- proof ----------------------------------------------------------------
+   One real case, told properly, beats a wall of names. Add entries as more
+   clients hit numbers worth showing. Nothing here is rounded up or inferred -
+   each line is something that actually happened. */
+var PROOF = [{
+  name: 'Ivan Tong',
+  headline: '$0 to $6,000 in a week — then had to stop taking clients',
+  points: [
+    'First week live: $2,500 through Stripe, from zero',
+    'The week after: $6,000',
+    'One client closed at $2,500, paid in full',
+    'Another structured at $5,000 — $1k/mo for three months, $2k when she hits $6k with the system',
+    'Now around $15k/mo and capping intake'
+  ]
+}];
+
+function renderProof() {
+  var el = document.getElementById('proof');
+  if (!el || !PROOF.length) return;
+  el.innerHTML = PROOF.map(function (p) {
+    return '<div class="proof-card">' +
+      '<div class="proof-name">' + p.name + '</div>' +
+      '<div class="proof-head">' + p.headline + '</div>' +
+      '<ul class="proof-list">' + p.points.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+      '</div>';
+  }).join('');
+  el.innerHTML += '<div class="proof-note">One client’s results. Not typical, and not a guarantee — what you get depends on your offer, your market and whether you actually do the work.</div>';
+}
+
+function renderFaq() {
+  var html = '';
+  for (var i = 0; i < FAQ.length; i++) {
+    html += '<div class="faq" id="faq-' + i + '">' +
+      '<button class="faq-q" onclick="toggleFaq(' + i + ')">' + FAQ[i][0] + '<span class="faq-icon">+</span></button>' +
+      '<div class="faq-a"><div class="faq-a-inner">' + FAQ[i][1] + '</div></div></div>';
+  }
+  document.getElementById('faq-list').innerHTML = html;
+}
+function toggleFaq(i) { document.getElementById('faq-' + i).classList.toggle('open'); }
+
+function showNextSteps(firstName) {
+  document.getElementById('done-headline').textContent = "That's it, " + firstName + ". Here's what happens now.";
+  renderFaq();
+  show(12);
+  document.getElementById('progress').style.width = '100%';
+}
+
+function openRoadmap() {
+  // Carry the plan in the link so opening it on another device still gets the
+  // right phase and track. No name, email, phone or handle goes in a URL.
+  var dest = 'roadmap.html';
+  try {
+    var p = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}');
+    if (p.phase !== undefined) {
+      var code = btoa(JSON.stringify({ p: p.phase, k: p.track, pr: p.price, s: p.sales, t: p.tier, c: p.country, h: p.hours }));
+      dest += '#r=' + encodeURIComponent(code);
+    }
+  } catch (e) { /* unpersonalised link still works */ }
+  window.location.href = dest;
+}
+
+renderStack();
+renderProof();
+buildSelects();
+</script>
+</body>
+</html>
