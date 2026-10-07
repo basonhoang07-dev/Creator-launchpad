@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Offer to Client — Your Roadmap</title>
+<title>Elevate — Your Roadmap</title>
 <meta name="robots" content="noindex" />
-<link rel="icon" href="../logo.jpg" />
+<link rel="icon" href="elevate.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #0a0a0a; --white: #fff;
-  --purple: #7B2FFF; --purple-light: #9B5FFF;
-  --purple-glow: rgba(123,47,255,.15); --purple-border: rgba(123,47,255,.3);
-  --gray-900: #111; --gray-850: #151515; --gray-800: #1a1a1a; --gray-700: #242424;
-  --gray-600: #333; --gray-400: #666; --gray-300: #888; --gray-200: #aaa;
+  --black: #070b14; --white: #e8eef6;
+  --purple: #2f6d88; --purple-light: #7cc0d8;
+  --purple-glow: rgba(63,134,166,.16); --purple-border: rgba(63,134,166,.36);
+  --gray-900: #0c1424; --gray-850: #111b2e; --gray-800: #152037; --gray-700: #1e2a40;
+  --gray-600: #2a3a56; --gray-400: #64748b; --gray-300: #8296b0; --gray-200: #aebed3;
   --green: #2fd968; --green-bg: rgba(47,217,104,.1);
   --amber: #f5a524; --amber-bg: rgba(245,165,36,.08); --amber-border: rgba(245,165,36,.28);
   --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
@@ -42,12 +42,12 @@ body::before {
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 .bar-left { display: flex; align-items: center; gap: .6rem; min-width: 0; }
-.bar-logo { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; }
+.bar-brand { font-size: 14px; font-weight: 300; letter-spacing: .26em; color: var(--white); flex-shrink: 0; }
 .bar-count { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
 .bar-count .num { color: var(--purple-light); }
 .bar-right { display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
 .bar-resume { font-size: 12px; font-weight: 600; color: var(--purple-light); background: var(--purple-glow); border: 1px solid var(--purple-border); border-radius: 99px; padding: .3rem .7rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
-.bar-resume:hover { background: rgba(123,47,255,.25); }
+.bar-resume:hover { background: rgba(63,134,166,.28); }
 .bar-track { width: 72px; height: 4px; background: var(--gray-700); border-radius: 99px; overflow: hidden; }
 .bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .4s ease; }
 
@@ -91,7 +91,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 
 /* --- phases --- */
 .phase { border: 1px solid var(--gray-700); border-radius: var(--r-lg); margin-bottom: 1rem; overflow: hidden; background: var(--gray-900); scroll-margin-top: 70px; }
-.phase.current { border-color: var(--purple-border); box-shadow: 0 0 0 3px rgba(123,47,255,.07); }
+.phase.current { border-color: var(--purple-border); box-shadow: 0 0 0 3px rgba(63,134,166,.08); }
 .phase-head { width: 100%; text-align: left; background: none; border: none; color: var(--white); font-family: inherit; padding: 1.15rem 1.25rem; cursor: pointer; display: flex; align-items: center; gap: .9rem; }
 .phase-head:hover { background: var(--gray-850); }
 .phase-badge { width: 30px; height: 30px; border-radius: 8px; background: var(--gray-700); color: var(--gray-200); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -319,7 +319,7 @@ function renderTable() {
       '</div>';
   }
   return '<div class="tbl">' +
-    '<div class="tbl-crumb">Offer to Client &rsaquo; <span>The whole thing</span></div>' +
+    '<div class="tbl-crumb">Elevate &rsaquo; <span>The whole thing</span></div>' +
     '<div class="tbl-head"><span>Phase</span><span>Status</span><span style="text-align:right">Size</span></div>' +
     rows +
     '<div class="tbl-foot">55 items &middot; nothing locked &middot; no expiry</div>' +
@@ -350,7 +350,7 @@ function render() {
 
   document.getElementById('root').innerHTML =
     '<div class="bar">' +
-      '<div class="bar-left"><img class="bar-logo" src="../logo.jpg" alt="" />' +
+      '<div class="bar-left"><span class="bar-brand">elevate</span>' +
         '<span class="bar-count"><span class="num">' + t.done + ' of ' + t.all + '</span> done</span>' +
       '</div>' +
       '<div class="bar-right">' +
@@ -360,7 +360,7 @@ function render() {
     '</div>' +
 
     '<div class="head">' +
-      '<div class="eyebrow">Offer to Client</div>' +
+      '<div class="eyebrow">Elevate</div>' +
       '<h1>' + (name ? name + ', here is the whole thing.' : 'Here is the whole thing.') + '</h1>' +
       '<p class="lede">All 55 lessons, every script, written out in full. <strong>Nothing is locked and nothing expires.</strong> Work through it at whatever pace you will actually sustain, and come back to it whenever.</p>' +
       (chips ? '<div class="chips">' + chips + '</div>' : '') +
