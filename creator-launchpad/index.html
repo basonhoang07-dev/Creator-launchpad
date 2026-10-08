@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Get Your Custom Roadmap To Landing Your First UGC Deal — Creator Launchpad</title>
+<title>Get Your Custom Roadmap To Landing Your First UGC Deal — Elevate</title>
 <meta name="description" content="A 14-day sprint roadmap built around where you actually are in UGC. Free." />
-<link rel="icon" href="logo.jpg" />
+<link rel="icon" href="elevate.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #0a0a0a; --white: #ffffff;
-  --purple: #7B2FFF; --purple-light: #9B5FFF;
-  --purple-glow: rgba(123,47,255,.15); --purple-border: rgba(123,47,255,.3);
-  --gray-900: #111; --gray-800: #1a1a1a; --gray-700: #242424; --gray-600: #333;
-  --gray-400: #666; --gray-300: #888; --gray-200: #aaa;
+  --black: #070b14; --white: #e8eef6;
+  --purple: #2f6d88; --purple-light: #7cc0d8;
+  --purple-glow: rgba(63,134,166,.16); --purple-border: rgba(63,134,166,.36);
+  --gray-900: #0c1424; --gray-800: #152037; --gray-700: #1e2a40; --gray-600: #2a3a56;
+  --gray-400: #64748b; --gray-300: #8296b0; --gray-200: #aebed3;
   --amber: #f5a524; --amber-bg: rgba(245,165,36,.08); --amber-border: rgba(245,165,36,.28);
   --green: #2fd968;
   --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px;
@@ -34,11 +34,10 @@ body::before {
 }
 .nav { width: 100%; max-width: 600px; padding: 1.5rem 0 0; display: flex; align-items: center; justify-content: center; margin-bottom: 2.2rem; position: relative; z-index: 1; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo img { width: 36px; height: 36px; border-radius: 8px; }
-.logo-name { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -.01em; }
+.logo-name { font-size: 19px; font-weight: 300; color: var(--white); letter-spacing: .34em; text-transform: lowercase; }
 .wrap { width: 100%; max-width: 560px; position: relative; z-index: 1; }
 .progress-bar { height: 1.5px; background: var(--gray-700); border-radius: 99px; margin-bottom: 2.4rem; overflow: hidden; }
-.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .45s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 8px var(--purple-glow); }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .45s cubic-bezier(.4,0,.2,1);  }
 .step { display: none; }
 .step.active { display: block; animation: fadeUp .35s cubic-bezier(.4,0,.2,1); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
@@ -54,7 +53,7 @@ h2 { font-size: clamp(1.35rem, 4.4vw, 1.75rem); font-weight: 600; letter-spacing
   font-size: 15px; cursor: pointer; transition: all .18s ease; display: flex; align-items: flex-start; gap: .85rem;
 }
 .opt:hover { border-color: var(--gray-600); background: var(--gray-800); }
-.opt.selected { border-color: var(--purple); background: var(--purple-glow); box-shadow: 0 0 0 3px rgba(123,47,255,.09); }
+.opt.selected { border-color: var(--purple); background: var(--purple-glow); box-shadow: 0 0 0 3px rgba(63,134,166,.10); }
 .opt-dot { width: 17px; height: 17px; border-radius: 50%; border: 1.5px solid var(--gray-600); flex-shrink: 0; margin-top: 2px; position: relative; transition: all .18s ease; }
 .opt.selected .opt-dot { border-color: var(--purple); background: var(--purple); }
 .opt.selected .opt-dot::after { content: ''; position: absolute; inset: 4px; background: var(--white); border-radius: 50%; }
@@ -76,7 +75,7 @@ h2 { font-size: clamp(1.35rem, 4.4vw, 1.75rem); font-weight: 600; letter-spacing
   width: 100%; background: var(--gray-900); border: 1px solid var(--gray-700); border-radius: var(--r-md);
   padding: 1rem 1.1rem; color: var(--white); font-family: inherit; font-size: 16px; transition: border-color .18s ease;
 }
-.input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(123,47,255,.1); }
+.input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 3px rgba(63,134,166,.12); }
 .input::placeholder { color: var(--gray-400); }
 select.input { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1.1rem center; padding-right: 2.6rem; }
 .phone-row { display: grid; grid-template-columns: 118px 1fr; gap: .55rem; }
@@ -134,8 +133,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
 <nav class="nav">
   <a class="logo" href="/">
-    <img src="logo.jpg" alt="Creator Launchpad" />
-    <span class="logo-name">Creator Launchpad</span>
+    <span class="logo-name">elevate</span>
   </a>
 </nav>
 
@@ -372,7 +370,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
 <script>
 /* ---------------------------------------------------------------------------
-   Creator Launchpad - lead magnet funnel
+   Elevate - the UGC lead magnet funnel
    country -> 6 questions -> build animation -> name/email -> IG -> phone ->
    next steps -> roadmap.html
 

@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Your 14-Day UGC Roadmap — Creator Launchpad</title>
+<title>Your 14-Day UGC Roadmap — Elevate</title>
 <meta name="robots" content="noindex" />
-<link rel="icon" href="logo.jpg" />
+<link rel="icon" href="elevate.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #0a0a0a; --white: #fff;
-  --purple: #7B2FFF; --purple-light: #9B5FFF;
-  --purple-glow: rgba(123,47,255,.15); --purple-border: rgba(123,47,255,.3);
-  --gray-900: #111; --gray-850: #151515; --gray-800: #1a1a1a; --gray-700: #242424;
-  --gray-600: #333; --gray-400: #666; --gray-300: #888; --gray-200: #aaa;
+  --black: #070b14; --white: #e8eef6;
+  --purple: #2f6d88; --purple-light: #7cc0d8;
+  --purple-glow: rgba(63,134,166,.16); --purple-border: rgba(63,134,166,.36);
+  --gray-900: #0c1424; --gray-850: #111b2e; --gray-800: #152037; --gray-700: #1e2a40;
+  --gray-600: #2a3a56; --gray-400: #64748b; --gray-300: #8296b0; --gray-200: #aebed3;
   --green: #2fd968; --green-bg: rgba(47,217,104,.09); --green-border: rgba(47,217,104,.3);
   --amber: #f5a524; --amber-bg: rgba(245,165,36,.08); --amber-border: rgba(245,165,36,.28);
   --red: #ff5c5c;
@@ -43,7 +43,7 @@ body::before {
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 .clock-left { display: flex; align-items: center; gap: .6rem; min-width: 0; }
-.clock-logo { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; }
+.clock-brand { font-size: 14px; font-weight: 300; letter-spacing: .26em; color: var(--white); flex-shrink: 0; }
 .clock-days { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
 .clock-days .num { color: var(--purple-light); }
 .clock-days.urgent .num { color: var(--amber); }
@@ -74,7 +74,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 
 /* --- phases --- */
 .phase { border: 1px solid var(--gray-700); border-radius: var(--r-lg); margin-bottom: 1rem; overflow: hidden; background: var(--gray-900); }
-.phase.current { border-color: var(--purple-border); box-shadow: 0 0 0 3px rgba(123,47,255,.07); }
+.phase.current { border-color: var(--purple-border); box-shadow: 0 0 0 3px rgba(63,134,166,.08); }
 .phase-head { width: 100%; text-align: left; background: none; border: none; color: var(--white); font-family: inherit; padding: 1.15rem 1.25rem; cursor: pointer; display: flex; align-items: center; gap: .9rem; }
 .phase-head:hover { background: var(--gray-850); }
 .phase-badge { width: 30px; height: 30px; border-radius: 8px; background: var(--gray-700); color: var(--gray-200); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -111,7 +111,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
   padding: .28rem .6rem; border-radius: 6px; text-decoration: none;
   background: var(--purple-glow); border: 1px solid var(--purple-border); color: var(--purple-light);
 }
-.tlink:hover { background: rgba(123,47,255,.22); }
+.tlink:hover { background: rgba(63,134,166,.26); }
 .tlink.todo { background: var(--gray-800); border-color: var(--gray-600); color: var(--gray-400); cursor: default; }
 .tlink.sop { background: var(--gray-800); border-color: var(--gray-600); color: var(--gray-200); cursor: pointer; font-family: inherit; }
 .tlink.sop:hover { border-color: var(--gray-400); color: #fff; }
@@ -170,7 +170,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 
 <script>
 /* ===========================================================================
-   Creator Launchpad - the 14-day roadmap
+   Elevate - the 14-day UGC roadmap
    Reads the quiz answers from localStorage, picks the entry phase, swaps the
    outsourcing advice to match their budget, and runs a 14-day clock from the
    first time the page is opened.
@@ -626,7 +626,7 @@ function render() {
 
   document.getElementById('root').innerHTML =
     '<div class="clock">' +
-      '<div class="clock-left"><img class="clock-logo" src="logo.jpg" alt="" />' +
+      '<div class="clock-left"><span class="clock-brand">elevate</span>' +
         '<span class="clock-days' + urgency + '"><span class="num">' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '</span> left</span>' +
       '</div>' +
       '<div class="clock-right"><span class="clock-pct">' + t.done + '/' + t.all + '</span>' +
