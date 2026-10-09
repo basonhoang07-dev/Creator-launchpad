@@ -368,7 +368,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
   </div>
 </div>
 
-<script src="track.js"></script>
+<script src="elevate.js"></script>
 <script>
 /* ---------------------------------------------------------------------------
    Elevate - the UGC lead magnet funnel
@@ -394,6 +394,14 @@ var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads
    it is going. Posting to one and not the other would mean either losing
    leads now or losing them later, and both are avoidable for ten lines. */
 var MAGNET = 'ugc-roadmap';
+
+/* If elevate.js did not load — a content blocker, a bad deploy, a dead
+   network — every call below becomes a no-op instead of a ReferenceError
+   that kills the quiz on the first answer. Reporting is the optional part
+   of this page; the roadmap is not. */
+if (!window.Elevate) {
+  window.Elevate = { step: function () {}, capture: function () {}, source: function () { return null; } };
+}
 
 /* The questions as they are actually asked on screen, so the CRM shows a
    setter what the person read rather than a key called q4. They live next to

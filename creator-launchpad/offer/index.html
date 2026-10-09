@@ -379,7 +379,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
   </div>
 </div>
 
-<script src="../track.js"></script>
+<script src="../elevate.js"></script>
 <script>
 /* ---------------------------------------------------------------------------
    Offer to Client - lead magnet funnel
@@ -402,6 +402,14 @@ var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads
    Elevate is where it is going, and sending to one only would mean losing
    leads either now or later. */
 var MAGNET = 'offer-to-client';
+
+/* If elevate.js did not load — a content blocker, a bad deploy, a dead
+   network — every call below becomes a no-op instead of a ReferenceError
+   that kills the quiz on the first answer. Reporting is the optional part
+   of this page; the roadmap is not. */
+if (!window.Elevate) {
+  window.Elevate = { step: function () {}, capture: function () {}, source: function () { return null; } };
+}
 var LANDING_URL = window.location.href;
 
 /* Which campaign sent them. Defaults to a slug that marks this funnel, so these

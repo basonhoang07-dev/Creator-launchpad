@@ -1,6 +1,13 @@
 /* ---------------------------------------------------------------------------
    Elevate — what the funnels tell the CRM.
 
+   Named elevate.js rather than track.js, which is not fussiness: "track.js"
+   is a filename content blockers match on by pattern, and a blocked script
+   here would be a quiz that does not work for the people careful enough to
+   run a blocker. The funnels guard every call for the same reason — see the
+   stub beside each MAGNET constant — so a blocked, failed or slow load costs
+   a number on a dashboard and nothing else.
+
    Both roadmaps are static files on Netlify and the CRM lives somewhere else
    entirely, so this is the only thread between them. It reports two things:
 
