@@ -169,6 +169,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 <!-- All 55 lessons. Separate file so the teaching can be re-pulled from
      Notion without touching any of the page logic below. -->
 <script src="lessons.js"></script>
+<script src="../track.js"></script>
 <script>
 /* ===========================================================================
    Offer to Client — the roadmap
@@ -182,6 +183,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
    =========================================================================== */
 
 var AKIRA = 'https://www.instagram.com/akira.ugc/';
+var MAGNET = 'offer-to-client';
 var PROFILE_KEY  = 'clp_offer_profile_v1';
 var PROGRESS_KEY = 'clp_offer_progress_v1';
 
@@ -191,6 +193,11 @@ function readJSON(k, fallback) {
 function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
 var profile = readJSON(PROFILE_KEY, null) || {};
+
+/* Somebody came back to it. Counted once per browser, which makes it the
+   only honest measure of whether the roadmap was worth taking — a guide
+   nobody opens twice did not land, and no click count will say so. */
+if (window.Elevate) Elevate.step(MAGNET, 'open');
 
 /* The plan can also arrive on the link, so opening the roadmap on another
    device still gets the right phase and track. Storage wins when it has

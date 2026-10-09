@@ -168,6 +168,7 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 <body>
 <div class="wrap" id="root"></div>
 
+<script src="track.js"></script>
 <script>
 /* ===========================================================================
    Elevate - the 14-day UGC roadmap
@@ -211,6 +212,7 @@ var LINKS = {
 };
 
 var DAYS_ACCESS = 14;
+var MAGNET = 'ugc-roadmap';
 var PROFILE_KEY  = 'clp_profile_v1';
 var START_KEY    = 'clp_roadmap_start';
 var PROGRESS_KEY = 'clp_roadmap_progress_v2';
@@ -223,6 +225,11 @@ function readJSON(k, fallback) {
 function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
 var profile = readJSON(PROFILE_KEY, null) || {};
+
+// Somebody came back to it. Counted once per browser, which makes it the
+// only honest measure of whether the roadmap was worth taking: a checklist
+// nobody opens a second time did not land, and no click count will say so.
+if (window.Elevate) Elevate.step(MAGNET, 'open');
 
 // A roadmap opened on another device has no storage to read from, so the plan
 // comes off the link instead. Storage wins when it has something, because it

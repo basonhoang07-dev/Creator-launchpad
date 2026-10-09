@@ -368,6 +368,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
   </div>
 </div>
 
+<script src="track.js"></script>
 <script>
 /* ---------------------------------------------------------------------------
    Elevate - the UGC lead magnet funnel
@@ -383,6 +384,43 @@ var answers = {};
 var TOTAL = 12;                       // step-12 is the terminal screen
 var PROFILE_KEY = 'clp_profile_v1';
 var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/capture';
+
+/* What the Elevate CRM knows this funnel by. Registered on its /magnets page
+   under the same slug; a mismatch here is a funnel that reports nothing and
+   says nothing about it, so the two are written down together.
+
+   The lead is sent to both places during the move to Elevate. The portal
+   above is what works today and what the admin sheet reads; Elevate is where
+   it is going. Posting to one and not the other would mean either losing
+   leads now or losing them later, and both are avoidable for ten lines. */
+var MAGNET = 'ugc-roadmap';
+
+/* The questions as they are actually asked on screen, so the CRM shows a
+   setter what the person read rather than a key called q4. They live next to
+   LABELS because the two have to be changed together. */
+var QUESTION_TEXT = {
+  q1: 'Where are you in UGC right now?',
+  q2: "What's your goal doing UGC?",
+  q3: "What's the one thing stopping you?",
+  q4: 'What are you making from UGC right now?',
+  q5: 'What can you put into AI, systems and talent?',
+  q6: 'How many hours a week can you actually give this?'
+};
+
+/* The quiz as {question, answer} pairs. Country goes in too: it is the
+   difference between a T1 lead and somebody the roadmap half applies to,
+   which is the first thing worth knowing on a call. */
+function answerPairs() {
+  var out = [];
+  ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(function (k) {
+    var label = (LABELS[k] || {})[answers[k]];
+    if (label) out.push({ question: QUESTION_TEXT[k], answer: label });
+  });
+  if (answers.country) {
+    out.push({ question: 'Country', answer: answers.country + (answers.tier ? ' (T' + answers.tier + ')' : '') });
+  }
+  return out;
+}
 var LANDING_URL = window.location.href;
 
 /* Which campaign sent them. Path first, because netlify.toml serves /get/:slug
@@ -514,9 +552,14 @@ function selectOpt(btn, q, val) {
   var group = document.querySelectorAll('[data-q="' + q + '"]');
   for (var i = 0; i < group.length; i++) group[i].classList.remove('selected');
   btn.classList.add('selected');
+  var first = Object.keys(answers).filter(function (k) { return /^q\d$/.test(k); }).length === 0;
   answers[q] = val;
   var go = document.getElementById('btn-' + q);
   if (go) go.disabled = false;
+  // The first answer, not the page load: somebody who read the headline and
+  // left never started the quiz, and counting them as though they did hides
+  // the only drop-off on this page worth fixing.
+  if (first) Elevate.step(MAGNET, 'start');
 }
 
 /* --- the build animation ---------------------------------------------------
@@ -524,6 +567,7 @@ function selectOpt(btn, q, val) {
    result read as assembled for them rather than a file that was always there. */
 function startBuild() {
   show(8);
+  Elevate.step(MAGNET, 'finish');   // every question answered, before the ask
   var lines = ['Planning your roadmap…', 'Matching it to your phase…', 'Almost there…'];
   var lineEl = document.getElementById('load-line');
   var steps = document.querySelectorAll('.load-step');
@@ -718,6 +762,17 @@ async function submitLead() {
   // Saved before the request, so a network failure doesn't cost them the quiz.
   var profile = saveProfile(name, email, ig, phone);
 
+  // Elevate, in parallel and unawaited. It carries the questions as text so
+  // the CRM can show the answers without knowing this quiz, and the tracked
+  // link so the lead arrives knowing which placement produced it.
+  Elevate.capture(MAGNET, {
+    name: name,
+    email: email,
+    phone: phone,
+    igHandle: ig,
+    answers: answerPairs()
+  });
+
   try {
     var res = await fetch(LEAD_API, {
       method: 'POST',
@@ -825,6 +880,7 @@ function openRoadmap() {
 }
 
 buildSelects();
+Elevate.step(MAGNET, 'view');
 </script>
 </body>
 </html>

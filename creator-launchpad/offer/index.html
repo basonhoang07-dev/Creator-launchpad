@@ -379,6 +379,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
   </div>
 </div>
 
+<script src="../track.js"></script>
 <script>
 /* ---------------------------------------------------------------------------
    Offer to Client - lead magnet funnel
@@ -394,6 +395,13 @@ var answers = {};
 var TOTAL = 12;
 var PROFILE_KEY = 'clp_offer_profile_v1';   // namespaced: must not collide with the UGC roadmap
 var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/capture';
+
+/* What the Elevate CRM knows this funnel by, registered on its /magnets page
+   under the same slug. The lead goes to both places while the move to
+   Elevate is underway: the portal above is what the admin sheet reads today,
+   Elevate is where it is going, and sending to one only would mean losing
+   leads either now or later. */
+var MAGNET = 'offer-to-client';
 var LANDING_URL = window.location.href;
 
 /* Which campaign sent them. Defaults to a slug that marks this funnel, so these
@@ -538,13 +546,19 @@ function selectOpt(btn, q, val) {
   var group = document.querySelectorAll('[data-q="' + q + '"]');
   for (var i = 0; i < group.length; i++) group[i].classList.remove('selected');
   btn.classList.add('selected');
+  var first = Object.keys(answers).filter(function (k) { return /^q\d$/.test(k); }).length === 0;
   answers[q] = val;
   var go = document.getElementById('btn-' + q);
   if (go) go.disabled = false;
+  // The first answer rather than the page load. Somebody who read the value
+  // stack and left never started the quiz, and counting them as though they
+  // did hides the drop-off worth fixing.
+  if (first) Elevate.step(MAGNET, 'start');
 }
 
 function startBuild() {
   show(8);
+  Elevate.step(MAGNET, 'finish');   // every question answered, before the ask
   var lines = ['Working out where you start…', 'Picking outbound or inbound…', 'Almost there…'];
   var lineEl = document.getElementById('load-line');
   var steps = document.querySelectorAll('.load-step');
@@ -681,6 +695,37 @@ var LABELS = {
   q6: { u5: 'Under 5 hrs/wk', '5to15': '5-15 hrs/wk', '15to30': '15-30 hrs/wk', '30plus': '30+ hrs/wk' }
 };
 
+/* The questions as they are asked on screen. The Elevate CRM has never seen
+   them and does not need to — it stores them as text and composes the one
+   line a setter reads — which is exactly what lets this funnel ask about
+   offer stage and price while the UGC one asks about experience and income,
+   with no shared column set to migrate between them. */
+var QUESTION_TEXT = {
+  q1: 'Do you have an offer yet?',
+  q2: 'How big is your audience?',
+  q3: 'Have you ever closed high-ticket on a call?',
+  q4: 'What do you want to charge per client?',
+  q5: 'What are you making right now?',
+  q6: 'How many hours a week can you give this?'
+};
+
+function answerPairs() {
+  var out = [];
+  ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(function (k) {
+    var label = (LABELS[k] || {})[answers[k]];
+    if (label) out.push({ question: QUESTION_TEXT[k], answer: label });
+  });
+  // Which fork the roadmap put them on. Not a question they answered, but
+  // the single most useful thing to know before the call: an outbound lead
+  // and an inbound one need opposite advice.
+  var track = deriveTrack();
+  if (track) out.push({ question: 'Roadmap track', answer: track });
+  if (answers.country) {
+    out.push({ question: 'Country', answer: answers.country + (answers.tier ? ' (T' + answers.tier + ')' : '') });
+  }
+  return out;
+}
+
 function saveProfile(name, email, ig, phone) {
   var profile = {
     firstName: name.split(' ')[0], fullName: name, email: email, instagram: ig, phone: phone,
@@ -707,6 +752,17 @@ async function submitLead() {
   btn.disabled = true; label.textContent = 'Unlocking'; arrow.innerHTML = '<span class="spinner"></span>';
   errorEl.style.display = 'none';
   var profile = saveProfile(name, email, ig, phone);
+
+  // Elevate, in parallel and unawaited. It carries the questions as text and
+  // the tracked link they arrived on, so the lead lands in the pipeline
+  // already knowing which roadmap and which placement produced it.
+  Elevate.capture(MAGNET, {
+    name: name,
+    email: email,
+    phone: phone,
+    igHandle: ig,
+    answers: answerPairs()
+  });
 
   try {
     var res = await fetch(LEAD_API, {
@@ -836,6 +892,7 @@ function openRoadmap() {
 renderStack();
 renderProof();
 buildSelects();
+Elevate.step(MAGNET, 'view');
 </script>
 </body>
 </html>
