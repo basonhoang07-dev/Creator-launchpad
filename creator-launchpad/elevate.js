@@ -35,7 +35,7 @@
   /* Where the CRM is. Render's blueprint names the service elevate-crm, so
      this is its address on the free plan; a custom domain later is a
      one-line change here. */
-  var CRM = 'https://elevate-crm.onrender.com';
+  var CRM = 'https://elevate-crm-q56v.onrender.com';
 
   /* The tenant. The workspace's slug, not its display name — the name was
      changed to Elevate during the rebrand and the slug deliberately was not,
