@@ -32,10 +32,10 @@
 (function (global) {
   'use strict';
 
-  /* Where the CRM is. Render's blueprint names the service elevate-crm, so
-     this is its address on the free plan; a custom domain later is a
-     one-line change here. */
-  var CRM = 'https://elevate-crm-q56v.onrender.com';
+  /* Where the CRM is: its main address, on Vercel. (A copy on Render,
+     https://elevate-crm-q56v.onrender.com, shares the same database.) A
+     custom domain later is a one-line change here. */
+  var CRM = 'https://elevate-crm-two.vercel.app';
 
   /* The tenant. The workspace's slug, not its display name — the name was
      changed to Elevate during the rebrand and the slug deliberately was not,
