@@ -164,7 +164,6 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
     <div class="stack" id="stack"></div>
 
-    <div class="sec-label" style="margin-top:2rem">Someone who ran it</div>
     <div id="proof"></div>
 
     <button class="btn" onclick="goNext(0)">Build my roadmap <span>&rarr;</span></button>
@@ -840,22 +839,12 @@ var FAQ = [
    One real case, told properly, beats a wall of names. Add entries as more
    clients hit numbers worth showing. Nothing here is rounded up or inferred -
    each line is something that actually happened. */
-var PROOF = [{
-  name: 'Ivan Tong',
-  headline: '$0 to $6,000 in a week — then had to stop taking clients',
-  points: [
-    'First week live: $2,500 through Stripe, from zero',
-    'The week after: $6,000',
-    'One client closed at $2,500, paid in full',
-    'Another structured at $5,000 — $1k/mo for three months, $2k when she hits $6k with the system',
-    'Now around $15k/mo and capping intake'
-  ]
-}];
+var PROOF = [];
 
 function renderProof() {
   var el = document.getElementById('proof');
   if (!el || !PROOF.length) return;
-  el.innerHTML = PROOF.map(function (p) {
+  el.innerHTML = '<div class="sec-label" style="margin-top:2rem">Someone who ran it</div>' + PROOF.map(function (p) {
     return '<div class="proof-card">' +
       '<div class="proof-name">' + p.name + '</div>' +
       '<div class="proof-head">' + p.headline + '</div>' +
