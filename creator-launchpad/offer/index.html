@@ -156,15 +156,9 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 <div class="wrap">
   <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
 
-  <!-- 0 - HOOK -->
-  <div class="step active" id="step-0">
+  <!-- 1 - COUNTRY. No intro screen: the page opens on the first question (the "start" count is the first answer). -->
+  <div class="step active" id="step-1">
     <h1>Get your free scaling roadmap</h1>
-    <button class="btn" onclick="goNext(0)">Start</button>
-  </div>
-
-  <!-- 1 - COUNTRY -->
-  <div class="step" id="step-1">
-    <div class="eyebrow">First things first</div>
     <h2>Where are you based?</h2>
     <p class="sub">This changes who you can realistically charge, and how much.</p>
     <div class="field">
@@ -177,7 +171,6 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <div class="warn-body">The prices in this roadmap assume <strong>T1 clients</strong> &mdash; US, UK, Canada, Australia, Western Europe. The method works from anywhere, but if you're selling <em>into</em> <span id="warn-country">your local market</span> the numbers will be lower, and some payment rails won't reach you.<br><br>The fix is usually to sell to T1 clients rather than local ones, which this teaches. Just go in knowing the price tags need adjusting.</div>
     </div>
     <button class="btn" id="btn-country" disabled onclick="goNext(1)"><span id="btn-country-label">Continue</span> <span>&rarr;</span></button>
-    <button class="back" onclick="goBack(1)">&larr; Back</button>
   </div>
 
   <!-- 2 - Q1 OFFER -->
