@@ -175,7 +175,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 2 - Q1 OFFER -->
   <div class="step" id="step-2">
-    <div class="eyebrow">Question 1 of 6</div>
+    <div class="eyebrow">Question 1 of 10</div>
     <h2>Do you have an offer yet?</h2>
     <p class="sub">This decides where your roadmap opens. Most people start at nothing &mdash; that's normal.</p>
     <div class="opts">
@@ -190,7 +190,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 3 - Q2 AUDIENCE -->
   <div class="step" id="step-3">
-    <div class="eyebrow">Question 2 of 6</div>
+    <div class="eyebrow">Question 2 of 10</div>
     <h2>How big is your audience?</h2>
     <p class="sub">This decides whether your roadmap is built around outbound or inbound. They're genuinely different plans.</p>
     <div class="opts">
@@ -205,7 +205,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 4 - Q3 SALES -->
   <div class="step" id="step-4">
-    <div class="eyebrow">Question 3 of 6</div>
+    <div class="eyebrow">Question 3 of 10</div>
     <h2>Have you ever closed high-ticket on a call?</h2>
     <p class="sub">Be honest. This decides how deep the sales phase goes for you.</p>
     <div class="opts">
@@ -219,7 +219,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 5 - Q4 PRICE -->
   <div class="step" id="step-5">
-    <div class="eyebrow">Question 4 of 6</div>
+    <div class="eyebrow">Question 4 of 10</div>
     <h2>What do you want to charge per client?</h2>
     <p class="sub">Even if it's a guess. This changes the pricing and positioning advice you get.</p>
     <div class="opts">
@@ -234,7 +234,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 6 - Q5 REVENUE -->
   <div class="step" id="step-6">
-    <div class="eyebrow">Question 5 of 6</div>
+    <div class="eyebrow">Question 5 of 10</div>
     <h2>What are you making right now?</h2>
     <p class="sub">Per month, from this. Nobody sees it but us &mdash; it's what keeps the plan honest.</p>
     <div class="opts">
@@ -250,7 +250,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 7 - Q6 HOURS -->
   <div class="step" id="step-7">
-    <div class="eyebrow">Question 6 of 6</div>
+    <div class="eyebrow">Question 6 of 10</div>
     <h2>How many hours a week can you give this?</h2>
     <p class="sub">There's no deadline on the roadmap. This just sets expectations honestly.</p>
     <div class="opts">
@@ -259,12 +259,72 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','15to30')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">15 &ndash; 30 hours</span><span class="opt-note">Most of my working week</span></span></button>
       <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','30plus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">30+ hours</span><span class="opt-note">This is my full-time focus</span></span></button>
     </div>
-    <button class="btn" id="btn-q6" disabled onclick="startBuild()">Build my roadmap <span>&rarr;</span></button>
+    <button class="btn" id="btn-q6" disabled onclick="goNext(7)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(7)">&larr; Back</button>
   </div>
 
-  <!-- 8 - LOADING -->
+  <!-- 8 - Q7 CONTENT EXPERIENCE -->
   <div class="step" id="step-8">
+    <div class="eyebrow">Question 7 of 10</div>
+    <h2>How much content have you actually posted?</h2>
+    <p class="sub">Your roadmap treats content very differently depending on where you're starting from.</p>
+    <div class="opts">
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nothing yet</span><span class="opt-note">I haven't started posting</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','started')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A few posts here and there</span><span class="opt-note">Nothing consistent, just testing the water</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','regular')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Posting regularly</span><span class="opt-note">A few times a week, and I've kept it up</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','main')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Content is my main channel</span><span class="opt-note">I post daily and it drives my business</span></span></button>
+    </div>
+    <button class="btn" id="btn-q7" disabled onclick="goNext(8)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(8)">&larr; Back</button>
+  </div>
+
+  <!-- 9 - Q8 CONTENT RESULTS -->
+  <div class="step" id="step-9">
+    <div class="eyebrow">Question 8 of 10</div>
+    <h2>What has your content brought you so far?</h2>
+    <p class="sub">Be straight with us. This decides whether your roadmap fixes your content or builds on what's already working.</p>
+    <div class="opts">
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nothing yet</span><span class="opt-note">No leads and no clients from it</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','engagement')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Engagement, not money</span><span class="opt-note">Views and comments, but it hasn't turned into clients</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','leads')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Some leads and calls</span><span class="opt-note">It brings people in, just not reliably</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','clients')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Consistent clients</span><span class="opt-note">Content is already a real source of revenue</span></span></button>
+    </div>
+    <button class="btn" id="btn-q8" disabled onclick="goNext(9)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(9)">&larr; Back</button>
+  </div>
+
+  <!-- 10 - Q9 CONTENT PROBLEM -->
+  <div class="step" id="step-10">
+    <div class="eyebrow">Question 9 of 10</div>
+    <h2>What's your biggest problem with content right now?</h2>
+    <p class="sub">Pick the one that hurts the most. Your roadmap attacks that one first.</p>
+    <div class="opts">
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','ideas')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't know what to post</span><span class="opt-note">Ideas and hooks are the hard part</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','reach')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I post but nobody watches</span><span class="opt-note">Views and reach are the problem</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','conversion')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">People watch but don't buy</span><span class="opt-note">The attention is there, the conversion isn't</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','consistency')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I can't stay consistent</span><span class="opt-note">I start strong, then it falls off</span></span></button>
+    </div>
+    <button class="btn" id="btn-q9" disabled onclick="goNext(10)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(10)">&larr; Back</button>
+  </div>
+
+  <!-- 11 - Q10 A+ PROBLEM -->
+  <div class="step" id="step-11">
+    <div class="eyebrow">Question 10 of 10</div>
+    <h2>If you could fix one thing in your business right now, what would it be?</h2>
+    <p class="sub">We call this your A+ problem, the one bottleneck holding everything else back. Your roadmap is built around fixing it first.</p>
+    <div class="opts">
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','leads')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Getting leads</span><span class="opt-note">Not enough people to talk to</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','closing')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Closing clients</span><span class="opt-note">Calls happen, deals don't</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','offer')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">My offer</span><span class="opt-note">What I sell isn't landing</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','systems')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Time and systems</span><span class="opt-note">Everything depends on me doing it manually</span></span></button>
+    </div>
+    <button class="btn" id="btn-q10" disabled onclick="startBuild()">Build my roadmap <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(11)">&larr; Back</button>
+  </div>
+
+  <!-- 12 - LOADING -->
+  <div class="step" id="step-12">
     <div class="load-wrap">
       <div class="load-ring"></div>
       <h2 style="margin-bottom:.6rem">Building your roadmap&hellip;</h2>
@@ -278,8 +338,8 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
     </div>
   </div>
 
-  <!-- 9 - NAME + EMAIL -->
-  <div class="step" id="step-9">
+  <!-- 13 - NAME + EMAIL -->
+  <div class="step" id="step-13">
     <div class="eyebrow">Almost there</div>
     <h2 id="contact-headline">Your roadmap is ready.</h2>
     <p class="sub">Tell us who it's for so we can put your name on it.</p>
@@ -292,12 +352,12 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <input class="input" id="email-input" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" oninput="checkName()" />
     </div>
     <div class="err" id="email-error"></div>
-    <button class="btn" id="btn-9" disabled onclick="goNext(9)">Continue <span>&rarr;</span></button>
-    <button class="back" onclick="goBack(9)">&larr; Back</button>
+    <button class="btn" id="btn-13" disabled onclick="goNext(13)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(13)">&larr; Back</button>
   </div>
 
-  <!-- 10 - INSTAGRAM -->
-  <div class="step" id="step-10">
+  <!-- 14 - INSTAGRAM -->
+  <div class="step" id="step-14">
     <div class="eyebrow">Almost there</div>
     <h2>What's your Instagram handle?</h2>
     <p class="sub">So we know who you are when you message, and can see what you're building.</p>
@@ -306,12 +366,12 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <input class="input" id="ig-input" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off" spellcheck="false" oninput="checkIg()" />
     </div>
     <div class="err" id="ig-error"></div>
-    <button class="btn" id="btn-10" disabled onclick="goNext(10)">Continue <span>&rarr;</span></button>
-    <button class="back" onclick="goBack(10)">&larr; Back</button>
+    <button class="btn" id="btn-14" disabled onclick="goNext(14)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(14)">&larr; Back</button>
   </div>
 
-  <!-- 11 - PHONE -->
-  <div class="step" id="step-11">
+  <!-- 15 - PHONE -->
+  <div class="step" id="step-15">
     <div class="eyebrow">Last one</div>
     <h2>Finally, what's your WhatsApp number?</h2>
     <p class="sub">Our team might give you a call on WhatsApp down the line to see how you're getting on. Not a pitch &mdash; there's a Q&amp;A about it on the next page.</p>
@@ -324,12 +384,12 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <div class="hint">No spam, no autodialer &mdash; just the occasional check-in.</div>
     </div>
     <div class="err" id="submit-error"></div>
-    <button class="btn" id="btn-11" disabled onclick="submitLead()"><span id="btn-11-label">Unlock the whole thing</span> <span id="btn-11-arrow">&rarr;</span></button>
-    <button class="back" onclick="goBack(11)">&larr; Back</button>
+    <button class="btn" id="btn-15" disabled onclick="submitLead()"><span id="btn-15-label">Unlock the whole thing</span> <span id="btn-15-arrow">&rarr;</span></button>
+    <button class="back" onclick="goBack(15)">&larr; Back</button>
   </div>
 
-  <!-- 12 - NEXT STEPS -->
-  <div class="step" id="step-12">
+  <!-- 16 - NEXT STEPS -->
+  <div class="step" id="step-16">
     <div class="pill">&#10003; You're in</div>
     <h1 id="done-headline">That's it. Here's what happens now.</h1>
     <p class="sub">Two things before you open the roadmap.</p>
@@ -363,7 +423,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 <script>
 /* ---------------------------------------------------------------------------
    Offer to Client - lead magnet funnel
-   country -> 6 questions -> build -> name/email -> IG -> WhatsApp ->
+   country -> 10 questions -> build -> name/email -> IG -> WhatsApp ->
    next steps -> roadmap.html
 
    Deliberately a sibling of the UGC funnel rather than a fork of it: different
@@ -372,7 +432,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 --------------------------------------------------------------------------- */
 
 var answers = {};
-var TOTAL = 12;
+var TOTAL = 16;
 var PROFILE_KEY = 'clp_offer_profile_v1';   // namespaced: must not collide with the UGC roadmap
 var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/capture';
 
@@ -534,7 +594,7 @@ function selectOpt(btn, q, val) {
   var group = document.querySelectorAll('[data-q="' + q + '"]');
   for (var i = 0; i < group.length; i++) group[i].classList.remove('selected');
   btn.classList.add('selected');
-  var first = Object.keys(answers).filter(function (k) { return /^q\d$/.test(k); }).length === 0;
+  var first = Object.keys(answers).filter(function (k) { return /^q\d+$/.test(k); }).length === 0;
   answers[q] = val;
   var go = document.getElementById('btn-' + q);
   if (go) go.disabled = false;
@@ -545,7 +605,7 @@ function selectOpt(btn, q, val) {
 }
 
 function startBuild() {
-  show(8);
+  show(12);
   Elevate.step(MAGNET, 'finish');   // every question answered, before the ask
   var lines = ['Working out where you start…', 'Picking outbound or inbound…', 'Almost there…'];
   var lineEl = document.getElementById('load-line');
@@ -561,7 +621,7 @@ function startBuild() {
   for (var s = 0; s < steps.length; s++) {
     (function (el, idx) { setTimeout(function () { el.classList.add('done'); }, 500 + idx * 780); })(steps[s], s);
   }
-  setTimeout(function () { show(9); document.getElementById('name-input').focus(); }, 3900);
+  setTimeout(function () { show(13); document.getElementById('name-input').focus(); }, 3900);
 }
 
 /* --- validation ------------------------------------------------------------
@@ -636,7 +696,7 @@ function checkName() {
   var n = document.getElementById('name-input').value.trim();
   var e = document.getElementById('email-input').value.trim();
   var np = nameProblem(n), ep = emailProblem(e);
-  document.getElementById('btn-9').disabled = !!(np || ep);
+  document.getElementById('btn-13').disabled = !!(np || ep);
   var err = document.getElementById('email-error');
   var problem = (n.length > 3 ? np : null) || (e.length > 6 ? ep : null);
   if (problem) { err.textContent = problem; err.style.display = 'block'; }
@@ -646,7 +706,7 @@ function checkName() {
 function checkIg() {
   var raw = document.getElementById('ig-input').value;
   var p = igProblem(raw);
-  document.getElementById('btn-10').disabled = !!p;
+  document.getElementById('btn-14').disabled = !!p;
   var err = document.getElementById('ig-error');
   if (p && raw.trim().length > 2) { err.textContent = p; err.style.display = 'block'; }
   else { err.textContent = ''; err.style.display = 'none'; }
@@ -654,7 +714,7 @@ function checkIg() {
 function checkPhone() {
   var national = (document.getElementById('phone-input') || {}).value || '';
   var p = phoneProblem(national, fullPhone());
-  document.getElementById('btn-11').disabled = !!p;
+  document.getElementById('btn-15').disabled = !!p;
   var err = document.getElementById('submit-error');
   if (p && String(national).replace(/\D/g, '').length >= 6) { err.textContent = p; err.style.display = 'block'; }
   else { err.textContent = ''; err.style.display = 'none'; }
@@ -680,7 +740,11 @@ var LABELS = {
   q3: { never: 'Never closed a call', few: 'Closed a handful', regularly: 'Closes regularly' },
   q4: { u500: 'Under $500', '500to2k': '$500-2k', '2kto5k': '$2k-5k', '5kplus': '$5k+' },
   q5: { zero: '$0', u1k: 'Under $1k/mo', '1kto5k': '$1k-5k/mo', '5kto10k': '$5k-10k/mo', '10kplus': '$10k+/mo' },
-  q6: { u5: 'Under 5 hrs/wk', '5to15': '5-15 hrs/wk', '15to30': '15-30 hrs/wk', '30plus': '30+ hrs/wk' }
+  q6: { u5: 'Under 5 hrs/wk', '5to15': '5-15 hrs/wk', '15to30': '15-30 hrs/wk', '30plus': '30+ hrs/wk' },
+  q7: { none: 'No content posted', started: 'Posted a little', regular: 'Posts regularly', main: 'Content is main channel' },
+  q8: { none: 'No results from content', engagement: 'Engagement only', leads: 'Some leads and calls', clients: 'Consistent clients from content' },
+  q9: { ideas: "Doesn't know what to post", reach: 'No views or reach', conversion: 'Watches, no buyers', consistency: "Can't stay consistent" },
+  q10: { leads: 'Getting leads', closing: 'Closing clients', offer: 'The offer', systems: 'Time and systems' }
 };
 
 /* The questions as they are asked on screen. The Elevate CRM has never seen
@@ -694,12 +758,16 @@ var QUESTION_TEXT = {
   q3: 'Have you ever closed high-ticket on a call?',
   q4: 'What do you want to charge per client?',
   q5: 'What are you making right now?',
-  q6: 'How many hours a week can you give this?'
+  q6: 'How many hours a week can you give this?',
+  q7: 'How much content have you actually posted?',
+  q8: 'What has your content brought you so far?',
+  q9: "What's your biggest problem with content right now?",
+  q10: 'If you could fix one thing in your business right now, what would it be? (your A+ problem)'
 };
 
 function answerPairs() {
   var out = [];
-  ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(function (k) {
+  ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'].forEach(function (k) {
     var label = (LABELS[k] || {})[answers[k]];
     if (label) out.push({ question: QUESTION_TEXT[k], answer: label });
   });
@@ -727,9 +795,9 @@ function saveProfile(name, email, ig, phone) {
 }
 
 async function submitLead() {
-  var btn = document.getElementById('btn-11');
-  var label = document.getElementById('btn-11-label');
-  var arrow = document.getElementById('btn-11-arrow');
+  var btn = document.getElementById('btn-15');
+  var label = document.getElementById('btn-15-label');
+  var arrow = document.getElementById('btn-15-arrow');
   var errorEl = document.getElementById('submit-error');
 
   var name = document.getElementById('name-input').value.trim().replace(/\s+/g, ' ');
@@ -797,21 +865,19 @@ async function submitLead() {
 
 var FAQ = [
   ['Why would you give away the thing you charge for?',
-   "Straight answer: because some of you will make real money with it, and when you do, you'll want help going further — and you'll come to me. That's the whole bet. I'd rather hand you the entire system and earn the right to work with you later than drip-feed you a worksheet and hope you buy. If you use all of this and never speak to me again, that's genuinely fine. It cost me nothing to copy."],
+   "Straight answer: because some of you will make real money with it. When you do, you'll want help going further, and you'll come to me. That's the whole bet. I'd rather hand you the entire system and earn the right to work with you later than drip-feed you a worksheet and hope you buy. And if you use all of this and never speak to me again, that's genuinely fine. It cost me nothing to copy."],
   ['Is this really everything, or the watered-down version?',
-   "Everything. All 55 lessons, the scripts, the frameworks, the branding sheets. It's the same material my paying clients work through — not a summary of it, not a teaser for it."],
+   "Everything. All 55 lessons, the scripts, the frameworks, the branding sheets. It's the same material my paying clients work through, not a summary of it and not a teaser for it."],
   ['Do I need an offer already?',
    "No, and most people here don't have one. The roadmap opens on building it: who you help, what you charge, what they get. If you already have one, you'll skip ahead and sharpen it instead."],
   ['Do I need an audience?',
-   "No. There are two tracks through this and the one you get depends on your answer. With no audience you run outbound — DMs, scripts, volume. With an audience you run inbound and convert the attention you're already wasting."],
+   "No. There are two tracks through this and the one you get depends on your answer. With no audience you run outbound: DMs, scripts, volume. With an audience you run inbound and convert the attention you're already wasting."],
   ["I've never sold anything. Is this too advanced?",
-   "That's who it's written for. The sales phase assumes you've never been on a call and starts from what to say in the first sixty seconds."],
+   "That's exactly who it's written for. The sales phase assumes you've never been on a call, and it starts from what to say in the first sixty seconds."],
   ['How long does it take?',
    "There's no clock on it. Roughly 25 days of real work if you're going hard, considerably longer around a job. It doesn't expire and nothing locks, so go at whatever pace you'll actually sustain."],
-  ['Who is this not for?',
-   "If you're already closing high-ticket consistently and doing serious monthly revenue, this will mostly be revision. And if you want something that works without you doing the outreach, the calls and the follow-up — that isn't this, and I'd rather say so now."],
   ["What if I'm not in a T1 country?",
-   "The method works anywhere. What changes is the price tag — the numbers in here assume T1 clients. The usual fix is to sell to T1 clients rather than locally, which the outbound track covers directly."],
+   "The method works anywhere. What changes is the price tag, because the numbers in here assume T1 clients. The usual fix is to sell to T1 clients rather than locally, which the outbound track covers directly."],
   ['Does any of it expire?',
    'No. No countdown, no locked modules, no "complete this to unlock that". Bookmark it and come back whenever.']
 ];
@@ -849,7 +915,7 @@ function toggleFaq(i) { document.getElementById('faq-' + i).classList.toggle('op
 function showNextSteps(firstName) {
   document.getElementById('done-headline').textContent = "That's it, " + firstName + ". Here's what happens now.";
   renderFaq();
-  show(12);
+  show(16);
   document.getElementById('progress').style.width = '100%';
 }
 
