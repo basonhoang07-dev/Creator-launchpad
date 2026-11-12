@@ -1,9 +1,13 @@
 /* ===========================================================================
    Offer to Client — the lessons
 
-   All 55 items, taken from the CL 3.0 Notion modules:
+   61 items. The first 55 are taken from the CL 3.0 Notion modules:
      Branding Sheets · D1 Offer Mastery · Appointment Setting ·
      High-ticket Sales · Content Ecosystem
+   PHASE_5 (Back-end, delegation and AI) is new in v2: the Notion bank has
+   almost nothing on systems, so those 6 lessons were written for this
+   roadmap. One of them is the starter tracking stack drafted in
+   jonas-370aq-additions-draft.md; the other five are new.
 
    Loaded by roadmap.html. Kept separate from the page so the teaching can be
    re-pulled from Notion without touching any of the page logic.
@@ -987,6 +991,82 @@ var PHASE_4 = {
       "<h5>The structure</h5>" +
       "<p><strong>Big idea</strong> → <strong>3–5 brand pillars</strong> → <strong>content topics</strong> → <strong>individual posts</strong></p>" +
       "<div class='do'><b>The final check</b>If someone looked at your last 20 pieces of content, they should be able to recognise your big idea and what you stand for — without you having to explain it.</div>")
+  ]
+};
+
+
+/* Back-end, delegation and AI automation. Not part of the original 55:
+   the CL 3.0 bank has no systems module, so this phase was written for v2
+   to give the scoring engine a fourth area with real lessons in it. Kept
+   out of PHASES on purpose: roadmap.html assembles its display groups
+   itself, and PHASES stays the canonical Notion five. */
+var PHASE_5 = {
+  n: 5,
+  title: 'Back-end, delegation and AI',
+  goal: 'The part of the business nobody posts about: tracking, onboarding, SOPs, delegation and AI. This is what lets the front end grow without the whole thing running on your memory and your hours.',
+  tasks: [
+    D('Track the numbers from your first call',
+      "<p>You cannot fix a bottleneck you cannot see. From your first booked call, keep one simple sheet and update it after every call. Nothing fancy; the discipline is the point.</p>" +
+      "<h5>What goes on it</h5><ul>" +
+      "<li>Calls booked, calls confirmed, calls that actually happened</li>" +
+      "<li>Closes, and cash collected, not just revenue promised</li>" +
+      "<li>Average order value: total cash divided by clients signed</li>" +
+      "<li>Where each call came from: which platform, which video, which post</li>" +
+      "<li>Show rate and close rate, worked out weekly</li>" +
+      "</ul>" +
+      "<p>Two rules that save beginners months. Judge content by the cash it produces, not the views. And if your average order value sits right on your price, you are probably priced too low and should test a rise.</p>"),
+
+    D('Set up client onboarding that runs without you',
+      "<p>The sale is not the finish line. What happens in the first 48 hours after someone pays decides whether they stay, do the work and eventually buy again. Build it once as a system and it runs the same way for every client.</p>" +
+      "<h5>The moving parts</h5><ul>" +
+      "<li>A welcome message that lands within the hour: what happens next, where things live, who to contact</li>" +
+      "<li>One onboarding form that collects everything delivery needs, so nobody chases details in the DMs</li>" +
+      "<li>The kickoff call booked before the payment high wears off, ideally inside 72 hours</li>" +
+      "<li>A delivery calendar the client can see: sessions, deadlines, check-in days</li>" +
+      "<li>A weekly check-in with a fixed shape, so progress gets reported instead of guessed</li>" +
+      "</ul>" +
+      "<p>Write each step down the first time you do it. The notes you take on client one become the system client ten never has to think about.</p>" +
+      "<div class=\'do\'><b>Do this</b>Map your current onboarding on one page, step by step, from payment to first result. Circle every step that only happens because you remembered it. Those are the steps to systemise first.</div>"),
+
+    D('Write the SOP before you delegate the task',
+      "<p>You cannot delegate what only exists in your head. Before anyone else touches a task, it needs a written standard: what done looks like, the steps, and the two or three mistakes to avoid.</p>" +
+      "<h5>An SOP that actually gets used</h5><ul>" +
+      "<li>One page per task, written while you do the task yourself</li>" +
+      "<li>A screen recording of you doing it once, linked at the top</li>" +
+      "<li>The output standard in plain words: length, format, quality bar, deadline</li>" +
+      "<li>A short checklist the person ticks before they hand it back</li>" +
+      "</ul>" +
+      "<p>Expect the first version to be wrong in places. When the person you delegated to gets stuck, the SOP is missing a step. Fix the document, not just the task, and it never gets stuck there again.</p>"),
+
+    D('Delegate the repeatable work first',
+      "<p>Your hours should go where your judgement is the product: offers, sales calls, delivery quality. Everything repeatable goes to someone else as soon as the business can carry it.</p>" +
+      "<h5>Delegate in this order</h5><ul>" +
+      "<li>Editing and posting: high hours, low judgement, the first thing off your plate</li>" +
+      "<li>Inbox and DM first passes: sorting, tagging and replying to the routine, with anything sales related flagged to you</li>" +
+      "<li>Booking, reminders and follow-up admin: the work that loses money when it slips</li>" +
+      "<li>Research and first drafts: outlines, hooks and competitor pulls you then refine</li>" +
+      "</ul>" +
+      "<p>Start with one task and one person, part time. A small clean handover beats a big messy one, and the hours it frees should show up in your calendar within two weeks.</p>"),
+
+    D('Use AI to automate the busywork',
+      "<p>AI is leverage on the work you have already systemised. Point it at volume and first drafts, and keep a human on anything that gets sent, posted or promised.</p>" +
+      "<h5>Where it earns its keep</h5><ul>" +
+      "<li>Call recordings turned into transcripts, summaries and follow-up lists</li>" +
+      "<li>First drafts of replies, captions and outreach, written from your SOPs and your voice notes</li>" +
+      "<li>One piece of content repurposed into the formats your ecosystem needs</li>" +
+      "<li>Research pulls: competitor posts, comments and questions, sorted into what is worth answering</li>" +
+      "</ul>" +
+      "<p>The rule that keeps it safe: AI drafts, a human decides. Nothing AI written goes to a client or a lead without a person reading it first. Speed is the win; your judgement is still the product.</p>"),
+
+    D('Run a 30 minute weekly back-end review',
+      "<p>Back-ends rot quietly. A short weekly review is how you catch the leak while it is still small: the unbooked follow-up, the client nobody checked on, the number that slipped.</p>" +
+      "<h5>The agenda, every week</h5><ul>" +
+      "<li>The numbers sheet: booked, showed, closed, cash, and where each call came from</li>" +
+      "<li>Every active client: progressing, stuck or silent, and the one action for each</li>" +
+      "<li>Every open lead older than seven days: worked, reactivated or closed off</li>" +
+      "<li>One bottleneck only: the fix you will ship before next week</li>" +
+      "</ul>" +
+      "<p>Thirty minutes, same time each week, notes in the same place. Most back-end problems are not knowledge problems. They are nobody looked this week problems.</p>")
   ]
 };
 
