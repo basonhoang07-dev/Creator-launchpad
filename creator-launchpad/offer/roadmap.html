@@ -515,6 +515,7 @@ function render() {
 function toggleTask(id) {
   progress[id] = !progress[id];
   writeJSON(PROGRESS_KEY, progress);
+  syncProgress();
   // Re-render rather than patch: the counters, the badges and the overview
   // table all key off the same numbers, and keeping them in sync by hand is
   // how they drift apart. Open panels and scroll position are restored.
@@ -572,7 +573,41 @@ function copyScript(btn) {
 }
 function resetAll() {
   if (!confirm('Clear every tick on this roadmap? The content stays, obviously.')) return;
-  progress = {}; writeJSON(PROGRESS_KEY, progress); render();
+  progress = {}; writeJSON(PROGRESS_KEY, progress); syncProgress(); render();
+}
+
+/* --- progress sync -----------------------------------------------------------
+   The team can only help with progress they can see, so ticks are mirrored
+   to the CRM, keyed by the same access code that opened the gate. Fire and
+   forget: if the endpoint is down or not live yet, the page never notices.
+   Writes only, nothing is read back. */
+var PROGRESS_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/progress';
+var progressSyncTimer = null;
+function syncProgress() {
+  if (!profile.accessCode && !profile.email) return;
+  if (progressSyncTimer) clearTimeout(progressSyncTimer);
+  progressSyncTimer = setTimeout(function () {
+    try {
+      var t = totals();
+      var doneIds = [];
+      for (var p = 0; p < GROUPS.length; p++)
+        for (var i = 0; i < GROUPS[p].tasks.length; i++)
+          if (progress[GROUPS[p].tasks[i]._id]) doneIds.push(GROUPS[p].tasks[i]._id);
+      fetch(PROGRESS_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accessCode: profile.accessCode || null,
+          email: profile.email || null,
+          doneIds: doneIds,
+          doneCount: t.done,
+          totalCount: t.all,
+          at: new Date().toISOString()
+        }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) { /* progress sync must never break the page */ }
+  }, 800);
 }
 
 /* --- the gate ---------------------------------------------------------------
@@ -605,6 +640,7 @@ if (typeof PHASES === "undefined") {
   renderGate();
 } else {
   render();
+  syncProgress();
 }
 </script>
 </body>
