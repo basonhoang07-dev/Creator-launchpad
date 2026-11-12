@@ -333,7 +333,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
         <div class="load-step"><span class="load-check"></span><span>Setting your starting phase</span></div>
         <div class="load-step"><span class="load-check"></span><span>Choosing outbound or inbound</span></div>
         <div class="load-step"><span class="load-check"></span><span>Matching the pricing guidance</span></div>
-        <div class="load-step"><span class="load-check"></span><span>Unlocking all 55 lessons</span></div>
+        <div class="load-step"><span class="load-check"></span><span>Unlocking all 61 lessons</span></div>
       </div>
     </div>
   </div>
@@ -392,7 +392,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
   <div class="step" id="step-16">
     <div class="pill">&#10003; You're in</div>
     <h1 id="done-headline">That's it. Here's what happens now.</h1>
-    <p class="sub">Two things before you open the roadmap.</p>
+    <p class="sub">Here is what happens next.</p>
 
     <div class="next-card">
       <span class="next-num">1</span>
@@ -405,7 +405,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <span class="next-num">2</span>
       <div>
         <div class="next-title">Keep an eye on WhatsApp</div>
-        <div class="next-body">Our team might give you a call there in the future to check in on your progress and point you at whatever you're stuck on. Nothing to book &mdash; just pick up if we ring.</div>
+        <div class="next-body">That is where your roadmap lands. Our team sends it to you personally, usually within a day, and checks in as you work through it. Nothing to book, just reply when it arrives.</div>
       </div>
     </div>
 
@@ -413,8 +413,13 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
     <div id="faq-list"></div>
 
     <div style="margin-top:1.8rem">
-      <button class="btn" onclick="openRoadmap()">Open my roadmap <span>&rarr;</span></button>
-      <div class="footer-note">Nothing in it is locked and nothing expires. Bookmark it.</div>
+      <div class="next-card">
+        <span class="next-num">3</span>
+        <div>
+          <div class="next-title">Your roadmap is on its way</div>
+          <div class="next-body">It is built from your answers, so it is not a page we leave sitting open. Our team sends yours to you on WhatsApp personally. When it lands, bookmark it: inside, nothing locks and nothing expires.</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -424,7 +429,8 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 /* ---------------------------------------------------------------------------
    Offer to Client - lead magnet funnel
    country -> 10 questions -> build -> name/email -> IG -> WhatsApp ->
-   next steps -> roadmap.html
+   next steps. There is no open roadmap link any more: the team sends each
+   lead their personal link on WhatsApp (the gate is in roadmap.html).
 
    Deliberately a sibling of the UGC funnel rather than a fork of it: different
    audience, different questions, different roadmap. The validation and country
@@ -734,6 +740,80 @@ function deriveTrack() {
   return (answers.q2 === 'zero' || answers.q2 === 'u1k') ? 'outbound' : 'inbound';
 }
 
+/* --- area scores -----------------------------------------------------------
+   v2: the answers also produce a 0 to 100 score per area of the business.
+   Each area is a stack of components, one per question that evidences it,
+   and the component maxima add to 100. Higher is stronger. The scores do
+   not remove anything: the full course stays. They decide the ORDER of the
+   roadmap and which area is badged Phase 1. The full question to area map
+   lives in v2/BUILD-NOTES.md. */
+var AREA_ORDER = ['offer', 'sales', 'content', 'backend'];
+var AREA_NAMES = {
+  offer: 'Offer',
+  sales: 'Sales process',
+  content: 'Content process',
+  backend: 'Back-end, delegation and AI automation'
+};
+var SCORE_TABLES = {
+  offer: [
+    ['q1', { none: 0, idea: 12, built: 26, selling: 40 }],
+    ['q4', { u500: 8, '500to2k': 18, '2kto5k': 26, '5kplus': 30 }],
+    ['q5', { zero: 0, u1k: 8, '1kto5k': 16, '5kto10k': 24, '10kplus': 30 }]
+  ],
+  sales: [
+    ['q3', { never: 0, few: 22, regularly: 45 }],
+    ['q8', { none: 0, engagement: 6, leads: 16, clients: 25 }],
+    ['q5', { zero: 0, u1k: 8, '1kto5k': 16, '5kto10k': 24, '10kplus': 30 }]
+  ],
+  content: [
+    ['q7', { none: 0, started: 12, regular: 24, main: 35 }],
+    ['q8', { none: 0, engagement: 10, leads: 22, clients: 35 }],
+    ['q2', { zero: 0, u1k: 6, '1to10k': 13, '10kplus': 20 }],
+    ['q9', { consistency: 2, ideas: 4, reach: 6, conversion: 10 }]
+  ]
+};
+function scorePts(q, table) { var v = table[answers[q]]; return typeof v === 'number' ? v : 0; }
+function areaScore(area) {
+  var rows = SCORE_TABLES[area], total = 0;
+  for (var i = 0; i < rows.length; i++) total += scorePts(rows[i][0], rows[i][1]);
+  return total;
+}
+/* Back-end has no direct question, so it is inferred: revenue level, whether
+   they are selling at all, and leverage, meaning how much revenue each hour
+   band is carrying. High revenue on few hours means systems are doing work;
+   low revenue on many hours means the person is the system. */
+var REV_IDX = { zero: 0, u1k: 1, '1kto5k': 2, '5kto10k': 3, '10kplus': 4 };
+var HRS_IDX = { u5: 0, '5to15': 1, '15to30': 2, '30plus': 3 };
+function leveragePoints() {
+  var d = (REV_IDX[answers.q5] || 0) - (HRS_IDX[answers.q6] || 0);
+  if (d <= -2) return 4;
+  if (d === -1) return 10;
+  if (d === 0) return 18;
+  if (d === 1) return 26;
+  return 35;
+}
+function computeScores() {
+  var sc = { offer: areaScore('offer'), sales: areaScore('sales'), content: areaScore('content') };
+  sc.backend = scorePts('q5', { zero: 0, u1k: 9, '1kto5k': 18, '5kto10k': 27, '10kplus': 35 })
+    + leveragePoints()
+    + scorePts('q1', { none: 0, idea: 6, built: 14, selling: 30 });
+  return sc;
+}
+/* Which area leads the roadmap. Their q10 pick is the diagnosis they walked
+   in with, and it is weighted to normally win: it IS one of the four areas.
+   But where their other answers score a different area lower, the lower
+   score wins and the rationale on the roadmap says why. */
+var APLUS_FROM_Q10 = { leads: 'content', closing: 'sales', offer: 'offer', systems: 'backend' };
+function resolveAplus(scores) {
+  var pick = APLUS_FROM_Q10[answers.q10] || null;
+  var lowest = AREA_ORDER[0];
+  for (var i = 0; i < AREA_ORDER.length; i++) {
+    if (scores[AREA_ORDER[i]] < scores[lowest]) lowest = AREA_ORDER[i];
+  }
+  if (pick && scores[pick] <= scores[lowest]) return { area: pick, pick: pick, agreed: true };
+  return { area: lowest, pick: pick, agreed: false };
+}
+
 var LABELS = {
   q1: { none: 'No offer yet', idea: 'Offer idea only', built: 'Offer built, unsold', selling: 'Already selling' },
   q2: { zero: 'No audience', u1k: 'Under 1k', '1to10k': '1k-10k', '10kplus': '10k+' },
@@ -776,10 +856,34 @@ function answerPairs() {
   // and an inbound one need opposite advice.
   var track = deriveTrack();
   if (track) out.push({ question: 'Roadmap track', answer: track });
+  var scores = computeScores();
+  var ap = resolveAplus(scores);
+  out.push({ question: 'Area scores (0 to 100, higher is stronger)',
+    answer: 'Offer ' + scores.offer + ', Sales ' + scores.sales + ', Content ' + scores.content + ', Back-end ' + scores.backend });
+  out.push({ question: 'A+ problem (their pick)', answer: (LABELS.q10 || {})[answers.q10] || '' });
+  out.push({ question: 'Roadmap Phase 1 (A+ area)',
+    answer: AREA_NAMES[ap.area] + (ap.agreed ? ' (matches their pick)' : ' (their scores put this lower than their pick, so it goes first)') });
   if (answers.country) {
     out.push({ question: 'Country', answer: answers.country + (answers.tier ? ' (T' + answers.tier + ')' : '') });
   }
   return out;
+}
+
+/* The roadmap is gated: every submitted lead gets a personal access code,
+   and the only working roadmap link is the one carrying it. The team sends
+   that link on WhatsApp, which makes the delivery a conversation instead
+   of a page anyone can open. The code is not a secret (a static page cannot
+   keep one); it is a wall, the same shape as a contact-walled training. */
+function newAccessCode() {
+  var chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789', out = '';
+  for (var i = 0; i < 8; i++) out += chars[Math.floor(Math.random() * chars.length)];
+  return out;
+}
+function roadmapUrl(profile) {
+  var code = btoa(JSON.stringify({ p: profile.phase, k: profile.track, pr: profile.price, s: profile.sales, t: profile.tier, c: profile.country, h: profile.hours, sc: profile.scores, ap: profile.aplus, ag: profile.aplusAgreed }));
+  var base = window.location.href.split(/[?#]/)[0];
+  if (base.slice(-1) !== '/') base = base.slice(0, base.lastIndexOf('/') + 1);
+  return base + 'roadmap.html#r=' + encodeURIComponent(code) + '&k=' + profile.access;
 }
 
 function saveProfile(name, email, ig, phone) {
@@ -787,9 +891,12 @@ function saveProfile(name, email, ig, phone) {
     firstName: name.split(' ')[0], fullName: name, email: email, instagram: ig, phone: phone,
     country: answers.country, countryIso: answers.countryIso, tier: answers.tier,
     phase: derivePhase(), track: deriveTrack(),
+    scores: computeScores(),
     price: answers.q4, revenue: answers.q5, hours: answers.q6, sales: answers.q3,
-    answers: answers, savedAt: Date.now()
+    answers: answers, access: newAccessCode(), savedAt: Date.now()
   };
+  var ap = resolveAplus(profile.scores);
+  profile.aplus = ap.area; profile.aplusPick = ap.pick; profile.aplusAgreed = ap.agreed;
   try { localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); } catch (e) { /* private mode */ }
   return profile;
 }
@@ -812,12 +919,14 @@ async function submitLead() {
   // Elevate, in parallel and unawaited. It carries the questions as text and
   // the tracked link they arrived on, so the lead lands in the pipeline
   // already knowing which roadmap and which placement produced it.
+  var pairs = answerPairs();
+  pairs.push({ question: 'Roadmap link - send this to them on WhatsApp', answer: roadmapUrl(profile) });
   Elevate.capture(MAGNET, {
     name: name,
     email: email,
     phone: phone,
     igHandle: ig,
-    answers: answerPairs()
+    answers: pairs
   });
 
   try {
@@ -867,7 +976,7 @@ var FAQ = [
   ['Why would you give away the thing you charge for?',
    "Straight answer: because some of you will make real money with it. When you do, you'll want help going further, and you'll come to me. That's the whole bet. I'd rather hand you the entire system and earn the right to work with you later than drip-feed you a worksheet and hope you buy. And if you use all of this and never speak to me again, that's genuinely fine. It cost me nothing to copy."],
   ['Is this really everything, or the watered-down version?',
-   "Everything. All 55 lessons, the scripts, the frameworks, the branding sheets. It's the same material my paying clients work through, not a summary of it and not a teaser for it."],
+   "Everything. All 61 lessons, the scripts, the frameworks, the branding sheets. It's the same material my paying clients work through, not a summary of it and not a teaser for it."],
   ['Do I need an offer already?',
    "No, and most people here don't have one. The roadmap opens on building it: who you help, what you charge, what they get. If you already have one, you'll skip ahead and sharpen it instead."],
   ['Do I need an audience?',
@@ -917,20 +1026,6 @@ function showNextSteps(firstName) {
   renderFaq();
   show(16);
   document.getElementById('progress').style.width = '100%';
-}
-
-function openRoadmap() {
-  // Carry the plan in the link so opening it on another device still gets the
-  // right phase and track. No name, email, phone or handle goes in a URL.
-  var dest = 'roadmap.html';
-  try {
-    var p = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}');
-    if (p.phase !== undefined) {
-      var code = btoa(JSON.stringify({ p: p.phase, k: p.track, pr: p.price, s: p.sales, t: p.tier, c: p.country, h: p.hours }));
-      dest += '#r=' + encodeURIComponent(code);
-    }
-  } catch (e) { /* unpersonalised link still works */ }
-  window.location.href = dest;
 }
 
 renderProof();
