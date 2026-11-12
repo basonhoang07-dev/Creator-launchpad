@@ -10,16 +10,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
 <style>
+/* Notion-style layout (Akira, 2026-11-12): flat page, hairline dividers,
+   to-do rows and toggle teaching instead of cards. Same classes and JS
+   hooks as before; only the presentation changed. Palette is Notion dark
+   (neutral grays) with the Elevate purple kept as the accent. */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #070b14; --white: #e8eef6;
+  --black: #191919; --white: #ececec;
   --purple: #2f6d88; --purple-light: #7cc0d8;
-  --purple-glow: rgba(63,134,166,.16); --purple-border: rgba(63,134,166,.36);
-  --gray-900: #0c1424; --gray-850: #111b2e; --gray-800: #152037; --gray-700: #1e2a40;
-  --gray-600: #2a3a56; --gray-400: #64748b; --gray-300: #8296b0; --gray-200: #aebed3;
-  --green: #2fd968; --green-bg: rgba(47,217,104,.1);
-  --amber: #f5a524; --amber-bg: rgba(245,165,36,.08); --amber-border: rgba(245,165,36,.28);
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --purple-glow: rgba(63,134,166,.14); --purple-border: rgba(63,134,166,.36);
+  --gray-900: #202020; --gray-850: #242424; --gray-800: #2a2a2a; --gray-700: #333333;
+  --gray-600: #454545; --gray-400: #9b9b9b; --gray-300: #b8b8b8; --gray-200: #d3d3d3;
+  --hair: rgba(255,255,255,.08); --wash: rgba(255,255,255,.04);
+  --green: #2fd968; --green-bg: rgba(47,217,104,.12);
+  --amber: #f5a524; --amber-bg: rgba(245,165,36,.1); --amber-border: rgba(245,165,36,.28);
+  --r-sm: 6px; --r-md: 8px; --r-lg: 10px;
 }
 html { font-size: 16px; -webkit-text-size-adjust: 100%; }
 body {
@@ -28,135 +33,142 @@ body {
   display: flex; flex-direction: column; align-items: center; padding: 0 1rem 6rem;
   -webkit-font-smoothing: antialiased; line-height: 1.55;
 }
-body::before {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .4;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-}
 .wrap { width: 100%; max-width: 720px; position: relative; z-index: 1; }
 
-/* --- sticky bar: progress, never a countdown --- */
+/* --- top bar: quiet, like Notion's --- */
 .bar {
-  position: sticky; top: 0; z-index: 20; margin: 0 -1rem 1.6rem; padding: .8rem 1rem;
-  background: rgba(10,10,10,.9); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--gray-700);
+  position: sticky; top: 0; z-index: 20; margin: 0 -1rem 1.2rem; padding: .65rem 1rem;
+  background: rgba(25,25,25,.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hair);
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 .bar-left { display: flex; align-items: center; gap: .6rem; min-width: 0; }
 .bar-brand { font-size: 14px; font-weight: 300; letter-spacing: .26em; color: var(--white); flex-shrink: 0; }
-.bar-count { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
-.bar-count .num { color: var(--purple-light); }
+.bar-count { font-size: 13.5px; font-weight: 500; color: var(--gray-300); white-space: nowrap; }
+.bar-count .num { color: var(--white); font-weight: 600; }
 .bar-right { display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
-.bar-resume { font-size: 12px; font-weight: 600; color: var(--purple-light); background: var(--purple-glow); border: 1px solid var(--purple-border); border-radius: 99px; padding: .3rem .7rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
-.bar-resume:hover { background: rgba(63,134,166,.28); }
+.bar-resume { font-size: 12.5px; font-weight: 500; color: var(--white); background: var(--wash); border: 1px solid var(--hair); border-radius: var(--r-sm); padding: .32rem .7rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
+.bar-resume:hover { background: rgba(255,255,255,.08); }
 .bar-track { width: 72px; height: 4px; background: var(--gray-700); border-radius: 99px; overflow: hidden; }
-.bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 99px; transition: width .4s ease; }
+.bar-fill { height: 100%; width: 0; background: var(--purple-light); border-radius: 99px; transition: width .4s ease; }
 
-.head { padding: 1.4rem 0 0; }
-.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--purple-light); font-weight: 600; margin-bottom: .7rem; }
-.sec-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray-400); font-weight: 700; margin: 2.4rem 0 .9rem; }
-h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.12; margin-bottom: .7rem; }
-.lede { color: var(--gray-200); font-size: 15px; line-height: 1.7; margin-bottom: 1.4rem; }
+.head { padding: 1.6rem 0 0; }
+.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray-400); font-weight: 600; margin-bottom: .8rem; }
+.sec-label { font-size: 13px; color: var(--gray-400); font-weight: 600; margin: 2.4rem 0 .6rem; padding-bottom: .45rem; border-bottom: 1px solid var(--hair); }
+h1 { font-size: clamp(1.9rem, 5.5vw, 2.5rem); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; margin-bottom: .8rem; }
+.lede { color: var(--gray-200); font-size: 15.5px; line-height: 1.7; margin-bottom: 1.4rem; }
 .lede strong { color: #fff; font-weight: 600; }
-.chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.6rem; }
-.chip { font-size: 12px; font-weight: 500; padding: .35rem .7rem; border-radius: 99px; background: var(--gray-900); border: 1px solid var(--gray-700); color: var(--gray-200); }
-.chip.hi { background: var(--purple-glow); border-color: var(--purple-border); color: var(--purple-light); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.8rem; }
+.chip { font-size: 12.5px; font-weight: 500; padding: .28rem .6rem; border-radius: var(--r-sm); background: var(--wash); color: var(--gray-200); }
+.chip.hi { background: var(--purple-glow); color: var(--purple-light); font-weight: 600; }
 
-.callout { border-radius: var(--r-lg); padding: 1.05rem 1.2rem; margin-bottom: 1.5rem; font-size: 14px; line-height: 1.7; }
-.callout-title { font-weight: 600; font-size: 14.5px; margin-bottom: .4rem; }
-.callout.speed { background: var(--purple-glow); border: 1px solid var(--purple-border); }
+.callout { border-radius: var(--r-md); padding: .95rem 1.1rem; margin-bottom: 1.5rem; font-size: 14.5px; line-height: 1.7; background: var(--wash); }
+.callout-title { font-weight: 600; font-size: 14.5px; margin-bottom: .35rem; }
+.callout.speed { background: var(--purple-glow); }
 .callout.speed .callout-title { color: var(--purple-light); }
-.callout.warn { background: var(--amber-bg); border: 1px solid var(--amber-border); color: var(--gray-200); }
+.callout.warn { background: var(--amber-bg); color: var(--gray-200); }
 .callout.warn .callout-title { color: var(--amber); }
 .callout strong { color: #fff; }
 
-/* --- overview table, file-browser flavoured --- */
-.tbl { border: 1px solid var(--gray-700); border-radius: var(--r-lg); overflow: hidden; background: var(--gray-900); margin-bottom: 1.8rem; }
-.tbl-crumb { font-size: 11.5px; color: var(--gray-400); padding: .65rem 1rem; border-bottom: 1px solid var(--gray-700); background: var(--gray-850); }
+/* --- overview: a Notion table, hairlines only --- */
+.tbl { margin-bottom: 2rem; }
+.tbl-crumb { font-size: 12.5px; color: var(--gray-400); padding: .2rem .3rem .6rem; }
 .tbl-crumb span { color: var(--gray-200); }
-.tbl-head, .tbl-row { display: grid; grid-template-columns: 1fr 104px 74px; gap: .8rem; align-items: center; padding: .7rem 1rem; }
-.tbl-head { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-400); font-weight: 700; border-bottom: 1px solid var(--gray-700); }
-.tbl-row { border-bottom: 1px solid var(--gray-800); cursor: pointer; font-size: 14px; }
-.tbl-row:last-child { border-bottom: none; }
-.tbl-row:hover { background: var(--gray-850); }
+.tbl-head, .tbl-row { display: grid; grid-template-columns: 1fr 104px 74px; gap: .8rem; align-items: center; padding: .5rem .3rem; }
+.tbl-head { font-size: 12px; color: var(--gray-400); font-weight: 500; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+.tbl-row { border-bottom: 1px solid var(--hair); cursor: pointer; font-size: 14.5px; border-radius: 4px; }
+.tbl-row:hover { background: var(--wash); }
 .tbl-name { display: flex; align-items: center; gap: .55rem; min-width: 0; }
-.tbl-name b { font-weight: 600; letter-spacing: -.01em; }
-.tbl-ico { width: 18px; height: 18px; border-radius: 4px; background: var(--gray-700); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--gray-300); }
-.tbl-row.done-all .tbl-ico { background: var(--green); color: var(--black); }
-.tbl-row.current .tbl-ico { background: var(--purple); color: #fff; }
-.tbl-status { font-size: 11px; font-weight: 600; padding: .2rem .55rem; border-radius: 5px; background: var(--gray-800); color: var(--gray-300); justify-self: start; white-space: nowrap; }
+.tbl-name b { font-weight: 500; letter-spacing: -.01em; }
+.tbl-ico { width: 18px; height: 18px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--gray-400); }
+.tbl-row.done-all .tbl-ico { color: var(--green); }
+.tbl-row.current .tbl-ico { color: var(--purple-light); }
+.tbl-status { font-size: 12px; font-weight: 500; padding: .14rem .5rem; border-radius: var(--r-sm); background: var(--wash); color: var(--gray-300); justify-self: start; white-space: nowrap; }
 .tbl-status.go { background: var(--purple-glow); color: var(--purple-light); }
 .tbl-status.ok { background: var(--green-bg); color: var(--green); }
-.tbl-size { font-size: 12px; color: var(--gray-400); font-variant-numeric: tabular-nums; text-align: right; }
-.tbl-foot { font-size: 11.5px; color: var(--gray-400); padding: .6rem 1rem; border-top: 1px solid var(--gray-700); background: var(--gray-850); }
+.tbl-size { font-size: 12.5px; color: var(--gray-400); font-variant-numeric: tabular-nums; text-align: right; }
+.tbl-foot { font-size: 12.5px; color: var(--gray-400); padding: .55rem .3rem 0; }
 
-/* --- phases --- */
-.phase { border: 1px solid var(--gray-700); border-radius: var(--r-lg); margin-bottom: 1rem; overflow: hidden; background: var(--gray-900); scroll-margin-top: 70px; }
-.phase.current { border-color: var(--purple-border); box-shadow: 0 0 0 3px rgba(63,134,166,.08); }
-.phase-head { width: 100%; text-align: left; background: none; border: none; color: var(--white); font-family: inherit; padding: 1.15rem 1.25rem; cursor: pointer; display: flex; align-items: center; gap: .9rem; }
-.phase-head:hover { background: var(--gray-850); }
-.phase-badge { width: 30px; height: 30px; border-radius: 8px; background: var(--gray-700); color: var(--gray-200); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.phase.current .phase-badge { background: var(--purple); color: #fff; }
-.phase.done-all .phase-badge { background: var(--green); color: var(--black); }
-.phase-txt { flex: 1; min-width: 0; }
-.phase-name { font-size: 16px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
-.phase-meta { font-size: 12.5px; color: var(--gray-400); margin-top: 2px; }
-.phase-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--purple-light); background: var(--purple-glow); border: 1px solid var(--purple-border); padding: .22rem .5rem; border-radius: 5px; margin-left: .5rem; white-space: nowrap; }
-.phase-caret { color: var(--gray-400); font-size: 13px; transition: transform .25s ease; flex-shrink: 0; }
+/* --- phases: Notion headings with toggles, not cards --- */
+.phase { border-bottom: 1px solid var(--hair); padding-bottom: .6rem; margin-bottom: .6rem; scroll-margin-top: 64px; }
+.phase-head { width: 100%; text-align: left; background: none; border: none; color: var(--white); font-family: inherit; padding: .7rem .3rem; cursor: pointer; display: flex; align-items: center; gap: .55rem; border-radius: 4px; }
+.phase-head:hover { background: var(--wash); }
+.phase-badge { width: 22px; font-size: 14px; font-weight: 600; color: var(--gray-400); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.phase.current .phase-badge { color: var(--purple-light); }
+.phase.done-all .phase-badge { color: var(--green); }
+.phase-txt { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+.phase-name { font-size: 19px; font-weight: 600; letter-spacing: -.015em; line-height: 1.3; }
+.phase-meta { font-size: 12.5px; color: var(--gray-400); }
+.phase-tag { font-size: 11px; font-weight: 600; color: var(--purple-light); background: var(--purple-glow); padding: .18rem .5rem; border-radius: var(--r-sm); white-space: nowrap; }
+.phase-caret { color: var(--gray-400); font-size: 12px; transition: transform .25s ease; flex-shrink: 0; }
 .phase.open .phase-caret { transform: rotate(180deg); }
-.phase-body { display: none; padding: 0 1.25rem 1.3rem; }
+.phase-body { display: none; padding: .2rem .3rem .8rem 1.9rem; }
 .phase.open .phase-body { display: block; }
-.phase-goal { font-size: 13.5px; color: var(--gray-200); background: var(--gray-850); border-left: 2px solid var(--purple); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: .75rem .9rem; margin-bottom: 1.2rem; line-height: 1.65; }
+.phase-goal { font-size: 14px; color: var(--gray-200); background: var(--wash); border-radius: var(--r-md); padding: .85rem 1rem; margin-bottom: .9rem; line-height: 1.65; }
 
-.task { display: flex; gap: .75rem; padding: .62rem 0; align-items: flex-start; border-top: 1px solid var(--gray-800); }
-.task:first-of-type { border-top: none; }
+.task { display: flex; gap: .6rem; padding: .42rem .5rem; margin: 0 -.5rem; align-items: flex-start; border-radius: var(--r-sm); }
+.task:hover { background: var(--wash); }
 .task-box {
-  width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--gray-600);
-  background: var(--gray-850); flex-shrink: 0; cursor: pointer; margin-top: 2px;
+  width: 17px; height: 17px; border-radius: 3px; border: 1.5px solid #6f6f6f;
+  background: transparent; flex-shrink: 0; cursor: pointer; margin-top: 3px;
   display: flex; align-items: center; justify-content: center; transition: all .16s ease; padding: 0;
 }
-.task-box:hover { border-color: var(--purple); }
-.task-box.checked { background: var(--green); border-color: var(--green); }
-.task-box.checked::after { content: '\2713'; color: var(--black); font-size: 12px; font-weight: 700; line-height: 1; }
+.task-box:hover { border-color: var(--purple-light); }
+.task-box.checked { background: var(--purple); border-color: var(--purple); }
+.task-box.checked::after { content: '\2713'; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
 .task-main { flex: 1; min-width: 0; }
-.task-text { font-size: 14.5px; line-height: 1.5; font-weight: 500; }
+.task-text { font-size: 15px; line-height: 1.55; font-weight: 400; }
 .task.checked .task-text { color: var(--gray-400); text-decoration: line-through; text-decoration-color: var(--gray-600); }
-.task-row { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .45rem; align-items: center; }
+.task-row { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .3rem; align-items: center; }
 .tlink {
-  display: inline-flex; align-items: center; gap: .3rem; font-size: 12px; font-weight: 500;
-  padding: .28rem .6rem; border-radius: 6px; cursor: pointer; font-family: inherit;
-  background: var(--gray-800); border: 1px solid var(--gray-600); color: var(--gray-200);
+  display: inline-flex; align-items: center; gap: .3rem; font-size: 12.5px; font-weight: 500;
+  padding: .16rem .35rem; border-radius: 4px; cursor: pointer; font-family: inherit;
+  background: none; border: none; color: var(--gray-400);
 }
-.tlink:hover { border-color: var(--gray-400); color: #fff; }
-.track-tag { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .45rem; border-radius: 4px; background: var(--purple-glow); color: var(--purple-light); border: 1px solid var(--purple-border); }
-.track-tag.off { background: var(--gray-800); color: var(--gray-400); border-color: var(--gray-700); }
+.tlink::before { content: '\25B8'; font-size: 10px; }
+.tlink:hover { color: #fff; background: var(--wash); }
+.track-tag { font-size: 10.5px; font-weight: 600; letter-spacing: .04em; padding: .14rem .45rem; border-radius: var(--r-sm); background: var(--purple-glow); color: var(--purple-light); }
+.track-tag.off { background: var(--wash); color: var(--gray-400); }
 
-/* --- the teaching --- */
-.teach { display: none; margin: .7rem 0 .4rem; background: var(--gray-850); border: 1px solid var(--gray-700); border-radius: var(--r-md); padding: 1.05rem 1.15rem; }
+/* --- the teaching: plain page text under a toggle, the Notion way --- */
+.teach { display: none; margin: .35rem 0 .6rem 1.75rem; }
 .teach.open { display: block; animation: fade .25s ease; }
 @keyframes fade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-.teach p { font-size: 14px; color: var(--gray-200); line-height: 1.75; margin-bottom: .75rem; }
+.teach p { font-size: 14.5px; color: var(--gray-200); line-height: 1.7; margin-bottom: .7rem; }
 .teach p:last-child { margin-bottom: 0; }
 .teach strong { color: #fff; font-weight: 600; }
 .teach em { color: var(--purple-light); font-style: normal; font-weight: 500; }
-.teach h5 { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-400); font-weight: 700; margin: 1.1rem 0 .5rem; }
-.teach ul { margin: 0 0 .8rem 1.05rem; }
-.teach li { font-size: 14px; color: var(--gray-200); line-height: 1.7; margin-bottom: .4rem; }
-.do { background: var(--purple-glow); border: 1px solid var(--purple-border); border-radius: var(--r-sm); padding: .7rem .85rem; font-size: 13.5px; line-height: 1.65; color: #fff; margin-top: .9rem; }
-.do b { color: var(--purple-light); display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .25rem; }
-.script { background: #0d0d0d; border: 1px solid var(--gray-700); border-radius: var(--r-sm); padding: .85rem .95rem; font-size: 13px; line-height: 1.7; color: var(--gray-200); margin-bottom: .7rem; white-space: pre-wrap; word-break: break-word; }
-.copy-btn { background: var(--gray-800); border: 1px solid var(--gray-600); color: var(--gray-200); font-family: inherit; font-size: 11.5px; font-weight: 500; padding: .3rem .65rem; border-radius: 6px; cursor: pointer; }
-.copy-btn:hover { border-color: var(--gray-400); color: #fff; }
+.teach h5 { font-size: 15px; letter-spacing: 0; text-transform: none; color: var(--white); font-weight: 600; margin: 1.15rem 0 .45rem; }
+.teach ul { margin: 0 0 .7rem 1.1rem; }
+.teach li { font-size: 14.5px; color: var(--gray-200); line-height: 1.65; margin-bottom: .3rem; }
+.do { background: var(--purple-glow); border-radius: var(--r-md); padding: .8rem .95rem; font-size: 14px; line-height: 1.65; color: #fff; margin-top: .9rem; }
+.do b { color: var(--purple-light); display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .25rem; }
+.script { background: var(--gray-900); border-radius: var(--r-md); padding: .85rem .95rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.7; color: var(--gray-200); margin-bottom: .7rem; white-space: pre-wrap; word-break: break-word; }
+.copy-btn { background: var(--wash); border: none; color: var(--gray-200); font-family: inherit; font-size: 11.5px; font-weight: 500; padding: .3rem .65rem; border-radius: var(--r-sm); cursor: pointer; }
+.copy-btn:hover { background: rgba(255,255,255,.09); color: #fff; }
+
+/* --- v2: scores panel, same hairline language as the table --- */
+.scores { margin-bottom: .4rem; }
+.score-row { display: grid; grid-template-columns: 132px 1fr 34px; gap: .8rem; align-items: center; padding: .42rem .3rem; border-bottom: 1px solid var(--hair); font-size: 14px; }
+.score-name { font-weight: 500; color: var(--gray-200); white-space: nowrap; }
+.score-row.weak .score-name { color: #fff; }
+.score-tag { font-size: 10.5px; font-weight: 600; color: var(--purple-light); background: var(--purple-glow); padding: .12rem .4rem; border-radius: var(--r-sm); margin-left: .35rem; }
+.score-bar { height: 6px; background: var(--gray-700); border-radius: 99px; overflow: hidden; }
+.score-fill { display: block; height: 100%; background: var(--gray-400); border-radius: 99px; }
+.score-row.weak .score-fill { background: var(--purple-light); }
+.score-num { font-variant-numeric: tabular-nums; color: var(--gray-300); text-align: right; font-weight: 600; }
+.scores-note { font-size: 12.5px; color: var(--gray-400); margin-bottom: 1.6rem; line-height: 1.6; }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; background: var(--purple); color: #fff; border: none; border-radius: var(--r-md); padding: .95rem 1.6rem; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all .18s ease; }
-.btn:hover { background: var(--purple-light); transform: translateY(-1px); }
-.foot { text-align: center; margin-top: 2.5rem; padding-top: 1.6rem; border-top: 1px solid var(--gray-700); }
-.foot p { font-size: 13px; color: var(--gray-400); line-height: 1.75; margin-bottom: 1rem; }
+.btn:hover { background: var(--purple-light); }
+.foot { text-align: center; margin-top: 2.5rem; padding-top: 1.6rem; border-top: 1px solid var(--hair); }
+.foot p { font-size: 13.5px; color: var(--gray-400); line-height: 1.75; margin-bottom: 1rem; }
 .foot p strong { color: #fff; }
 .reset { background: none; border: none; color: var(--gray-600); font-family: inherit; font-size: 11.5px; cursor: pointer; text-decoration: underline; margin-top: 1.2rem; }
 .reset:hover { color: var(--gray-400); }
 @media (max-width: 560px) {
-  .phase-head { padding: 1rem; gap: .7rem; }
-  .phase-body { padding: 0 1rem 1.1rem; }
+  .score-row { grid-template-columns: 108px 1fr 30px; }
+  .phase-body { padding-left: .3rem; }
   .phase-tag { display: none; }
   .tbl-head, .tbl-row { grid-template-columns: 1fr 92px; }
   .tbl-size { display: none; }
@@ -166,7 +178,8 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 <body>
 <div class="wrap" id="root"></div>
 
-<!-- All 55 lessons. Separate file so the teaching can be re-pulled from
+<!-- All 61 lessons (55 from Notion plus the v2 back-end phase). Separate
+     file so the teaching can be re-pulled from
      Notion without touching any of the page logic below. -->
 <script src="lessons.js"></script>
 <script src="../elevate.js"></script>
@@ -174,12 +187,15 @@ h1 { font-size: clamp(1.75rem, 5.5vw, 2.4rem); font-weight: 700; letter-spacing:
 /* ===========================================================================
    Offer to Client — the roadmap
 
-   Everything is given away: all 55 items, with the teaching written inline
+   Everything is given away: all 61 items, with the teaching written inline
    rather than linked. The source modules live behind a members area, so a
    link would 404 for a lead; and inlining means the page is the asset.
 
-   There is deliberately no deadline. Nothing locks, nothing expires. The
-   motivator is progress and permanence, not a countdown.
+   Access is gated: the page only opens from a personal link (the k= code
+   the team sends on WhatsApp after the quiz) or on a device that already
+   holds a completed profile. Inside the gate there is deliberately no
+   deadline. Nothing locks, nothing expires. The motivator is progress and
+   permanence, not a countdown.
    =========================================================================== */
 
 var AKIRA = 'https://www.instagram.com/akira.ugc/';
@@ -193,6 +209,18 @@ function readJSON(k, fallback) {
 function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
 var profile = readJSON(PROFILE_KEY, null) || {};
+
+/* The personal link carries the access code. Once seen, it lives in the
+   profile, so the bookmarked page keeps opening on this device. */
+(function takeAccessFromLink() {
+  try {
+    var km = (window.location.hash || '').match(/k=([^&]+)/);
+    if (km && !profile.accessCode) {
+      profile.accessCode = decodeURIComponent(km[1]);
+      writeJSON(PROFILE_KEY, profile);
+    }
+  } catch (e) { /* no code on the link: the gate below decides */ }
+})();
 
 /* Somebody came back to it. Counted once per browser, which makes it the
    only honest measure of whether the roadmap was worth taking — a guide
@@ -210,6 +238,9 @@ if (window.Elevate) Elevate.step(MAGNET, 'open');
     if (!d) return;
     profile.phase = d.p; profile.track = d.k; profile.price = d.pr;
     profile.sales = d.s; profile.tier = d.t; profile.country = d.c; profile.hours = d.h;
+    if (d.sc) profile.scores = d.sc;
+    if (d.ap) profile.aplus = d.ap;
+    if (d.ag !== undefined) profile.aplusAgreed = d.ag;
     writeJSON(PROFILE_KEY, profile);
   } catch (e) { /* generic roadmap is fine */ }
 })();
@@ -228,10 +259,58 @@ var PRICE_NOTE = {
   '5kplus':  "You said $5k+. You will not close this on promise alone. Until you have a documented result, either start lower and raise after your first win, or sell it as an offer to scale something that is already working."
 };
 var SALES_NOTE = {
-  never:     "You have never closed on a call. That is the single biggest thing standing between you and money, so do not skim Phase 3 — it starts from what to say in the first sixty seconds.",
-  few:       "You have closed a handful but could not say why. Phase 3 is where that becomes repeatable instead of lucky.",
-  regularly: "You already close. Phase 3 will be revision — skim it, then spend your time on the drills in the last lesson and on Phase 4."
+  never:     "You have never closed on a call. That is the single biggest thing standing between you and money, so do not skim the closing lessons. They start from what to say in the first sixty seconds.",
+  few:       "You have closed a handful but could not say why. The closing lessons are where that becomes repeatable instead of lucky.",
+  regularly: "You already close. The closing lessons will be revision: skim them, then spend your time on the drills in the last one and on your content."
 };
+
+/* ===========================================================================
+   v2: AREAS, SCORES AND ORDERING
+
+   The full course stays: every lesson renders for everyone. What the quiz
+   scores change is the order. Positioning becomes an unnumbered Foundations
+   group that always sits on top. The four scored areas follow, with the A+
+   area (the weakest, per resolveAplus in the quiz) numbered Phase 1 and the
+   rest in canonical order behind it. Sales process is one area made of two
+   original phases, Booked Calls and Closing, kept in their canonical order
+   inside the area. Progress keys are untouched: every task keeps the id it
+   had in the five-phase layout, so existing ticks survive the reorder.
+   =========================================================================== */
+var AREA_SHORT = { offer: 'Offer', sales: 'Sales', content: 'Content', backend: 'Back-end and AI' };
+var AREA_CANON = ['offer', 'sales', 'content', 'backend'];
+var APLUS_WORDS = { leads: 'getting leads', closing: 'closing clients', offer: 'the offer', systems: 'time and systems' };
+var aplusArea = profile.aplus || null;
+
+function tagTasks(ph) {
+  return ph.tasks.map(function (t, i) {
+    return { t: t.t, teach: t.teach, track: t.track, _id: taskId(ph.n, i) };
+  });
+}
+var GROUPS = [];
+if (typeof PHASE_0 !== 'undefined') {
+  GROUPS = [
+    { key: 'foundations', area: null, title: 'Foundations: positioning', goal: PHASE_0.goal, tasks: tagTasks(PHASE_0) },
+    { key: 'offer', area: 'offer', title: PHASE_1.title, goal: PHASE_1.goal, tasks: tagTasks(PHASE_1) },
+    { key: 'sales', area: 'sales', title: 'Booked calls and closing', goal: PHASE_2.goal + ' ' + PHASE_3.goal, tasks: tagTasks(PHASE_2).concat(tagTasks(PHASE_3)) },
+    { key: 'content', area: 'content', title: PHASE_4.title, goal: PHASE_4.goal, tasks: tagTasks(PHASE_4) },
+    { key: 'backend', area: 'backend',
+      title: (typeof PHASE_5 !== 'undefined') ? PHASE_5.title : 'Back-end, delegation and AI',
+      goal: (typeof PHASE_5 !== 'undefined') ? PHASE_5.goal : '',
+      tasks: (typeof PHASE_5 !== 'undefined') ? tagTasks(PHASE_5) : [] }
+  ];
+}
+function orderedGroups() {
+  var areas = GROUPS.filter(function (g) { return g.area; });
+  var rest = AREA_CANON.filter(function (a) { return a !== aplusArea; });
+  var order = aplusArea ? [aplusArea].concat(rest) : AREA_CANON.slice();
+  var sorted = order.map(function (a) {
+    return areas.filter(function (g) { return g.area === a; })[0];
+  }).filter(Boolean);
+  sorted.forEach(function (g, i) { g.num = i + 1; });
+  var found = GROUPS.filter(function (g) { return !g.area; });
+  found.forEach(function (g) { g.num = null; });
+  return found.concat(sorted);
+}
 
 /* ===========================================================================
    RENDER
@@ -245,32 +324,31 @@ function visibleTasks(ph) { return ph.tasks; }
 
 function totals() {
   var done = 0, all = 0;
-  for (var p = 0; p < PHASES.length; p++) {
-    for (var i = 0; i < PHASES[p].tasks.length; i++) { all++; if (progress[taskId(PHASES[p].n, i)]) done++; }
+  for (var p = 0; p < GROUPS.length; p++) {
+    for (var i = 0; i < GROUPS[p].tasks.length; i++) { all++; if (progress[GROUPS[p].tasks[i]._id]) done++; }
   }
   return { done: done, all: all };
 }
 function phaseTotals(ph) {
   var done = 0;
-  for (var i = 0; i < ph.tasks.length; i++) if (progress[taskId(ph.n, i)]) done++;
+  for (var i = 0; i < ph.tasks.length; i++) if (progress[ph.tasks[i]._id]) done++;
   return { done: done, all: ph.tasks.length };
 }
 
-/* First unfinished task, so "resume" lands somewhere useful on a 55-item page. */
+/* First unfinished task, so "resume" lands somewhere useful on a 61-item page. */
 function firstOpen() {
-  for (var p = 0; p < PHASES.length; p++) {
-    var ph = PHASES[p];
-    if (ph.n < entryPhase) continue;
-    for (var i = 0; i < ph.tasks.length; i++) if (!progress[taskId(ph.n, i)]) return { phase: ph.n, idx: i };
-  }
-  for (var q = 0; q < PHASES.length; q++) {
-    for (var j = 0; j < PHASES[q].tasks.length; j++) if (!progress[taskId(PHASES[q].n, j)]) return { phase: PHASES[q].n, idx: j };
+  var ordered = orderedGroups();
+  for (var p = 0; p < ordered.length; p++) {
+    var g = ordered[p];
+    for (var i = 0; i < g.tasks.length; i++) {
+      if (!progress[g.tasks[i]._id]) return { gid: g.key, id: g.tasks[i]._id };
+    }
   }
   return null;
 }
 
 function renderTask(ph, task, i) {
-  var id = taskId(ph.n, i);
+  var id = task._id || taskId(ph.n, i);
   var checked = !!progress[id];
   var tag = '';
   if (task.track) {
@@ -289,18 +367,21 @@ function renderTask(ph, task, i) {
     '</div></div>';
 }
 
-function renderPhase(ph) {
-  var pt = phaseTotals(ph);
-  var isCurrent = ph.n === entryPhase;
+function renderPhase(g) {
+  var pt = phaseTotals(g);
+  var isAplus = !!g.area && g.area === aplusArea;
+  var isFound = !g.area;
   var allDone = pt.done === pt.all;
-  var body = '<div class="phase-goal">' + ph.goal + '</div>';
-  for (var i = 0; i < ph.tasks.length; i++) body += renderTask(ph, ph.tasks[i], i);
+  var body = g.goal ? '<div class="phase-goal">' + g.goal + '</div>' : '';
+  for (var i = 0; i < g.tasks.length; i++) body += renderTask(g, g.tasks[i], i);
+  var tag = isAplus ? '<span class="phase-tag">Phase 1 · your A+ problem</span>'
+    : isFound ? '<span class="phase-tag">Do first</span>' : '';
 
-  return '<div class="phase' + (isCurrent ? ' current open' : '') + (allDone ? ' done-all' : '') + '" id="phase-' + ph.n + '">' +
-    '<button class="phase-head" onclick="togglePhase(' + ph.n + ')">' +
-      '<span class="phase-badge">' + (allDone ? '&#10003;' : ph.n) + '</span>' +
+  return '<div class="phase' + (isAplus ? ' current' : '') + ((isAplus || isFound) ? ' open' : '') + (allDone ? ' done-all' : '') + '" id="phase-' + g.key + '">' +
+    '<button class="phase-head" onclick="togglePhase(\'' + g.key + '\')">' +
+      '<span class="phase-badge">' + (allDone ? '&#10003;' : (g.num ? g.num : '&#10022;')) + '</span>' +
       '<span class="phase-txt">' +
-        '<span class="phase-name">' + ph.title + (isCurrent ? '<span class="phase-tag">Start here</span>' : '') + '</span>' +
+        '<span class="phase-name">' + g.title + tag + '</span>' +
         '<span class="phase-meta">' + pt.done + ' of ' + pt.all + ' done</span>' +
       '</span>' +
       '<span class="phase-caret">&#9660;</span>' +
@@ -308,29 +389,67 @@ function renderPhase(ph) {
     '<div class="phase-body">' + body + '</div></div>';
 }
 
-function renderTable() {
+function renderTable(ordered) {
   var rows = '';
-  for (var i = 0; i < PHASES.length; i++) {
-    var ph = PHASES[i], pt = phaseTotals(ph);
+  for (var i = 0; i < ordered.length; i++) {
+    var g = ordered[i], pt = phaseTotals(g);
     var allDone = pt.done === pt.all;
-    var isCurrent = ph.n === entryPhase;
+    var isAplus = !!g.area && g.area === aplusArea;
     var status = allDone ? '<span class="tbl-status ok">Done</span>'
       : pt.done > 0 ? '<span class="tbl-status go">In progress</span>'
-      : isCurrent ? '<span class="tbl-status go">Start here</span>'
+      : isAplus ? '<span class="tbl-status go">Phase 1</span>'
+      : !g.area ? '<span class="tbl-status go">Do first</span>'
       : '<span class="tbl-status">Unlocked</span>';
-    rows += '<div class="tbl-row' + (allDone ? ' done-all' : '') + (isCurrent ? ' current' : '') +
-      '" onclick="jumpTo(' + ph.n + ')">' +
-      '<span class="tbl-name"><span class="tbl-ico">' + (allDone ? '&#10003;' : ph.n) + '</span><b>' + ph.title + '</b></span>' +
+    rows += '<div class="tbl-row' + (allDone ? ' done-all' : '') + (isAplus ? ' current' : '') +
+      '" onclick="jumpTo(\'' + g.key + '\')">' +
+      '<span class="tbl-name"><span class="tbl-ico">' + (allDone ? '&#10003;' : (g.num ? g.num : '&#10022;')) + '</span><b>' + g.title + '</b></span>' +
       status +
       '<span class="tbl-size">' + pt.all + ' items</span>' +
       '</div>';
   }
+  var t = totals();
   return '<div class="tbl">' +
     '<div class="tbl-crumb">Elevate &rsaquo; <span>The whole thing</span></div>' +
     '<div class="tbl-head"><span>Phase</span><span>Status</span><span style="text-align:right">Size</span></div>' +
     rows +
-    '<div class="tbl-foot">55 items &middot; nothing locked &middot; no expiry</div>' +
+    '<div class="tbl-foot">' + t.all + ' items &middot; nothing locked &middot; no expiry</div>' +
     '</div>';
+}
+
+function renderScores() {
+  var sc = profile.scores;
+  if (!sc) return '';
+  var rows = '';
+  for (var i = 0; i < AREA_CANON.length; i++) {
+    var a = AREA_CANON[i], v = sc[a];
+    if (typeof v !== 'number') return '';
+    var weak = aplusArea === a;
+    rows += '<div class="score-row' + (weak ? ' weak' : '') + '">' +
+      '<span class="score-name">' + AREA_SHORT[a] + (weak ? '<span class="score-tag">Phase 1</span>' : '') + '</span>' +
+      '<span class="score-bar"><span class="score-fill" style="width:' + v + '%"></span></span>' +
+      '<span class="score-num">' + v + '</span></div>';
+  }
+  return '<div class="sec-label">Your scores</div>' +
+    '<div class="scores">' + rows + '</div>' +
+    '<p class="scores-note">Scored out of 100 from your quiz answers. Higher is stronger. Your lowest score leads the roadmap; nothing is removed, the full course is all here.</p>';
+}
+
+function renderRationale() {
+  var sc = profile.scores;
+  if (!sc || !aplusArea) return '';
+  var pickWords = (profile.answers && profile.answers.q10) ? APLUS_WORDS[profile.answers.q10] : null;
+  var txt;
+  if (profile.aplusAgreed && pickWords) {
+    txt = 'You told us the one thing you would fix first is <strong>' + pickWords + '</strong>. Your answers back that up: your ' +
+      AREA_SHORT[aplusArea] + ' score is <strong>' + sc[aplusArea] + ' out of 100</strong>, the lowest of your four. So that area is your Phase 1, and the rest of the course follows in the order that gets it fixed fastest.';
+  } else if (pickWords && profile.aplusPick && sc[profile.aplusPick] !== undefined) {
+    txt = 'You told us the one thing you would fix first is <strong>' + pickWords + '</strong>. Your answers tell a slightly different story: your ' +
+      AREA_SHORT[aplusArea] + ' score is <strong>' + sc[aplusArea] + ' out of 100</strong>, lower than your ' + AREA_SHORT[profile.aplusPick] + ' score of ' + sc[profile.aplusPick] +
+      '. The lower score wins, so <strong>' + AREA_SHORT[aplusArea] + '</strong> is your Phase 1. Your pick is still in the roadmap in its natural place; it is just not the first fire to put out.';
+  } else {
+    txt = 'Your answers scored your ' + AREA_SHORT[aplusArea] + ' lowest, at <strong>' + sc[aplusArea] + ' out of 100</strong>, so that area is your Phase 1. The rest of the course follows in the order that gets it fixed fastest.';
+  }
+  return '<div class="callout speed"><div class="callout-title">Why your roadmap looks like this</div><p>' + txt + '</p></div>';
 }
 
 function render() {
@@ -340,7 +459,8 @@ function render() {
 
   var chips = '';
   if (profile.country) chips += '<span class="chip">' + esc(profile.country) + '</span>';
-  if (profile.phase !== undefined) chips += '<span class="chip hi">Starting at ' + esc(PHASES[entryPhase] ? PHASES[entryPhase].title : 'Positioning') + '</span>';
+  if (aplusArea && AREA_SHORT[aplusArea]) chips += '<span class="chip hi">Phase 1: ' + esc(AREA_SHORT[aplusArea]) + '</span>';
+  else if (profile.phase !== undefined) chips += '<span class="chip hi">Starting at ' + esc(PHASES[entryPhase] ? PHASES[entryPhase].title : 'Positioning') + '</span>';
   chips += '<span class="chip">' + (track === 'outbound' ? 'Outbound track' : 'Inbound track') + '</span>';
   if (profile.price && PRICE_NOTE[profile.price]) {
     chips += '<span class="chip">' + esc({ u500: 'Under $500', '500to2k': '$500–2k', '2kto5k': '$2k–5k', '5kplus': '$5k+' }[profile.price]) + '/client</span>';
@@ -369,17 +489,19 @@ function render() {
     '<div class="head">' +
       '<div class="eyebrow">Elevate</div>' +
       '<h1>' + (name ? name + ', here is the whole thing.' : 'Here is the whole thing.') + '</h1>' +
-      '<p class="lede">All 55 lessons, every script, written out in full. <strong>Nothing is locked and nothing expires.</strong> Work through it at whatever pace you will actually sustain, and come back to it whenever.</p>' +
+      '<p class="lede">All ' + t.all + ' lessons, every script, written out in full. <strong>Nothing is locked and nothing expires.</strong> Work through it at whatever pace you will actually sustain, and come back to it whenever.</p>' +
       (chips ? '<div class="chips">' + chips + '</div>' : '') +
     '</div>' +
 
-    renderTable() +
+    renderTable(orderedGroups()) +
 
+    renderScores() +
+    renderRationale() +
     (guidance ? '<div class="callout speed"><div class="callout-title">Two things specific to you</div>' + guidance + '</div>' : '') +
     tierWarning +
 
     '<div class="sec-label">The roadmap</div>' +
-    PHASES.map(renderPhase).join('') +
+    orderedGroups().map(renderPhase).join('') +
 
     '<div class="foot">' +
       '<p><strong>Bookmark this page.</strong> Your ticks are saved in this browser, so come back to the same one and everything is where you left it. Open it somewhere else and you will get your plan, but the ticks start fresh.</p>' +
@@ -428,9 +550,9 @@ function jumpTo(n) {
 function resume() {
   var spot = firstOpen();
   if (!spot) return;
-  var ph = document.getElementById('phase-' + spot.phase);
+  var ph = document.getElementById('phase-' + spot.gid);
   if (ph) ph.classList.add('open');
-  var t = document.getElementById('task-' + taskId(spot.phase, spot.idx));
+  var t = document.getElementById('task-' + spot.id);
   if (t) t.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 function copyScript(btn) {
@@ -453,6 +575,25 @@ function resetAll() {
   progress = {}; writeJSON(PROGRESS_KEY, progress); render();
 }
 
+/* --- the gate ---------------------------------------------------------------
+   A bare visit gets the wall, not the roadmap: no lessons, no phases, just
+   where theirs comes from. A completed profile from before the gate counts
+   as access on that device; those leads already gave their details and
+   locking them out of their own roadmap would be petty. */
+function hasAccess() {
+  return !!(profile.accessCode || profile.access || profile.email);
+}
+function renderGate() {
+  document.getElementById('root').innerHTML =
+    '<div style="max-width:580px;margin:0 auto;padding:4.5rem 1rem 3rem;text-align:center">' +
+      '<div class="eyebrow">Elevate</div>' +
+      '<h1>This roadmap is personal, so it is not just sitting open.</h1>' +
+      '<p class="lede">Everyone who gets one has theirs built from a short quiz, and our team sends it to them on WhatsApp personally. If you have already done the quiz, your link is in your WhatsApp messages. If you have not, it takes about two minutes and it is free.</p>' +
+      '<a class="btn" href="./">Get my roadmap</a>' +
+      '<p class="lede" style="margin-top:1.4rem;font-size:13px">Already waiting on yours? The team sends them in batches through the day. Give it a little time, then check WhatsApp again.</p>' +
+    '</div>';
+}
+
 // lessons.js carries every lesson. If it fails to load, say so rather
 // than rendering an empty page that looks like the roadmap is broken.
 if (typeof PHASES === "undefined") {
@@ -460,6 +601,8 @@ if (typeof PHASES === "undefined") {
     '<div style="padding:4rem 1rem;text-align:center">' +
     '<h1>Could not load the roadmap</h1>' +
     '<p class="lede">Refresh the page. If it keeps happening, DM Akira and he will sort it.</p></div>';
+} else if (!hasAccess()) {
+  renderGate();
 } else {
   render();
 }
