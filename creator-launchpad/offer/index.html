@@ -607,18 +607,15 @@ window.ElevateSfx = (function () {
 })();
 </script>
 <script>
-/* SFX wiring for the quiz: pop on answer, shimmer while the bar moves,
-   pointer spotlight on the answer cards, with the Menu Glide sound
-   on the first hover of each card and the Menu Confirm Glide on the tap. Kept apart from the quiz code;
-   the handlers below wrap the page's own functions without changing
-   what they do. */
+/* SFX wiring for the quiz: shimmer while the bar moves, pointer
+   spotlight on the answer cards, with the Menu Glide sound on the
+   first hover of each card. Answer presses are silent: no sound on
+   selectOpt or on the systems multi-select (Akira's ruling, 2026-11-15).
+   Kept apart from the quiz code; the handlers below wrap the page's
+   own functions without changing what they do. */
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
     var S = window.ElevateSfx; if (!S) return;
-    var so = window.selectOpt;
-    if (typeof so === 'function') window.selectOpt = function (btn, q, val) { so(btn, q, val); S.play('confirm'); };
-  var ts = window.toggleSys;
-  if (typeof ts === 'function') window.toggleSys = function (btn, key) { var was = btn.classList.contains('selected'); ts(btn, key); if (!was && btn.classList.contains('selected')) S.play('confirm'); };
     var sh = window.show;
     if (typeof sh === 'function') window.show = function (n) {
       sh(n);
