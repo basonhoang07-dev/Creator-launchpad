@@ -188,7 +188,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 2 - Q1 OFFER -->
   <div class="step" id="step-2">
-    <div class="eyebrow">Question 1 of 15</div>
+    <div class="eyebrow">Question 1 of 16</div>
     <h2>Do you have an offer yet?</h2>
     <p class="sub">Most people start with nothing here. That's normal, and it's exactly what the roadmap is built for.</p>
     <div class="opts">
@@ -203,7 +203,7 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
 
   <!-- 3 - Q2 AUDIENCE -->
   <div class="step" id="step-3">
-    <div class="eyebrow">Question 2 of 15</div>
+    <div class="eyebrow">Question 2 of 16</div>
     <h2>How big is your audience?</h2>
     <p class="sub">This one picks your plan: outbound or inbound. They're built very differently.</p>
     <div class="opts">
@@ -216,206 +216,226 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
     <button class="back" onclick="goBack(3)">&larr; Back</button>
   </div>
 
-  <!-- 4 - Q3 SALES -->
+  <!-- 4 - Q4 PRICE -->
   <div class="step" id="step-4">
-    <div class="eyebrow">Question 3 of 15</div>
-    <h2>Have you ever closed high-ticket on a call?</h2>
-    <p class="sub">No judgement here. It just sets how much sales help your roadmap gives you.</p>
+    <div class="eyebrow">Question 3 of 16</div>
+    <h2>What do you want to charge per client?</h2>
+    <p class="sub">A guess is fine. It changes the pricing advice you get.</p>
     <div class="opts">
-      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','never')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Never been on one</span><span class="opt-note">The idea of asking someone for $2,000 on a call scares me</span></span></button>
-      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','few')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A handful</span><span class="opt-note">I've closed some, but I couldn't tell you why they bought</span></span></button>
-      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','regularly')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Regularly</span><span class="opt-note">I take calls and close them. I want a better rate.</span></span></button>
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','u500')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under $500</span><span class="opt-note">Low ticket. You'd need volume to make it work</span></span></button>
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','500to2k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$500 to $2,000</span><span class="opt-note">The usual starting band for a first offer</span></span></button>
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','2kto5k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$2,000 to $5,000</span><span class="opt-note">Proper high ticket. You'd sell it on calls.</span></span></button>
+      <button class="opt" data-q="q3" onclick="selectOpt(this,'q3','5kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$5,000+</span><span class="opt-note">Premium. You'll need proof to back it.</span></span></button>
     </div>
     <button class="btn" id="btn-q3" disabled onclick="goNext(4)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(4)">&larr; Back</button>
   </div>
 
-  <!-- 5 - Q4 PRICE -->
+  <!-- 5 - Q5 REVENUE -->
   <div class="step" id="step-5">
-    <div class="eyebrow">Question 4 of 15</div>
-    <h2>What do you want to charge per client?</h2>
-    <p class="sub">A guess is fine. It changes the pricing advice you get.</p>
+    <div class="eyebrow">Question 4 of 16</div>
+    <h2>What are you making right now?</h2>
+    <p class="sub">Per month, from this business. Nobody sees it but us, and it keeps the plan honest.</p>
     <div class="opts">
-      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','u500')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under $500</span><span class="opt-note">Low ticket. You'd need volume to make it work</span></span></button>
-      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','500to2k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$500 to $2,000</span><span class="opt-note">The usual starting band for a first offer</span></span></button>
-      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','2kto5k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$2,000 to $5,000</span><span class="opt-note">Proper high ticket. You'd sell it on calls.</span></span></button>
-      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','5kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$5,000+</span><span class="opt-note">Premium. You'll need proof to back it.</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','zero')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$0</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','u1k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under $1,000/month</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','1kto5k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$1,000 to $5,000/month</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','5kto10k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$5,000 to $10,000/month</span></span></button>
+      <button class="opt" data-q="q4" onclick="selectOpt(this,'q4','10kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$10,000+/month</span></span></button>
     </div>
     <button class="btn" id="btn-q4" disabled onclick="goNext(5)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(5)">&larr; Back</button>
   </div>
 
-  <!-- 6 - Q5 REVENUE -->
+  <!-- 6 - Q6 HOURS -->
   <div class="step" id="step-6">
-    <div class="eyebrow">Question 5 of 15</div>
-    <h2>What are you making right now?</h2>
-    <p class="sub">Per month, from this business. Nobody sees it but us, and it keeps the plan honest.</p>
+    <div class="eyebrow">Question 5 of 16</div>
+    <h2>How many hours a week can you give this?</h2>
+    <p class="sub">There's no deadline either way. It just helps us set a pace you can actually keep.</p>
     <div class="opts">
-      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','zero')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$0</span></span></button>
-      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','u1k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under $1,000/month</span></span></button>
-      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','1kto5k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$1,000 to $5,000/month</span></span></button>
-      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','5kto10k')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$5,000 to $10,000/month</span></span></button>
-      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','10kplus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$10,000+/month</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','u5')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under 5 hours</span><span class="opt-note">Evenings and weekends when I can grab them</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','5to15')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">5 to 15 hours</span><span class="opt-note">A serious side commitment around a job</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','15to30')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">15 to 30 hours</span><span class="opt-note">Most of my working week</span></span></button>
+      <button class="opt" data-q="q5" onclick="selectOpt(this,'q5','30plus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">30+ hours</span><span class="opt-note">This is my full-time focus</span></span></button>
     </div>
     <button class="btn" id="btn-q5" disabled onclick="goNext(6)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(6)">&larr; Back</button>
   </div>
 
-  <!-- 7 - Q6 HOURS -->
+  <!-- 7 - Q7 CONTENT EXPERIENCE -->
   <div class="step" id="step-7">
-    <div class="eyebrow">Question 6 of 15</div>
-    <h2>How many hours a week can you give this?</h2>
-    <p class="sub">There's no deadline either way. It just helps us set a pace you can actually keep.</p>
+    <div class="eyebrow">Question 6 of 16</div>
+    <h2>How much content have you actually posted?</h2>
+    <p class="sub">Content gets a very different plan depending on where you're starting.</p>
     <div class="opts">
-      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','u5')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Under 5 hours</span><span class="opt-note">Evenings and weekends when I can grab them</span></span></button>
-      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','5to15')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">5 to 15 hours</span><span class="opt-note">A serious side commitment around a job</span></span></button>
-      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','15to30')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">15 to 30 hours</span><span class="opt-note">Most of my working week</span></span></button>
-      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','30plus')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">30+ hours</span><span class="opt-note">This is my full-time focus</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nothing yet</span><span class="opt-note">I haven't started posting</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','started')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A few posts here and there</span><span class="opt-note">Nothing consistent, just testing the water</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','regular')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Posting regularly</span><span class="opt-note">A few times a week, and I've kept it up</span></span></button>
+      <button class="opt" data-q="q6" onclick="selectOpt(this,'q6','main')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Content is my main channel</span><span class="opt-note">I post daily and it drives my business</span></span></button>
     </div>
     <button class="btn" id="btn-q6" disabled onclick="goNext(7)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(7)">&larr; Back</button>
   </div>
 
-  <!-- 8 - Q7 CONTENT EXPERIENCE -->
+  <!-- 8 - Q9 CONTENT PROBLEM -->
   <div class="step" id="step-8">
-    <div class="eyebrow">Question 7 of 15</div>
-    <h2>How much content have you actually posted?</h2>
-    <p class="sub">Content gets a very different plan depending on where you're starting.</p>
+    <div class="eyebrow">Question 7 of 16</div>
+    <h2>What's your biggest problem with content right now?</h2>
+    <p class="sub">Pick the one that bugs you most. Your roadmap goes after that one first.</p>
     <div class="opts">
-      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nothing yet</span><span class="opt-note">I haven't started posting</span></span></button>
-      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','started')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A few posts here and there</span><span class="opt-note">Nothing consistent, just testing the water</span></span></button>
-      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','regular')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Posting regularly</span><span class="opt-note">A few times a week, and I've kept it up</span></span></button>
-      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','main')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Content is my main channel</span><span class="opt-note">I post daily and it drives my business</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','ideas')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't know what to post</span><span class="opt-note">Ideas and hooks are the hard part</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','reach')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I post but nobody watches</span><span class="opt-note">Views and reach are the problem</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','conversion')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">People watch but don't buy</span><span class="opt-note">The attention is there, the conversion isn't</span></span></button>
+      <button class="opt" data-q="q7" onclick="selectOpt(this,'q7','consistency')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I can't stay consistent</span><span class="opt-note">I start strong, then it falls off</span></span></button>
     </div>
     <button class="btn" id="btn-q7" disabled onclick="goNext(8)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(8)">&larr; Back</button>
   </div>
 
-  <!-- 9 - Q8 CONTENT RESULTS -->
+  <!-- 9 - Q10 A+ PROBLEM -->
   <div class="step" id="step-9">
-    <div class="eyebrow">Question 8 of 15</div>
-    <h2>What has your content brought you so far?</h2>
-    <p class="sub">Be honest. It decides whether we fix your content or build on what's already working.</p>
+    <div class="eyebrow">Question 8 of 16</div>
+    <h2>If you could fix one thing in your business right now, what would it be?</h2>
+    <p class="sub">We call this your A+ problem: the one thing holding everything else back. Your roadmap fixes this one first.</p>
     <div class="opts">
-      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nothing yet</span><span class="opt-note">No leads and no clients from it</span></span></button>
-      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','engagement')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Engagement, not money</span><span class="opt-note">Views and comments, but it hasn't turned into clients</span></span></button>
-      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','leads')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Some leads and calls</span><span class="opt-note">It brings people in, just not reliably</span></span></button>
-      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','clients')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Consistent clients</span><span class="opt-note">Content is already a real source of revenue</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','leads')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Getting leads</span><span class="opt-note">Not enough people to talk to</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','closing')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Closing clients</span><span class="opt-note">Calls happen, deals don't</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','offer')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">My offer</span><span class="opt-note">What I sell isn't landing</span></span></button>
+      <button class="opt" data-q="q8" onclick="selectOpt(this,'q8','systems')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Time and systems</span><span class="opt-note">It all depends on me doing it by hand</span></span></button>
     </div>
     <button class="btn" id="btn-q8" disabled onclick="goNext(9)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(9)">&larr; Back</button>
   </div>
 
-  <!-- 10 - Q9 CONTENT PROBLEM -->
+
+  <!-- 10 - Q11 SHOW-UP RATE -->
   <div class="step" id="step-10">
-    <div class="eyebrow">Question 9 of 15</div>
-    <h2>What's your biggest problem with content right now?</h2>
-    <p class="sub">Pick the one that bugs you most. Your roadmap goes after that one first.</p>
+    <div class="eyebrow">Question 9 of 16</div>
+    <h2>What is your show-up rate?</h2>
+    <p class="sub">When someone books a call with you, how often do they actually show up?</p>
     <div class="opts">
-      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','ideas')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't know what to post</span><span class="opt-note">Ideas and hooks are the hard part</span></span></button>
-      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','reach')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I post but nobody watches</span><span class="opt-note">Views and reach are the problem</span></span></button>
-      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','conversion')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">People watch but don't buy</span><span class="opt-note">The attention is there, the conversion isn't</span></span></button>
-      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','consistency')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I can't stay consistent</span><span class="opt-note">I start strong, then it falls off</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','s90')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">90%+</span><span class="opt-note">Almost everyone shows</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','s80')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">80%+</span><span class="opt-note">Most people show</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','s65')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">65%+</span><span class="opt-note">About two in three show</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','under25')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Less than 25%</span><span class="opt-note">Most bookings ghost</span></span></button>
+      <button class="opt" data-q="q9" onclick="selectOpt(this,'q9','notrack')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't track anything</span><span class="opt-note">No judgement, it just changes what we fix first</span></span></button>
     </div>
     <button class="btn" id="btn-q9" disabled onclick="goNext(10)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(10)">&larr; Back</button>
   </div>
 
-  <!-- 11 - Q10 A+ PROBLEM -->
+  <!-- 11 - Q12 CLOSE RATE -->
   <div class="step" id="step-11">
-    <div class="eyebrow">Question 10 of 15</div>
-    <h2>If you could fix one thing in your business right now, what would it be?</h2>
-    <p class="sub">We call this your A+ problem: the one thing holding everything else back. Your roadmap fixes this one first.</p>
+    <div class="eyebrow">Question 10 of 16</div>
+    <h2>What's your team close rate?</h2>
+    <p class="sub">Of the sales calls you take, how many turn into clients?</p>
     <div class="opts">
-      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','leads')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Getting leads</span><span class="opt-note">Not enough people to talk to</span></span></button>
-      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','closing')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Closing clients</span><span class="opt-note">Calls happen, deals don't</span></span></button>
-      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','offer')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">My offer</span><span class="opt-note">What I sell isn't landing</span></span></button>
-      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','systems')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Time and systems</span><span class="opt-note">It all depends on me doing it by hand</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','c80')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">80%+</span><span class="opt-note">Across my last 20 sales calls</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','c50')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">50%+</span><span class="opt-note">Across my last 20 sales calls</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','c35')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">35%</span><span class="opt-note">Across my last 20 sales calls</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','c15')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">15% or less</span><span class="opt-note">Across my last 20 sales calls</span></span></button>
+      <button class="opt" data-q="q10" onclick="selectOpt(this,'q10','notrack')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't track at all</span><span class="opt-note">No judgement, it just changes what we fix first</span></span></button>
     </div>
     <button class="btn" id="btn-q10" disabled onclick="goNext(11)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(11)">&larr; Back</button>
   </div>
 
-
-  <!-- 12 - Q11 CALL OUTCOMES -->
+  <!-- 12 - Q13 ICP ATTRACTION -->
   <div class="step" id="step-12">
-    <div class="eyebrow">Question 11 of 15</div>
-    <h2>When someone books a call with you, what usually happens?</h2>
-    <p class="sub">Think about your last few bookings and pick the closest one.</p>
+    <div class="eyebrow">Question 11 of 16</div>
+    <h2>How many ICPs is your content attracting?</h2>
+    <p class="sub">Your ICP is your ideal client. How many of the right people find you each day?</p>
     <div class="opts">
-      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','nobook')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Nobody books calls yet</span><span class="opt-note">Calls aren't really part of my process yet</span></span></button>
-      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','noshow')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Most people don't show up</span><span class="opt-note">They book, then ghost</span></span></button>
-      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','halfshow')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">About half show up</span><span class="opt-note">Hit and miss. There's no real system behind it</span></span></button>
-      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','closesome')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">They show up, and I close some of them</span><span class="opt-note">Calls work. I just want more of them</span></span></button>
+      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','i100')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">100+/day</span><span class="opt-note">A flood of the right people</span></span></button>
+      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','i50')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">50+/day</span><span class="opt-note">A steady stream of the right people</span></span></button>
+      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','i15')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">15+/day</span><span class="opt-note">A trickle, but they are the right people</span></span></button>
+      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','iunder10')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Less than 10 a day</span><span class="opt-note">Barely any of the right people yet</span></span></button>
+      <button class="opt" data-q="q11" onclick="selectOpt(this,'q11','notrack')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't track anything</span><span class="opt-note">No judgement, it just changes what we fix first</span></span></button>
     </div>
     <button class="btn" id="btn-q11" disabled onclick="goNext(12)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(12)">&larr; Back</button>
   </div>
 
-  <!-- 13 - Q12 WHO DOES THE WORK -->
+  <!-- 13 - Q14 LTV -->
   <div class="step" id="step-13">
-    <div class="eyebrow">Question 12 of 15</div>
-    <h2>Who does the work in your business right now?</h2>
-    <p class="sub">The delivering, the posting, the admin, all of it. Who actually does it?</p>
+    <div class="eyebrow">Question 12 of 16</div>
+    <h2>What is your client LTV (lifetime value)?</h2>
+    <p class="sub">What is one client worth to you across the whole time they stay with you?</p>
     <div class="opts">
-      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','solo')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Just me, all of it</span><span class="opt-note">If I stop, everything stops</span></span></button>
-      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','va')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Me, plus a VA or freelancer</span><span class="opt-note">They take bits and pieces off my plate</span></span></button>
-      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','smallteam')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A small team</span><span class="opt-note">A few people, and everyone knows their job</span></span></button>
-      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','systems')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A team, and systems do a lot of it</span><span class="opt-note">Plenty runs without me pushing it</span></span></button>
+      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','l100')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$100k+</span><span class="opt-note">One client is worth six figures</span></span></button>
+      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','l50')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$50k+</span></span></button>
+      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','l25')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">$25k+</span></span></button>
+      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','lunder')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Less than $25k</span></span></button>
+      <button class="opt" data-q="q12" onclick="selectOpt(this,'q12','notrack')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I don't track at all</span><span class="opt-note">No judgement, it just changes what we fix first</span></span></button>
     </div>
     <button class="btn" id="btn-q12" disabled onclick="goNext(13)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(13)">&larr; Back</button>
   </div>
 
-  <!-- 14 - Q13 REPETITIVE LOAD -->
+  <!-- 14 - Q15 WHO DOES THE WORK -->
   <div class="step" id="step-14">
-    <div class="eyebrow">Question 13 of 15</div>
-    <h2>How much of your week goes on repetitive stuff?</h2>
-    <p class="sub">Messages, admin, editing, chasing people. The stuff that never seems to end.</p>
+    <div class="eyebrow">Question 13 of 16</div>
+    <h2>Who does the work in your business right now?</h2>
+    <p class="sub">The delivering, the posting, the admin, all of it. Who actually does it?</p>
     <div class="opts">
-      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','almostnone')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Almost none</span><span class="opt-note">My week is mostly the real work</span></span></button>
-      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','few')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A few hours</span><span class="opt-note">Annoying, but I can live with it</span></span></button>
-      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','half')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">About half my week</span><span class="opt-note">It crowds out the work that actually makes money</span></span></button>
-      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','eats')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">It eats my whole week</span><span class="opt-note">I'm busy all week and still behind</span></span></button>
+      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','solo')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Just me, all of it</span><span class="opt-note">If I stop, everything stops</span></span></button>
+      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','va')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Me, plus a VA or freelancer</span><span class="opt-note">They take bits and pieces off my plate</span></span></button>
+      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','smallteam')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A small team</span><span class="opt-note">A few people, and everyone knows their job</span></span></button>
+      <button class="opt" data-q="q13" onclick="selectOpt(this,'q13','systems')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A team, and systems do a lot of it</span><span class="opt-note">Plenty runs without me pushing it</span></span></button>
     </div>
     <button class="btn" id="btn-q13" disabled onclick="goNext(14)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(14)">&larr; Back</button>
   </div>
 
-  <!-- 15 - Q14 SYSTEMS -->
+  <!-- 15 - Q16 REPETITIVE LOAD -->
   <div class="step" id="step-15">
-    <div class="eyebrow">Question 14 of 15</div>
-    <h2>What systems do you have set up right now?</h2>
-    <p class="sub">Tick all that apply. A system counts when it runs the same way every time, not when you remember to do it.</p>
+    <div class="eyebrow">Question 14 of 16</div>
+    <h2>How much of your week goes on repetitive stuff?</h2>
+    <p class="sub">Messages, admin, editing, chasing people. The stuff that never seems to end.</p>
     <div class="opts">
-      <button class="opt" data-q="q14" data-sys="crm" onclick="toggleSys(this,'crm')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">CRM</span><span class="opt-note">Full lead tracking, student tracking and the phase each person is in</span></span></button>
-      <button class="opt" data-q="q14" data-sys="sales" onclick="toggleSys(this,'sales')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Sales pipeline</span><span class="opt-note">Call booking, follow-ups and close tracking, so no lead slips</span></span></button>
-      <button class="opt" data-q="q14" data-sys="content" onclick="toggleSys(this,'content')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Content system</span><span class="opt-note">A planning calendar, plus a scripting and posting workflow</span></span></button>
-      <button class="opt" data-q="q14" data-sys="automation" onclick="toggleSys(this,'automation')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Email and automations</span><span class="opt-note">Follow-up sequences and reminders that run without you</span></span></button>
-      <button class="opt" data-q="q14" data-sys="fulfilment" onclick="toggleSys(this,'fulfilment')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Client fulfilment</span><span class="opt-note">Onboarding steps and delivery tracking for every client</span></span></button>
-      <button class="opt" data-q="q14" data-sys="none" onclick="toggleSys(this,'none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">None</span><span class="opt-note">No systems yet, everything runs manually</span></span></button>
+      <button class="opt" data-q="q14" onclick="selectOpt(this,'q14','almostnone')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Almost none</span><span class="opt-note">My week is mostly the real work</span></span></button>
+      <button class="opt" data-q="q14" onclick="selectOpt(this,'q14','few')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">A few hours</span><span class="opt-note">Annoying, but I can live with it</span></span></button>
+      <button class="opt" data-q="q14" onclick="selectOpt(this,'q14','half')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">About half my week</span><span class="opt-note">It crowds out the work that actually makes money</span></span></button>
+      <button class="opt" data-q="q14" onclick="selectOpt(this,'q14','eats')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">It eats my whole week</span><span class="opt-note">I'm busy all week and still behind</span></span></button>
     </div>
     <button class="btn" id="btn-q14" disabled onclick="goNext(15)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(15)">&larr; Back</button>
   </div>
 
-  <!-- 16 - Q16 INTENT -->
+  <!-- 16 - Q17 SYSTEMS -->
   <div class="step" id="step-16">
-    <div class="eyebrow">Question 15 of 15</div>
-    <h2>Last one. Which of these sounds most like you?</h2>
-    <p class="sub">Be honest, it changes what we send you. There is no wrong answer here either.</p>
+    <div class="eyebrow">Question 15 of 16</div>
+    <h2>What systems do you have set up right now?</h2>
+    <p class="sub">Tick all that apply. A system counts when it runs the same way every time, not when you remember to do it.</p>
     <div class="opts">
-      <button class="opt" data-q="q15" onclick="selectOpt(this,'q15','ready')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I want to fix this and I am ready to act</span><span class="opt-note">Show me the plan and I will work it</span></span></button>
-      <button class="opt" data-q="q15" onclick="selectOpt(this,'q15','help')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I want help doing it, not just information</span><span class="opt-note">Guidance and accountability would move me faster</span></span></button>
-      <button class="opt" data-q="q15" onclick="selectOpt(this,'q15','diy')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I prefer to figure it out myself</span><span class="opt-note">I mainly want the roadmap and the resources</span></span></button>
-      <button class="opt" data-q="q15" onclick="selectOpt(this,'q15','researching')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I am just researching right now</span><span class="opt-note">I am not looking to start anything yet</span></span></button>
+      <button class="opt" data-q="q15" data-sys="crm" onclick="toggleSys(this,'crm')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">CRM</span><span class="opt-note">Full lead tracking, student tracking and the phase each person is in</span></span></button>
+      <button class="opt" data-q="q15" data-sys="sales" onclick="toggleSys(this,'sales')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Sales pipeline</span><span class="opt-note">Call booking, follow-ups and close tracking, so no lead slips</span></span></button>
+      <button class="opt" data-q="q15" data-sys="content" onclick="toggleSys(this,'content')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Content system</span><span class="opt-note">A planning calendar, plus a scripting and posting workflow</span></span></button>
+      <button class="opt" data-q="q15" data-sys="automation" onclick="toggleSys(this,'automation')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Email and automations</span><span class="opt-note">Follow-up sequences and reminders that run without you</span></span></button>
+      <button class="opt" data-q="q15" data-sys="fulfilment" onclick="toggleSys(this,'fulfilment')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">Client fulfilment</span><span class="opt-note">Onboarding steps and delivery tracking for every client</span></span></button>
+      <button class="opt" data-q="q15" data-sys="none" onclick="toggleSys(this,'none')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">None</span><span class="opt-note">No systems yet, everything runs manually</span></span></button>
     </div>
-    <button class="btn" id="btn-q15" disabled onclick="startBuild()">Build my roadmap <span>&rarr;</span></button>
+    <button class="btn" id="btn-q15" disabled onclick="goNext(16)">Continue <span>&rarr;</span></button>
     <button class="back" onclick="goBack(16)">&larr; Back</button>
   </div>
 
-  <!-- 17 - LOADING -->
+  <!-- 17 - Q18 INTENT -->
   <div class="step" id="step-17">
+    <div class="eyebrow">Question 16 of 16</div>
+    <h2>Last one. Which of these sounds most like you?</h2>
+    <p class="sub">Be honest, it changes what we send you. There is no wrong answer here either.</p>
+    <div class="opts">
+      <button class="opt" data-q="q16" onclick="selectOpt(this,'q16','ready')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I want to fix this and I am ready to act</span><span class="opt-note">Show me the plan and I will work it</span></span></button>
+      <button class="opt" data-q="q16" onclick="selectOpt(this,'q16','help')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I want help doing it, not just information</span><span class="opt-note">Guidance and accountability would move me faster</span></span></button>
+      <button class="opt" data-q="q16" onclick="selectOpt(this,'q16','diy')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I prefer to figure it out myself</span><span class="opt-note">I mainly want the roadmap and the resources</span></span></button>
+      <button class="opt" data-q="q16" onclick="selectOpt(this,'q16','researching')"><span class="opt-dot"></span><span class="opt-body"><span class="opt-main">I am just researching right now</span><span class="opt-note">I am not looking to start anything yet</span></span></button>
+    </div>
+    <button class="btn" id="btn-q16" disabled onclick="startBuild()">Build my roadmap <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(17)">&larr; Back</button>
+  </div>
+
+  <!-- 18 - LOADING -->
+  <div class="step" id="step-18">
     <div class="load-wrap">
       <div class="load-ring"></div>
       <h2 style="margin-bottom:.6rem">Building your roadmap&hellip;</h2>
@@ -429,8 +449,8 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
     </div>
   </div>
 
-  <!-- 18 - NAME + EMAIL -->
-  <div class="step" id="step-18">
+  <!-- 19 - NAME + EMAIL -->
+  <div class="step" id="step-19">
     <div class="eyebrow">Almost there</div>
     <h2 id="contact-headline">Your roadmap is ready.</h2>
     <p class="sub">Tell us who it's for so we can put your name on it.</p>
@@ -443,12 +463,12 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <input class="input" id="email-input" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" oninput="checkName()" />
     </div>
     <div class="err" id="email-error"></div>
-    <button class="btn" id="btn-17" disabled onclick="goNext(18)">Continue <span>&rarr;</span></button>
-    <button class="back" onclick="goBack(18)">&larr; Back</button>
+    <button class="btn" id="btn-17" disabled onclick="goNext(19)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(19)">&larr; Back</button>
   </div>
 
-  <!-- 19 - INSTAGRAM -->
-  <div class="step" id="step-19">
+  <!-- 20 - INSTAGRAM -->
+  <div class="step" id="step-20">
     <div class="eyebrow">Almost there</div>
     <h2>What's your Instagram handle?</h2>
     <p class="sub">So we know it's you when you message, and can see what you're posting.</p>
@@ -457,12 +477,12 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
       <input class="input" id="ig-input" type="text" placeholder="@yourhandle" autocapitalize="none" autocorrect="off" spellcheck="false" oninput="checkIg()" />
     </div>
     <div class="err" id="ig-error"></div>
-    <button class="btn" id="btn-18" disabled onclick="goNext(19)">Continue <span>&rarr;</span></button>
-    <button class="back" onclick="goBack(19)">&larr; Back</button>
+    <button class="btn" id="btn-18" disabled onclick="goNext(20)">Continue <span>&rarr;</span></button>
+    <button class="back" onclick="goBack(20)">&larr; Back</button>
   </div>
 
-  <!-- 20 - PHONE -->
-  <div class="step" id="step-20">
+  <!-- 21 - PHONE -->
+  <div class="step" id="step-21">
     <div class="eyebrow">Last one</div>
     <h2>Finally, what's your WhatsApp number?</h2>
     <p class="sub">This is where your roadmap gets sent. Someone on our team sends it to you on WhatsApp themselves, usually within a day.</p>
@@ -476,11 +496,11 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
     </div>
     <div class="err" id="submit-error"></div>
     <button class="btn" id="btn-19" disabled onclick="submitLead()"><span id="btn-19-label">Unlock the whole thing</span> <span id="btn-19-arrow">&rarr;</span></button>
-    <button class="back" onclick="goBack(20)">&larr; Back</button>
+    <button class="back" onclick="goBack(21)">&larr; Back</button>
   </div>
 
-  <!-- 21 - NEXT STEPS -->
-  <div class="step" id="step-21">
+  <!-- 22 - NEXT STEPS -->
+  <div class="step" id="step-22">
     <div class="pill">&#10003; You're in</div>
     <h1 id="done-headline">That's it. Here's what happens now.</h1>
     <p class="sub">Here is what happens next.</p>
@@ -527,7 +547,6 @@ select.input { appearance: none; -webkit-appearance: none; background-image: url
    across pages through localStorage. */
 window.ElevateSfx = (function () {
   var SRC = {
-    pop: 'data:audio/mpeg;base64,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',
     tick: 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYyLjEyLjEwMgAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAEAAAHOwBvb29vb29vb29vb29vb29vb29vb29vb2+pqampqampqampqampqampqampqampqamp8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f////////////////////////////////8AAAAATGF2YzYyLjI4AAAAAAAAAAAAAAAAJAZAAAAAAAAABztpaUl/AAAAAAD/+7DEAAAG9AFHtAAAKM0O6T8o0AAABOW7bf/gAGRw88MAAAAAA8PDw8MAAAAAA8PDw9IAAAAAB4eHh6QAAAAADw8PDwwAAAAQHh4e2YFLK4Q4Q4NAOBwMAAAAAAAxwNQYSYGNInY8+6T606OpbUu73Wi3rWbGn/hIy1i+f/BABgK/l+7pIkICJAaBQCABMMJyFCZfISaDeBAAS7IhGLBUvQt9MRLh2i3CCNlaBwMCf4WAeqWGIAhGWcgRdKiduLNgQgBx4qMFgoknPEAETyrLo8YIp5lLQAShjCA5YMCd6SShpDTY/KbDeRB/JZQQ4+ikJ53tP5S5u5LZXSTlyMUluksYWOZb1hOzsvxlHLF+pYv4WLesO8/e/z/7dPfqYdl/289WLYEDxm3bUlLsPl3n5sn//4f2u3/tcjQIAEMrtc9tkAREyJU5q4Cih4UlCZkCPIC46NiCRC4wp8zoUOTJCsLdNPgKjYc8TxSAOOlyCSsphhl8/Log197VzpdwC05W5HWvJay5jwJORXCm8+Z/hrU+bb8mhZfGJ1KR1C+aa7+KnZO1mlmYdynY7F4zBecogRQd76Rd8XsNZpYjDtPZjM3PyKnorkw1+R6f+fwfunw5dmc8aXlLV+/zG7rXONPkcsd+Lyx34vSP/P1as7yU1atWz9m/d1rnLe89YWKfv09vCnt4U9vlu3VrBwVkWh7P9WtV6vJfLrlEUAAAk5HZdpdhtJMM8wjKODAR4Vh6hJhkg+xKpYzYUhzdJUwY2tlpip0+lAJtoMWexw4JZqoHB7WpiJx1y1f6V+XsIgMdfFuhixCzWZOo/8oHABjgAYEgx//7kMT5ABapBU25zKIDfivrtzWAATTFQTNAZVNTE5R2qSN3Ew2QwplkSg5w4VDNqaoKKjsVLVSkWO6L3ssf55X7p7c73davyks2qSpWpLD+yN/JVFIvLYvGKWxeq013VrCpKKTKxY1Us4WHmaY77+vm5D9RTOHZfZ1v+85qt+fdc5hr8OZ4b7hyVSeGNyCX5SOUY2KfKTxizzGtWzx/datJf/6GMJEGMHEEMBIBBAIBQKBgEzV1ms0xrY7/jwRHw4thH/BzIzGxwxZp/2bOQYDBGDgc/6z8weYgigYViIABT//s9nXrMFgcMDgBMQRcMCCh//9uMARGK2zIpQzWQnzSWLjJdDDI8bf//+OO9KJXLbRhgEZgACIiAoFA8lUm/////2/Yxop/RgIA4UAVHwwJBAEgQg+YCAL////9HOW71PhfqeXNUoLtKVMrLYpUsEAoBf/////3qfC1UzvZ6v4ICl1lnUqWIF3lVmnl1VKWaf///////L1PlfsbsW/t1OWKcGgAmkzctSmi0wv8tJv0EqqrUC3SlTQ////////////7oMT0gB1xkWG5nQAERbssvzfRAP//////////////////LqrRbxBNTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7EMTWA8AAAaQcAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV',
     chime: 'data:audio/mpeg;base64,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',
     win: 'data:audio/mpeg;base64,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hVTAYFiSCYKDmHIYGQU5lVqZmLUEKYCAKhiMisnJWOoYfAI4MBcEADIqAAvl4o7QGabPV39fT9SZgJ7AyAUwxiVXbs6RiPwTA4H1lWHIkodQZ2///////////////1k2WgCEMAAAL1gglg0GGjqsSvAQOGI4XnkjXmw4imIA4GD/cmkF1GHAnGagMgITgwCVYm1gadK5mkj/99vqOjUAwaRiFKyP2ROFkMMB0lCCExROLdv///////////////KN2yAAAvQAAADXJC4bjvgpevQMAC1qjAAKMADxgBoDCYB8C4GFylfRggAH0RAwRhRQImEQSJhSYHmYRmJ0mP/7YMT4AE5VVy3o+sdh0iqlfWA31MAi2ZiI4UGanoGZ/luYigGNAWZCDkAQGDAbQdMCwHAwXhQDjBQDhYAFzr8z7UpOZ5//633dZhINJlqj82se87zKtMvUVAROYEhLgwVE85K47O09G1RfMTy1M8TDBhlGvaamVIOrxXMzVp8TtUl//33/////////////yQv////Pc8qDeKwBQQjTMogAAAngAQAEScqfaSsUEDWkhNBIDWRACZSGBYDCZB54ZiSAJmBSD+YNBixlDE/mAyGyYaw25scNOGLWJ8YZILBgVgQEQCTRBoBpJVgkDP8nVLqa/ALWi86KKKKP+XgMAwGhlTZv1v/7UMT8AM2BVSus+qrheqpluQ7UtKOiVAY0QyDLGKnRMSqXgwkBgHAMBgJA4Bg1BSBr1BGBgYAmBhEAmBgWAaIaeHOPpVspL////////////V////60jIL9GiQGhTAAAA3AAAA//1sYMOhHHJ6hxUSwWgwUQMzNsIfMa0CMwFAWjD9JMN8sTEwrAeTCnDKNi+GMwEQMgYASjcwGAiyfNX6XSvWtP+5oBhkBiykf6lnBLQNvHkXKZIpKMygOsVwL9gUDgEaaBwzJA3kAGSoEgML/+4DE9AAYrZkhr/VR4rYy5b2PWWwNHETpsedf/////////////////6Im8eXA9gAAN4A60NqKSSPoIAHUOJAExAEQYhqahgXAlAIMEwjStzS/JyMJAAowhgTTQ6dKEACqqz6yqqpnbr7qqb/oGYDQGRmf+o6L4DEuFYc5HdAvkUGbD5AbNgYNgWAaYhrgNBvCEAIuiVOLUv//////////////////WQFOAIUQAAAPwAAA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',
@@ -535,7 +554,7 @@ window.ElevateSfx = (function () {
     glide: 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYyLjEyLjEwMgAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAYAAAVxQAlJSUlMzMzMz8/Pz9LS0tLV1dXV2FhYWFtbW1tbXZ2dnaCgoKCjIyMjJWVlZWfn5+fqKioqKiysrKyvr6+vsbGxsbQ0NDQ2dnZ2eLi4uLi6urq6vHx8fH29vb2+/v7+/////8AAAAATGF2YzYyLjI4AAAAAAAAAAAAAAAAJAXWAAAAAAAAFcWrVi3CAAAAAAD/+7DEAAADmBE/VDAAImSVZzc9gEgAAqpLeAAAN30AAAQAHB+CDygISji4Pwff/BB3pAAAcaXj/u//bwEAAAAMAIA0wDQXjApCrMsVs0wZQvTIqdrMJADhnJiAA0lACZnGiRtDHQDEJZgfAFqbiQQgCABWGetebczVaLtWYbJmTNPfNDitZBOpdKHep43PNfg9ZcvgOhgKXOy8b8tbZeyaBmJt85b7xemgyHYap8u2tbt/Xvcp8Ms+d+k7u+9MPPSQBJoOGDcja8t/0AABAnLvv/uAnOpgAgEIwSZCU5nOSMgMCgYHAKWIpJOq5kDtPew2EjdOEvxxF1JavGUky5MZyuA9SbNFCT+Q1dHM/VqyrlFBV13sVijQYsjjAUVk68VzMvu3qtwooba9hTK59DVOmaBK5QYrdZnZXBmeyRoL2EvP/bNYVoPt9e2YoUKcCHEsvfLfSGACYw0Rv9rUAU7QBmYR9eYaBcfdSeYxAAJAmgMUAQRqJJZaygd/HXhx/5XFG1jtNcOGiSIRZ4pJ2Ey5uuRQRSulQWhEaWUu8gjVa1VsTCfObZI4/2CrVVRPdX7FnPDVlI1aWZC///9VQAAlVneP9rowJGNAMiMAIwEAAzAnB4NBUKAwVwDkkS35aMBEEdUwhgKg6Nxdd8ljpqoHuek6yaNMPUsqtJYtE25vVL+vJKQfCIO4FB5hr6MZiSUcTDCDUrqDSkVN6HU0zOr1bHyN6Xnc8Yg2Kfuol/eIquBthsUvPJGU1MANNxx//awCcIQETRAwFGAAvnNRFGBwGq2DwMl5mmriYywBpjauHKX/daMRgu2wSEJAgR+DK6/mJ//7cMTTgBEs40O9x4ApoBkmvY6YfUCZ1tggwhqggIzsVrzwKaWDxiNAbEC3ZThUXu4eP6EVKuoRZs7jXUmNFB5dwolRmZJgAENub7SNAGCIGA4ExGDoiAoEFIcGwGPJkj0OFEIQxZdkWEvBwQiCsJfphCKjW2ms/V1C5esyNvG8EQZ8ly3ODFRwyDYExkIodAgSx1IBDLBTFzaGOheKo8FQyIrbQ73Mjt89XLIYm1NKva+xlGJx3PfzdvV5y0XvQS+7vzBVYsXQGTYBcuuQooRBULal2/+oCjqPJewwUAQYRDjUmRBSJliEYBAKqCrW0m3gNREUqJz5G5VK9JL240KTAkUos2IQqDSivsoKxCCNVSd4stA2UiByRqZLxcwYbmla0l5Z8IEZ936XOKfvStyC+uiOOW17/nr/+2DE7IAPfO0z72EH4acd5rXUjh1AAEpu77/+gAAAgIVBgMWOY4Px1mymSQypUCQDBaTijamTZW7KqzTdViv87L7OLHn9dauyV+oy6zTWvNq606/LLrLlQ7GpTQQymsqNKnCFQ6dUB1ZCMEMi5VQ6UPFE0sPEG1aTigfirc8IoIPPGE4TUeiTTxNVIjoB0yBNAW2opJofKU+0jyyX9erAFEm23vv9QAMAC/5esGhARHwypAHQB9DiVgrO1xJCOQ6bO6zsVNx+RhBAmmYtBRNZSG+4IWTKY+yx5B0zjLJtWmn20JxNYieOysd0sVpmFY8RJZ00ie8f1TtL4r7CRWd6YuOUd9f/+2DE8YARMNkvruGH4aQapzXGGZ28v1WCAxIiNGt+/2ALRAUHUFBQMYm5H/VYIHGLiIAZAmExBX7wx4PS4RxFoRqQMoKGVE7Kw+sKpQKkjfiWXBpQ0kfkPZheY27U604s0zGwnlKW4gIATEY62KrGk+0IP+iTjUSgr+EDyvz6hBaqd12/+oBUACAoOA6JoOB59EaAcw8AsxygXEQHKTYQFWGW/gnM4rKHyMTeSRQRCiUFkzIFK1sqYR3W5vQyEyyEFVPVaqswhdpbDchElcvEXGRYUuQWOwhdw2NE2sOZP69ZzXXABMtx3f7VgMLC4EEAHa4YAJp9x5GTgO08si2zeIeLhcn/+2DE8AARRPk5riTYaaEdJ3XMGK2KhwQgPwyBDhTFDB8mVLEpErFHzynvMVykvSWKNMwLTYRJwhGJzrQiGEghTAnaLmZtY0LPMoxJ3xaushjA8sTDKr+6IAMqSz/WxALGCwOqGgoLRAQxonMYqARZlcCiKfbMRoC5mGWuwDEZ7rey0ZDhlVATpIV2RKrjHsjZIV2UK7SUlP1zy6QoVhHVQbAUvYqs4bYjMjBXllwxsgStFPesOFUt7V0ECOuoUYrSxA0e1t/+0QAJGIpDAwEAwDCEzdggxbAsv4BgGMEQAQUamkBFHgg+St0iFIvF9HA0OqAath1aDDsyhwdqKH4o02TNaEz/+1DE7oAM4J897bDM6ZMUZzXHmLXAKjCjpvHDnGbta3Nci/PUI6m2tUPYyhAPnzqFCoOQbCYsjvkqACzJJftYyA2hgaANIVQVMFgeOWppPsYhNWADhAwZK1b119Y66rOY1PwPG8YvG6g5B0agSH5anMTTAiBhWNtyZsJBWlune2OgudUYQqeXL7VnlP6Z/dx/vdK1Tblv4OCXxg0LvaT/Evf9/1WAAq2S77WtAIAhoIUJwAB8KEccKpYPEkLByPANK1RIqo0KTW6rqSuoBIWS//tgxOYADHjpNa4kbeGknSX11I4kVJhIjPkqAwcUCCBYxHLyjaxY1+Z0SsIYH9b9ly7RSpystsfCvmmWfLRntFWbZWUamZTqvZGl97de7N1Dna3qA7rrv9rGQETQwCEjFxhQnPiUTJglRQLgsNTCS0hWw+kIqICwFTtSVTdayJROuvYhTWq6iHCIyCGqDkOrMozK80fgmzwRkaIwNUVHzhkZif1yU2XIfQiNBWYqf9v5bSqTAEZEZm/+0aASGPGR1QDenSbdYmSgTAkhy9KAVgqr24xvsF1ZA7kSo4RXtw6LNJfQFdrMRgpDUsPSyGvjyhbtq58bPw97RPR08S720hcNbbrV//tQxPeADRC9Max1A6GrmaV13Ji1+V32Aco3QSlxR2DF7yTO5ZtyP+yYEiOzRH/1jICLQSgXDM0VR0A4xEGKANBUgms+kCLIoGvTecMu5JJ/hQ7qFklpq1JQPRxSR3KlU+XmCTpf7BaFy8b8mzaR2p6y0YiEHhWYTMAqYEOzns4HVZQu92//dZUAREV3T7axEAygkgBKambGkhEArSuMoUAAxcRJVVBL6O078MmfRuz1vtH4CgSIS0+M8gO6U2UEkBELCFl0U2pC3VGt4+YKFP/7YMTrAA0kty2upM7pfBmltbYNpdKMauk+eacSymCU310ypkfHf2/hbEkEhxzlNETCugzciVAkWHeG+21QAUiYqAhLZEONnKeJQLqHAITOoZUqwKRKsT4Rtob+SmMPGFiZJD0lywnCRpvUyRRiAdbMt2XLZrHmIk8bu7HwiaW2a1Bmv5KeukfCdX0kxkLYLYiUwJa9//+79aUAZmiHf/6RkABFRgyBCocFGBJts4KVuRShQG3ZOdJJ3WogbB4NyscBOFb5WRUKtZbiQ7PP3dhx3DOjPAaNaQMZWISTUyjHzdbmm5hdELqNlkwiL2NoYbftigmhUtCBHWSVeW9UuAKzM8P9tP/7UMT+gAy0ty3sbMPpexUlvZ2YdYiAoovEQgD0DCTV6K4ad3kYkznxSteJuI5F8Uc6blEpparzg0TuErtFMmiTqrYtLJv6mp1QbKEwm8RUfs3T31U1/71qsuxCDqgKxAJmBEhJFK62bzqNxpaYAGZ3eF+1kRATpLRgoemR5EHyHZ21eAwJpbEEzGtw8LE4TbCWDLi1R7q7I6AaLKOJTF8yCqL8pWUB85z5+Q/utPrtTQzFxGviSzcgCE5hxPc7j1EXzr02/zMZPpMixAA7PMP/+1DE+YANEOEp7RhzYY0YJX2UmgXH/tljSjAFRUTEPCEewpYsCgX5VIxGtDaj1K11CBAaBlVslX7hNFfcIcud4uRvRyPJq4jTF0kaeJbxoLBm5jgYIOgMUhiGpkS4tKiFxbCxVBGkKNXacnWIO3rv7df8KpQBiZh4f65tEB8UdmfCgRb4ufASlkocSZukO4xABZAtl05XOmja462Jy6jRiTvNNSAcFEJkce9TKixibpdRZdBJV8HKQZZMtYZl7VUSuCczeuyOzti2Pf1aFmZK//tQxPEADJTxK+0wbWF9FmV9lhmUM41DMl0X+q/b3M08gUxvrIiBS5ki0E6M4GIinHASRACUBrE0eE8gLiyXeSTCiGGqI8p96Cb9Ehw5qHPh/ZdmebS2mMu8j50GPOQwVY4jQeKRG1OVUWq+sugiDUruWvLB5jf/3dwftvtfI0QBLX3ESjAVdoS0atIhUiX4IlULm00WGGCVq2Iipf9UjTmm+pMN6PDaeocQjryTi6LibRw6S9czlsaBFZnuPSd41O8G6376k84u5D1MmPPjDv/7UMTsgEvEpSnssMypjJilPZSN7b2j0HqRT7f/7eQWYmHiPrrEQLctLlBFmwF5gaqYZAjkBscyYjE99wzcgY9YVYDRZTGrCBZA8URlR7nOSUVtWVGpLqLNOQmonH0XLS/ZcZLEajLi33Y7Ha83c3fqDq7yxNzB+wyj1f+1P6VoBYeFeH+1kQA5aUiGThgWsJUl/GSCQ+SlGMyzSdUsJCeMQykC3AkbLPTklKRzIYicdMxTIeEUoyk5x5mWZhtG1/9IxHr2nmuvAMl1HJEiYr7/+1DE6QEM5OUn7SRvqWISZT2HmRVAaNX//3+cdwWGZ3iJbY0AK8FMTBoo8MRKkZY9LO4hN9vwlGHEE2GkR2LRQZax7QoWmYMECeHoqBBQQaGJGwmjjSPdCzz8zFH8/OC1eU6XauhEkB4dKICZswwPm//XdBjZSTkSRAE7SksRCYRmMQgjUwztJKs+NmQ45T22UjDVT3ewWR1SHlY80kv0PWlJoVFAgZGswuJjSa2EBrbofI6S0rrRDbnYfSjj7VeCT2i5HxedCSiTM7q3RjwD//tgxOaAC/jBI6wkyemDGmU9hhklqLC/7fkQDw7xDv/9YSBNUrdWWR4gAAlRl+4iJ2OUlBgO2LqKjlISmeUlLCQtiwTCMvtInqHesLYqNMSaE8ykgxjv5q8gpk2ePWZGpzScOxeeZ1Dj8nqtU+brPrpE/mTKVDjtjscbJAFn2NkRGtmE5aF0n9cw1iFEUDaMRsbBvaqkaxAQrFHJqTfiousDkHLAwogoRIYryZhIGIBsT4G4AaDRb72ECZIecLFdrZoEvZFCuKedFSsn4/b7bdVojskkTaAGFplKECH5UmAwRCQP4N0076CEwcmikWmIUolB9N2w8wIJiB9520tlXJiCtj5v//tAxP4ACwC7J+wkySlcHCT9hI0t35Do0lNWXy8QxlZK4Ql0q6yR2ZqSWf52dvlbCALhMIDp+xruqpw5bLLImSABvaqSOOBEEmJcrcaVIYI9U9LsKOnfm2Q1OYkgwvBPZvVRY28LHBViKMQHIFePbwpchbiY+ld+iSypmzbGaGxKQ3Tj53xLde+6kep4GIqzB2lbdUk+gAHMKKQJAYU6QALgLQpco0gSIJmghViX6r3C35/PPRv/+1DE9wAMPQUXrBkNSWoYZT2EGTWdxy5g+S83nFktzdrfreWpnmWefBsiLkVMFWCUktMBKXTqTZTbiV9IBXsN0hxgZhMLLobNEnMgwfDpAgQkYHCjvrV1UBObKtXzTC9xGRY2jPlJEZhESYkQ8z17Fpjexe5GxFTW91jyIcPhoNMS00iMpEqtdrbVN9iThTbZjbaAA5jUkVCZHF+pdLxi5JYu32a7TWkhGI7MTzulTojBUm4ZNwPSe4tA74WldpF7X0tU83IhrqCMKwsWHWFz//tQxPYAC1jFGawkaYlnHGN1gBkAY2xb5GO35ClOminEkik7EgABzOOQbNCIZNRp9S5XyyRwnzX1m36SbeGVt7n5NpEmAUdlJNJZFax08uYpmPqVgpjoxqswrnixqdqX9f0Kd6OVScaUbf/RpG2MP0HMBqpiIs3gvnEEFAjJzxz0JKSIiWIgxcwnEVakpysxJGpZzjdNQWCY08AgKeAsWeRd539+z+ZqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqv/7QMT5AEmQ1R+sJGnpRhhipGwYEKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqpMQU1FMy4xMDCqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//tAxPqACryjFYwkycEylKL1hJjwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqkxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/+zDE+YBI4JMVrCRrwQUOorD2GOCqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/+xDE1gPAAAH+AAAAIAAANIAAAASqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqv/7EMTWA8AAAaQAAAAgAAA0gAAABKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//sQxNYDwAABpAAAACAAADSAAAAEqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=',
     confirm: 'data:audio/mpeg;base64,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'
   };
-  var VOL = { pop: 0.35, tick: 0.25, chime: 0.35, win: 0.45, unlock: 0.4, glide: 0.3, confirm: 0.35 };
+  var VOL = { tick: 0.25, chime: 0.35, win: 0.45, unlock: 0.4, glide: 0.3, confirm: 0.35 };
   var KEY = 'elevate-sfx-muted';
   var muted = false;
   try { muted = localStorage.getItem(KEY) === '1'; } catch (e) {}
@@ -565,7 +584,6 @@ window.ElevateSfx = (function () {
   }
   var api = {
     play: play, reduced: reduced,
-    pop: function () { play('pop'); },
     tick: function () { play('tick'); },
     chime: function () { play('chime'); },
     win: function () { play('win'); },
@@ -626,17 +644,13 @@ window.ElevateSfx = (function () {
 <script>
 /* ---------------------------------------------------------------------------
    Offer to Client - lead magnet funnel
-   country -> 15 questions -> build -> name/email -> IG -> WhatsApp ->
+   country -> 16 questions -> build -> name/email -> IG -> WhatsApp ->
    next steps. There is no open roadmap link any more: the team sends each
    lead their personal link on WhatsApp (the gate is in roadmap.html).
-
-   Deliberately a sibling of the UGC funnel rather than a fork of it: different
-   audience, different questions, different roadmap. The validation and country
-   handling are the same because those were already right.
 --------------------------------------------------------------------------- */
 
 var answers = {};
-var TOTAL = 21;
+var TOTAL = 22;
 var PROFILE_KEY = 'clp_offer_profile_v1';   // namespaced: must not collide with the UGC roadmap
 var LEAD_API = 'https://creator-launchpad-content-infrastru.vercel.app/api/leads/capture';
 
@@ -809,37 +823,37 @@ function selectOpt(btn, q, val) {
 }
 
 /* The systems question is the one multi-select in the quiz: a business can
-   run several systems at once. answers.q14list holds the ticked keys, and
-   answers.q14 holds the derived count the Back-end score reads. Ticking
+   run several systems at once. answers.q15list holds the ticked keys, and
+   answers.q15 holds the derived count the Back-end score reads. Ticking
    None clears the rest, and ticking anything real clears None. */
 var SYS_NAMES = { crm: 'CRM', sales: 'Sales pipeline', content: 'Content system', automation: 'Email and automations', fulfilment: 'Client fulfilment' };
 function toggleSys(btn, key) {
   var first = Object.keys(answers).filter(function (k) { return /^q\d+$/.test(k); }).length === 0;
-  var list = (answers.q14list || []).slice();
+  var list = (answers.q15list || []).slice();
   if (key === 'none') list = list.indexOf('none') >= 0 ? [] : ['none'];
   else {
     list = list.filter(function (k) { return k !== 'none'; });
     var i = list.indexOf(key);
     if (i >= 0) list.splice(i, 1); else list.push(key);
   }
-  answers.q14list = list;
-  var cards = document.querySelectorAll('[data-q="q14"]');
+  answers.q15list = list;
+  var cards = document.querySelectorAll('[data-q="q15"]');
   for (var j = 0; j < cards.length; j++) cards[j].classList.toggle('selected', list.indexOf(cards[j].getAttribute('data-sys')) >= 0);
   var real = list.filter(function (k) { return k !== 'none'; }).length;
-  if (!list.length) delete answers.q14;
-  else answers.q14 = real === 0 ? 'none' : real === 1 ? 'one' : real === 2 ? 'two' : 'threeplus';
-  document.getElementById('btn-q14').disabled = list.length === 0;
+  if (!list.length) delete answers.q15;
+  else answers.q15 = real === 0 ? 'none' : real === 1 ? 'one' : real === 2 ? 'two' : 'threeplus';
+  document.getElementById('btn-q15').disabled = list.length === 0;
   if (first && list.length) Elevate.step(MAGNET, 'start');
 }
 function systemsAnswer() {
-  var list = answers.q14list || [];
+  var list = answers.q15list || [];
   if (!list.length) return null;
   if (list.indexOf('none') >= 0) return 'None: no systems yet, everything runs manually';
   return list.map(function (k) { return SYS_NAMES[k]; }).join(', ');
 }
 
 function startBuild() {
-  show(17);
+  show(18);
   Elevate.step(MAGNET, 'finish');   // every question answered, before the ask
   var lines = ['Working out where you start…', 'Picking outbound or inbound…', 'Almost there…'];
   var lineEl = document.getElementById('load-line');
@@ -855,7 +869,7 @@ function startBuild() {
   for (var s = 0; s < steps.length; s++) {
     (function (el, idx) { setTimeout(function () { el.classList.add('done'); }, 500 + idx * 780); })(steps[s], s);
   }
-  setTimeout(function () { show(18); document.getElementById('name-input').focus(); }, 3900);
+  setTimeout(function () { show(19); document.getElementById('name-input').focus(); }, 3900);
 }
 
 /* --- validation ------------------------------------------------------------
@@ -958,11 +972,16 @@ function checkPhone() {
    Phase comes from how far along the offer is. Track comes from audience size,
    and is the real fork: the Appointment Setting module has separate inbound
    and outbound frameworks, so these are genuinely different plans. */
+function closeBucket() {
+  if (answers.q10 === 'c80' || answers.q10 === 'c50') return 'regularly';
+  if (answers.q10 === 'c35') return 'few';
+  return 'never';
+}
 function derivePhase() {
   if (answers.q1 === 'none' || answers.q1 === 'idea') return 0;
   if (answers.q1 === 'built') return 2;
   // Selling already: straight to closing unless they already close well.
-  return answers.q3 === 'regularly' ? 4 : 3;
+  return closeBucket() === 'regularly' ? 4 : 3;
 }
 function deriveTrack() {
   return (answers.q2 === 'zero' || answers.q2 === 'u1k') ? 'outbound' : 'inbound';
@@ -985,20 +1004,20 @@ var AREA_NAMES = {
 var SCORE_TABLES = {
   offer: [
     ['q1', { none: 0, idea: 12, built: 26, selling: 40 }],
-    ['q4', { u500: 8, '500to2k': 18, '2kto5k': 26, '5kplus': 30 }],
-    ['q5', { zero: 0, u1k: 8, '1kto5k': 16, '5kto10k': 24, '10kplus': 30 }]
+    ['q3', { u500: 8, '500to2k': 18, '2kto5k': 26, '5kplus': 30 }],
+    ['q4', { zero: 0, u1k: 8, '1kto5k': 16, '5kto10k': 24, '10kplus': 30 }],
+    ['q12', { l100: 25, l50: 17, l25: 9, lunder: 3, notrack: 0 }]
   ],
   sales: [
-    ['q3', { never: 0, few: 17, regularly: 35 }],
-    ['q8', { none: 0, engagement: 5, leads: 12, clients: 20 }],
-    ['q5', { zero: 0, u1k: 6, '1kto5k': 12, '5kto10k': 19, '10kplus': 25 }],
-    ['q11', { nobook: 0, noshow: 6, halfshow: 13, closesome: 20 }]
+    ['q4', { zero: 0, u1k: 6, '1kto5k': 12, '5kto10k': 19, '10kplus': 25 }],
+    ['q9', { s90: 20, s80: 15, s65: 9, under25: 4, notrack: 0 }],
+    ['q10', { c80: 25, c50: 17, c35: 9, c15: 3, notrack: 0 }]
   ],
   content: [
-    ['q7', { none: 0, started: 12, regular: 24, main: 35 }],
-    ['q8', { none: 0, engagement: 10, leads: 22, clients: 35 }],
+    ['q6', { none: 0, started: 12, regular: 24, main: 35 }],
     ['q2', { zero: 0, u1k: 6, '1to10k': 13, '10kplus': 20 }],
-    ['q9', { consistency: 2, ideas: 4, reach: 6, conversion: 10 }]
+    ['q7', { consistency: 2, ideas: 4, reach: 6, conversion: 10 }],
+    ['q11', { i100: 20, i50: 14, i15: 7, iunder10: 2, notrack: 0 }]
   ]
 };
 function scorePts(q, table) { var v = table[answers[q]]; return typeof v === 'number' ? v : 0; }
@@ -1014,23 +1033,23 @@ function areaScore(area) {
   }
   return maxA ? Math.round(earned / maxA * 100) : 0;
 }
-/* Back-end direct answers, 35 points each. q13 is scored in inverse: the
+/* Back-end direct answers, 35 points each. q11 is scored in inverse: the
    more of the week repetitive work eats, the weaker the back-end. */
 var BACKEND_DIRECT = [
-  ['q12', { solo: 0, va: 12, smallteam: 24, systems: 35 }],
-  ['q13', { eats: 0, half: 12, few: 24, almostnone: 35 }],
-  ['q14', { none: 0, one: 12, two: 24, threeplus: 35 }]
+  ['q13', { solo: 0, va: 12, smallteam: 24, systems: 35 }],
+  ['q14', { eats: 0, half: 12, few: 24, almostnone: 35 }],
+  ['q15', { none: 0, one: 12, two: 24, threeplus: 35 }]
 ];
 /* The inferred half of the Back-end score: revenue level, whether they are
    selling at all, and leverage, meaning how much revenue each hour band is
    carrying. High revenue on few hours means systems are doing work; low
    revenue on many hours means the person is the system. It used to be the
-   whole Back-end score. The direct questions q12, q13 and q14 now sit on top
+   whole Back-end score. The direct questions q13, q14 and q15 now sit on top
    of it in computeScores, weighted heavier than the inference. */
 var REV_IDX = { zero: 0, u1k: 1, '1kto5k': 2, '5kto10k': 3, '10kplus': 4 };
 var HRS_IDX = { u5: 0, '5to15': 1, '15to30': 2, '30plus': 3 };
 function leveragePoints() {
-  var d = (REV_IDX[answers.q5] || 0) - (HRS_IDX[answers.q6] || 0);
+  var d = (REV_IDX[answers.q4] || 0) - (HRS_IDX[answers.q5] || 0);
   if (d <= -2) return 4;
   if (d === -1) return 10;
   if (d === 0) return 18;
@@ -1038,7 +1057,7 @@ function leveragePoints() {
   return 35;
 }
 function backendInferred() {
-  return scorePts('q5', { zero: 0, u1k: 9, '1kto5k': 18, '5kto10k': 27, '10kplus': 35 })
+  return scorePts('q4', { zero: 0, u1k: 9, '1kto5k': 18, '5kto10k': 27, '10kplus': 35 })
     + leveragePoints()
     + scorePts('q1', { none: 0, idea: 6, built: 14, selling: 30 });
 }
@@ -1053,17 +1072,17 @@ function computeScores() {
       earned += scorePts(BACKEND_DIRECT[i][0], BACKEND_DIRECT[i][1]); maxA += 35;
     }
   }
-  if (answers.q5 || answers.q1) { earned += Math.round(backendInferred() * 30 / 100); maxA += 30; }
+  if (answers.q4 || answers.q1) { earned += Math.round(backendInferred() * 30 / 100); maxA += 30; }
   sc.backend = maxA ? Math.round(earned / maxA * 100) : 0;
   return sc;
 }
-/* Which area leads the roadmap. Their q10 pick is the diagnosis they walked
+/* Which area leads the roadmap. Their q8 pick is the diagnosis they walked
    in with, and it is weighted to normally win: it IS one of the four areas.
    But where their other answers score a different area lower, the lower
    score wins and the rationale on the roadmap says why. */
-var APLUS_FROM_Q10 = { leads: 'content', closing: 'sales', offer: 'offer', systems: 'backend' };
+var APLUS_FROM_Q8 = { leads: 'content', closing: 'sales', offer: 'offer', systems: 'backend' };
 function resolveAplus(scores) {
-  var pick = APLUS_FROM_Q10[answers.q10] || null;
+  var pick = APLUS_FROM_Q8[answers.q8] || null;
   var lowest = AREA_ORDER[0];
   for (var i = 0; i < AREA_ORDER.length; i++) {
     if (scores[AREA_ORDER[i]] < scores[lowest]) lowest = AREA_ORDER[i];
@@ -1075,19 +1094,20 @@ function resolveAplus(scores) {
 var LABELS = {
   q1: { none: 'No offer yet', idea: 'Offer idea only', built: 'Offer built, unsold', selling: 'Already selling' },
   q2: { zero: 'No audience', u1k: 'Under 1k', '1to10k': '1k-10k', '10kplus': '10k+' },
-  q3: { never: 'Never closed a call', few: 'Closed a handful', regularly: 'Closes regularly' },
-  q4: { u500: 'Under $500', '500to2k': '$500-2k', '2kto5k': '$2k-5k', '5kplus': '$5k+' },
-  q5: { zero: '$0', u1k: 'Under $1k/mo', '1kto5k': '$1k-5k/mo', '5kto10k': '$5k-10k/mo', '10kplus': '$10k+/mo' },
-  q6: { u5: 'Under 5 hrs/wk', '5to15': '5-15 hrs/wk', '15to30': '15-30 hrs/wk', '30plus': '30+ hrs/wk' },
-  q7: { none: 'No content posted', started: 'Posted a little', regular: 'Posts regularly', main: 'Content is main channel' },
-  q8: { none: 'No results from content', engagement: 'Engagement only', leads: 'Some leads and calls', clients: 'Consistent clients from content' },
-  q9: { ideas: "Doesn't know what to post", reach: 'No views or reach', conversion: 'Watches, no buyers', consistency: "Can't stay consistent" },
-  q10: { leads: 'Getting leads', closing: 'Closing clients', offer: 'The offer', systems: 'Time and systems' },
-  q11: { nobook: 'No calls booked yet', noshow: 'Most bookings do not show up', halfshow: 'About half show up', closesome: 'They show up, closes some' },
-  q12: { solo: 'Just them, all of it', va: 'Them plus a VA or freelancer', smallteam: 'Small team, clear jobs', systems: 'Team and systems run most of it' },
-  q13: { almostnone: 'Almost no repetitive work', few: 'A few hours a week of repetitive work', half: 'Half the week on repetitive work', eats: 'Repetitive work eats the week' },
-  q14: { none: 'No systems yet', one: 'One system in place', two: 'Two systems in place', threeplus: 'Three or more systems in place' },
-  q15: { ready: 'Ready to act now', help: 'Wants help implementing it', diy: 'Prefers DIY, wants resources only', researching: 'Just researching, not ready to start' }
+  q3: { u500: 'Under $500', '500to2k': '$500-2k', '2kto5k': '$2k-5k', '5kplus': '$5k+' },
+  q4: { zero: '$0', u1k: 'Under $1k/mo', '1kto5k': '$1k-5k/mo', '5kto10k': '$5k-10k/mo', '10kplus': '$10k+/mo' },
+  q5: { u5: 'Under 5 hrs/wk', '5to15': '5-15 hrs/wk', '15to30': '15-30 hrs/wk', '30plus': '30+ hrs/wk' },
+  q6: { none: 'No content posted', started: 'Posted a little', regular: 'Posts regularly', main: 'Content is main channel' },
+  q7: { ideas: "Doesn't know what to post", reach: 'No views or reach', conversion: 'Watches, no buyers', consistency: "Can't stay consistent" },
+  q8: { leads: 'Getting leads', closing: 'Closing clients', offer: 'The offer', systems: 'Time and systems' },
+  q9: { s90: 'Show-up rate: 90%+', s80: 'Show-up rate: 80%+', s65: 'Show-up rate: 65%+', under25: 'Show-up rate: under 25%', notrack: 'Does not track their show-up rate' },
+  q10: { c80: 'Close rate: 80%+ (last 20 sales calls)', c50: 'Close rate: 50%+ (last 20 sales calls)', c35: 'Close rate: 35% (last 20 sales calls)', c15: 'Close rate: 15% or less (last 20 sales calls)', notrack: 'Does not track their close rate' },
+  q11: { i100: 'Attracts 100+ ICPs a day', i50: 'Attracts 50+ ICPs a day', i15: 'Attracts 15+ ICPs a day', iunder10: 'Attracts under 10 ICPs a day', notrack: 'Does not track ICP attraction' },
+  q12: { l100: 'Client LTV: $100k+', l50: 'Client LTV: $50k+', l25: 'Client LTV: $25k+', lunder: 'Client LTV: under $25k', notrack: 'Does not track client LTV' },
+  q13: { solo: 'Just them, all of it', va: 'Them plus a VA or freelancer', smallteam: 'Small team, clear jobs', systems: 'Team and systems run most of it' },
+  q14: { almostnone: 'Almost no repetitive work', few: 'A few hours a week of repetitive work', half: 'Half the week on repetitive work', eats: 'Repetitive work eats the week' },
+  q15: { none: 'No systems yet', one: 'One system in place', two: 'Two systems in place', threeplus: 'Three or more systems in place' },
+  q16: { ready: 'Ready to act now', help: 'Wants help implementing it', diy: 'Prefers DIY, wants resources only', researching: 'Just researching, not ready to start' }
 };
 
 /* The questions as they are asked on screen. The Elevate CRM has never seen
@@ -1098,25 +1118,26 @@ var LABELS = {
 var QUESTION_TEXT = {
   q1: 'Do you have an offer yet?',
   q2: 'How big is your audience?',
-  q3: 'Have you ever closed high-ticket on a call?',
-  q4: 'What do you want to charge per client?',
-  q5: 'What are you making right now?',
-  q6: 'How many hours a week can you give this?',
-  q7: 'How much content have you actually posted?',
-  q8: 'What has your content brought you so far?',
-  q9: "What's your biggest problem with content right now?",
-  q10: 'If you could fix one thing in your business right now, what would it be? (your A+ problem)',
-  q11: 'When someone books a call with you, what usually happens?',
-  q12: 'Who does the work in your business right now?',
-  q13: 'How much of your week goes on repetitive stuff (messages, admin, editing, chasing people)?',
-  q14: 'What systems do you have set up right now?',
-  q15: 'Which of these sounds most like you (ready to act, wants help, DIY, just researching)?'
+  q3: 'What do you want to charge per client?',
+  q4: 'What are you making right now?',
+  q5: 'How many hours a week can you give this?',
+  q6: 'How much content have you actually posted?',
+  q7: "What's your biggest problem with content right now?",
+  q8: 'If you could fix one thing in your business right now, what would it be? (your A+ problem)',
+  q9: 'What is your show-up rate?',
+  q10: "What's your team close rate?",
+  q11: 'How many ICPs is your content attracting?',
+  q12: 'What is your client LTV (lifetime value)?',
+  q13: 'Who does the work in your business right now?',
+  q14: 'How much of your week goes on repetitive stuff (messages, admin, editing, chasing people)?',
+  q15: 'What systems do you have set up right now?',
+  q16: 'Which of these sounds most like you (ready to act, wants help, DIY, just researching)?'
 };
 
 function answerPairs() {
   var out = [];
-  ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15'].forEach(function (k) {
-    var label = k === 'q14' ? systemsAnswer() : (LABELS[k] || {})[answers[k]];
+  ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16'].forEach(function (k) {
+    var label = k === 'q15' ? systemsAnswer() : (LABELS[k] || {})[answers[k]];
     if (label) out.push({ question: QUESTION_TEXT[k], answer: label });
   });
   // Which fork the roadmap put them on. Not a question they answered, but
@@ -1128,7 +1149,7 @@ function answerPairs() {
   var ap = resolveAplus(scores);
   out.push({ question: 'Area scores (0 to 100, higher is stronger)',
     answer: 'Offer ' + scores.offer + ', Sales ' + scores.sales + ', Content ' + scores.content + ', Back-end ' + scores.backend });
-  out.push({ question: 'A+ problem (their pick)', answer: (LABELS.q10 || {})[answers.q10] || '' });
+  out.push({ question: 'A+ problem (their pick)', answer: (LABELS.q8 || {})[answers.q8] || '' });
   out.push({ question: 'Roadmap Phase 1 (A+ area)',
     answer: AREA_NAMES[ap.area] + (ap.agreed ? ' (matches their pick)' : ' (their scores put this lower than their pick, so it goes first)') });
   if (answers.country) {
@@ -1160,7 +1181,7 @@ function saveProfile(name, email, ig, phone) {
     country: answers.country, countryIso: answers.countryIso, tier: answers.tier,
     phase: derivePhase(), track: deriveTrack(),
     scores: computeScores(),
-    price: answers.q4, revenue: answers.q5, hours: answers.q6, sales: answers.q3,
+    price: answers.q3, revenue: answers.q4, hours: answers.q5, sales: closeBucket(),
     answers: answers, access: newAccessCode(), savedAt: Date.now()
   };
   var ap = resolveAplus(profile.scores);
@@ -1197,9 +1218,9 @@ async function submitLead() {
      name field on it, nowhere to fix it. Now the first failing field gets
      the user, the message and the focus, and nothing is sent. */
   var np = nameProblem(name), ep = emailProblem(email);
-  if (np || ep) { fieldError(18, 'email-error', np || ep, np ? 'name-input' : 'email-input'); return; }
+  if (np || ep) { fieldError(19, 'email-error', np || ep, np ? 'name-input' : 'email-input'); return; }
   var ip = igProblem(ig);
-  if (ip) { fieldError(19, 'ig-error', ip, 'ig-input'); return; }
+  if (ip) { fieldError(20, 'ig-error', ip, 'ig-input'); return; }
   var pp = phoneProblem(document.getElementById('phone-input').value, phone);
   if (pp) { errorEl.textContent = pp; errorEl.style.display = 'block'; resetBtn(); return; }
 
@@ -1236,9 +1257,9 @@ async function submitLead() {
         experience_level: LABELS.q1[answers.q1] || '',
         followers_band: LABELS.q2[answers.q2] || '',
         biggest_blocker: LABELS.q3[answers.q3] || '',
-        ugc_goal: 'Target ' + (LABELS.q4[answers.q4] || '') + '/client',
-        income_band: LABELS.q5[answers.q5] || '',
-        hours_band: LABELS.q6[answers.q6] || '',
+        ugc_goal: 'Target ' + (LABELS.q3[answers.q3] || '') + '/client',
+        income_band: LABELS.q4[answers.q4] || '',
+        hours_band: LABELS.q5[answers.q5] || '',
         budget_band: profile.track === 'outbound' ? 'Outbound track' : 'Inbound track',
         country: answers.country || '',
         country_iso: answers.countryIso || '',
@@ -1254,9 +1275,9 @@ async function submitLead() {
          belongs to instead of printing it raw on the phone step. */
       var raw = data.error || '';
       var low = raw.toLowerCase();
-      if (low.indexOf('name') !== -1) { fieldError(18, 'email-error', raw, 'name-input'); return; }
-      if (low.indexOf('email') !== -1) { fieldError(18, 'email-error', raw, 'email-input'); return; }
-      if (low.indexOf('instagram') !== -1 || low.indexOf('handle') !== -1) { fieldError(19, 'ig-error', raw, 'ig-input'); return; }
+      if (low.indexOf('name') !== -1) { fieldError(19, 'email-error', raw, 'name-input'); return; }
+      if (low.indexOf('email') !== -1) { fieldError(19, 'email-error', raw, 'email-input'); return; }
+      if (low.indexOf('instagram') !== -1 || low.indexOf('handle') !== -1) { fieldError(20, 'ig-error', raw, 'ig-input'); return; }
       resetBtn();
       if (low.indexOf('phone') !== -1 || low.indexOf('number') !== -1) {
         errorEl.textContent = raw; errorEl.style.display = 'block'; return;
@@ -1325,7 +1346,7 @@ function toggleFaq(i) { document.getElementById('faq-' + i).classList.toggle('op
 function showNextSteps(firstName) {
   document.getElementById('done-headline').textContent = "That's it, " + firstName + ". Here's what happens now.";
   renderFaq();
-  show(21);
+  show(22);
   document.getElementById('progress').style.width = '100%';
 }
 
