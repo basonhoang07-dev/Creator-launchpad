@@ -183,16 +183,19 @@ h1 { font-size: clamp(1.9rem, 5.5vw, 2.5rem); font-weight: 700; letter-spacing: 
 <body>
 <div class="wrap" id="root"></div>
 
-<!-- All 61 lessons (55 from Notion plus the v2 back-end phase). Separate
-     file so the teaching can be re-pulled from
+<!-- All 98 lessons: lessons.js (the original 61) plus lessons2.js and lessons3.js
+     (the v6 expansion: Jonas additions, back-end lifts, Copywriting module).
+     Separate files so the teaching can be re-pulled from
      Notion without touching any of the page logic below. -->
 <script src="lessons.js"></script>
+<script src="lessons2.js"></script>
+<script src="lessons3.js"></script>
 <script src="../elevate.js"></script>
 <script>
 /* ===========================================================================
    Offer to Client — the roadmap
 
-   Everything is given away: all 61 items, with the teaching written inline
+   Everything is given away: all 98 items, with the teaching written inline
    rather than linked. The source modules live behind a members area, so a
    link would 404 for a lead; and inlining means the page is the asset.
 
@@ -297,7 +300,7 @@ if (typeof PHASE_0 !== 'undefined') {
     { key: 'foundations', area: null, title: 'Foundations: positioning', goal: PHASE_0.goal, tasks: tagTasks(PHASE_0) },
     { key: 'offer', area: 'offer', title: PHASE_1.title, goal: PHASE_1.goal, tasks: tagTasks(PHASE_1) },
     { key: 'sales', area: 'sales', title: 'Booked calls and closing', goal: PHASE_2.goal + ' ' + PHASE_3.goal, tasks: tagTasks(PHASE_2).concat(tagTasks(PHASE_3)) },
-    { key: 'content', area: 'content', title: PHASE_4.title, goal: PHASE_4.goal, tasks: tagTasks(PHASE_4) },
+    { key: 'content', area: 'content', title: PHASE_4.title, goal: PHASE_4.goal, tasks: tagTasks(PHASE_4).concat((typeof PHASE_6 !== 'undefined') ? tagTasks(PHASE_6) : []) },
     { key: 'backend', area: 'backend',
       title: (typeof PHASE_5 !== 'undefined') ? PHASE_5.title : 'Back-end, delegation and AI',
       goal: (typeof PHASE_5 !== 'undefined') ? PHASE_5.goal : '',
@@ -340,7 +343,7 @@ function phaseTotals(ph) {
   return { done: done, all: ph.tasks.length };
 }
 
-/* First unfinished task, so "resume" lands somewhere useful on a 61-item page. */
+/* First unfinished task, so "resume" lands somewhere useful on a 98-item page. */
 function firstOpen() {
   var ordered = orderedGroups();
   for (var p = 0; p < ordered.length; p++) {
