@@ -241,14 +241,24 @@ if (window.Elevate) Elevate.step(MAGNET, 'open');
 (function restoreFromLink() {
   try {
     var m = (window.location.hash || '').match(/r=([^&]+)/);
-    if (!m || profile.phase !== undefined) return;
+    if (!m) return;
     var d = JSON.parse(atob(decodeURIComponent(m[1])));
     if (!d) return;
+    /* The evergreen link is the one link the team sends everyone. It is
+       not personal, so it wins over whatever profile this device saved,
+       and it never greets anyone by name. */
+    var evergreen = d.ev === 1;
+    if (!evergreen && profile.phase !== undefined) return;
     profile.phase = d.p; profile.track = d.k; profile.price = d.pr;
     profile.sales = d.s; profile.tier = d.t; profile.country = d.c; profile.hours = d.h;
     if (d.sc) profile.scores = d.sc;
     if (d.ap) profile.aplus = d.ap;
     if (d.ag !== undefined) profile.aplusAgreed = d.ag;
+    if (evergreen) {
+      profile.evergreen = true;
+      delete profile.firstName;
+      delete profile.fullName;
+    }
     writeJSON(PROFILE_KEY, profile);
   } catch (e) { /* generic roadmap is fine */ }
 })();
@@ -463,7 +473,7 @@ function renderRationale() {
 function render() {
   var t = totals();
   var pct = t.all ? Math.round((t.done / t.all) * 100) : 0;
-  var name = profile.firstName ? esc(profile.firstName) : null;
+  var name = (profile.firstName && !profile.evergreen) ? esc(profile.firstName) : null;
 
   var chips = '';
   if (profile.country) chips += '<span class="chip">' + esc(profile.country) + '</span>';
