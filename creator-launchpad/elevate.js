@@ -136,6 +136,13 @@
         phone: lead.phone || null,
         igHandle: lead.igHandle || null,
         answers: lead.answers || [],
+        // Two things the CRM checks the opt-in against, only ever to flag it
+        // "Check contact" for a person to look at, never to turn anyone away:
+        // the country picked in the quiz (against the phone's dialling code),
+        // and how long this page was open (nobody gets through six questions
+        // and a 3.9-second build animation in under twelve seconds).
+        country: lead.country || null,
+        elapsedMs: typeof performance !== 'undefined' && performance.now ? Math.round(performance.now()) : null,
         visitor: visitor(),
         v: source()
       });

@@ -778,7 +778,8 @@ async function submitLead() {
     email: email,
     phone: phone,
     igHandle: ig,
-    answers: answerPairs()
+    answers: answerPairs(),
+    country: answers.countryIso
   });
 
   try {
